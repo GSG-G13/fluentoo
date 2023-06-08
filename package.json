@@ -4,7 +4,8 @@
   "description": "A web application that connects language learners worldwide, providing a platform for users to find suitable language exchange partners and engage in real-time conversations. Enhance your language skills, practice with native speakers, and discover new cultures.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server",
+    "dev": "nodemon server"
   },
   "keywords": [],
   "author": "",
