@@ -10,5 +10,7 @@ module.exports = {
   plugins: ['react-refresh'],
   rules: {
     'react-refresh/only-export-components': 'warn',
+    'react/jsx-filename-extension': [1, { extensions: ['.jsx', '.tsx'] }],
+
   },
 }
