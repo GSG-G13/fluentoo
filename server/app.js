@@ -3,6 +3,7 @@ const compression = require('compression');
 const cookieParser = require('cookie-parser');
 const sequelize = require('./database/config/connection');
 const router = require('./routes');
+const { clientError, serverError } = require('./controllers/errors');
 require('dotenv').config();
 
 const app = express();
@@ -17,4 +18,8 @@ app.use('/api/v1', router);
 sequelize.authenticate().then(() => {
   console.log('db connected');
 }).catch((err) => console.log(err));
+
+app.use(serverError);
+app.use(clientError);
+
 module.exports = app;

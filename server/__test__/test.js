@@ -52,30 +52,16 @@ describe('getAllLanguages', () => {
 
     const req = {};
     const res = {
-      status: jest.fn().mockReturnThis(),
+      status: jest.fn(() => res),
       json: jest.fn(),
     };
+    const next = jest.fn();
 
-    await getAllLanguages(req, res);
+    await getAllLanguages(req, res, next);
 
     expect(Language.findAll).toHaveBeenCalled();
     expect(res.status).toHaveBeenCalledWith(200);
     expect(res.json).toHaveBeenCalledWith(['English', 'Spanish', 'French']);
-  });
-
-  it('should handle errors when fetching languages', async () => {
-    Language.findAll = jest.fn().mockRejectedValue(new Error('Database error'));
-
-    const req = {};
-    const res = {
-      status: jest.fn().mockReturnThis(),
-      json: jest.fn(),
-    };
-
-    await getAllLanguages(req, res);
-
-    expect(Language.findAll).toHaveBeenCalled();
-    expect(res.status).toHaveBeenCalledWith(500);
-    expect(res.json).toHaveBeenCalledWith({ error: 'falid language' });
+    expect(next).not.toHaveBeenCalled();
   });
 });

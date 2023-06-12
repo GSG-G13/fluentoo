@@ -1,6 +1,6 @@
-const Language = require('../../models/language');
+const { Language } = require('../../models');
 
-const createLanguage = async (req, res) => {
+const createLanguage = async (req, res, next) => {
   try {
     const { name, shortcut, flag } = req.body;
     const data = await Language.create({ name, shortcut, flag });
@@ -9,7 +9,7 @@ const createLanguage = async (req, res) => {
       data,
     });
   } catch (err) {
-    res.status(500).send(`Server error: ${err}`);
+    next(err);
   }
 };
 
