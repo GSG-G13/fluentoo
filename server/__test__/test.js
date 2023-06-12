@@ -8,9 +8,9 @@ beforeAll(async () => {
   await sequelize.sync({ force: true });
 });
 
-afterEach(async () => {
-  await Language.destroy({ where: {} });
-});
+// afterEach(async () => {
+//   await Language.destroy({ where: {} });
+// });
 
 afterAll(async () => {
   await sequelize.close();
