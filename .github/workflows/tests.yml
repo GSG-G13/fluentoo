@@ -16,7 +16,7 @@ jobs:
       postgres:
         image: postgres
         env:
-          POSTGRES_HOST: 127.0.0.1  # Updated hostname
+          POSTGRES_HOST: 127.0.0.1
           POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
           POSTGRES_DB: fluento
@@ -27,7 +27,7 @@ jobs:
           --health-timeout 5s
           --health-retries 5
         ports:
-          - 5432:5432  # Only need to specify the container port
+          - 5432:5432
 
     steps:
       - name: Check out repository code
@@ -35,6 +35,9 @@ jobs:
 
       - name: Install dependencies
         run: npm i
+
+      - name: Wait for PostgreSQL
+        run: sleep 10s  # Wait for 10 seconds to ensure PostgreSQL is ready
 
       - name: Connect to PostgreSQL
         run: npm run test
