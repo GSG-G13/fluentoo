@@ -55,5 +55,5 @@ jobs:
         run: npm run test
         # Environment variables used by the `client.js` script to create a new PostgreSQL table.
         env:
-          TEST_DB_URL: ${{ secrets.TEST_DB_URL }}
+          TEST_DB_URL: ${{ secrets.DB_URL }}
           SECRET_KEY: ${{ secrets.JWT_SECRET }}
