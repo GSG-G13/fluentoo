@@ -17,6 +17,36 @@ describe('Language model', () => {
     await sequelize.close();
   });
 
+  it('should create a new language', async () => {
+    const languageData = {
+      name: 'English',
+      shortcut: 'en',
+      flag: '🇺🇸',
+    };
+
+    const createdLanguage = await Language.create(languageData);
+
+    expect(createdLanguage.name).toBe(languageData.name);
+    expect(createdLanguage.shortcut).toBe(languageData.shortcut);
+    expect(createdLanguage.flag).toBe(languageData.flag);
+  });
+
+  it('should not allow null values', async () => {
+    try {
+      await Language.create({
+        name: null,
+        shortcut: null,
+        flag: null,
+      });
+    } catch (error) {
+      expect(error.message).toContain('name cannot be null');
+      expect(error.message).toContain('shortcut cannot be null');
+      expect(error.message).toContain('flag cannot be null');
+    }
+  });
+});
+
+describe('getAllLanguages', () => {
   it('should fetch all languages successfully', async () => {
     Language.findAll = jest.fn().mockResolvedValue(['English', 'Spanish', 'French']);
 
