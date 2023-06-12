@@ -3,7 +3,7 @@ require('dotenv').config();
 
 const url = process.env.DB_URL;
 
-console.log(url);
+console.log(typeof url);
 const sequelize = new Sequelize(url, {
   logging: true,
   dialectOptions: {
