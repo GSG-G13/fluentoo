@@ -10,6 +10,6 @@ const sequelize = new Sequelize(url, {
     charset: 'utf8',
   },
 });
-sequelize.sync();
+// sequelize.sync();
 
 module.exports = sequelize;
