@@ -12,14 +12,12 @@
     "lint-staged": "lint-staged",
     "lint-fix": "cross-env eslint . --ext .js --fix"
   },
-
   "lint-staged": {
     "*.js": [
       "npm run lint",
       "git add"
     ]
   },
-  
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -58,5 +56,4 @@
       "pre-commit": "npm run lint-staged"
     }
   }
-  
 }
