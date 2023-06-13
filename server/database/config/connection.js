@@ -5,7 +5,6 @@ const { NODE_ENV } = process.env;
 
 const url = NODE_ENV === 'development' ? process.env.DB_URL : process.env.DB_URL_production;
 
-console.log(typeof url);
 const sequelize = new Sequelize(url, {
   logging: true,
   dialectOptions: {
@@ -16,6 +15,6 @@ const sequelize = new Sequelize(url, {
     rejectUnauthorized: NODE_ENV !== 'development',
   },
 });
-// sequelize.sync();
+sequelize.sync();
 
 module.exports = sequelize;

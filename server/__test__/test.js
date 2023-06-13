@@ -24,7 +24,6 @@ describe('Language model', () => {
     };
 
     const createdLanguage = await Language.create(languageData);
-    console.log(createdLanguage);
     expect(createdLanguage.name).toBe(languageData.name);
     expect(createdLanguage.shortcut).toBe(languageData.shortcut);
     expect(createdLanguage.flag).toBe(languageData.flag);
@@ -38,7 +37,6 @@ describe('Language model', () => {
         flag: null,
       });
     } catch (error) {
-      console.log(error, 'from null lang');
       expect(error.message).toContain('name cannot be null');
       expect(error.message).toContain('shortcut cannot be null');
       expect(error.message).toContain('flag cannot be null');
