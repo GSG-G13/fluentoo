@@ -1,0 +1,137 @@
+
+.nav-link{
+    display: flex;
+    align-items: center;
+}
+
+.hero-sec{
+    margin-top: 60px;
+    margin-bottom: 100px;
+}
+
+.hero{
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+
+.hero-title{
+    width: 350px;
+    text-align: start;
+}
+
+.hero-title h2{
+    font-size: 45px;
+}
+
+.hero-title h2 strong{
+    color:#EB299F;
+}
+
+
+:where(.css-dev-only-do-not-override-12jzuas).ant-btn-primary.ant-btn-background-ghost{
+    color: white;
+    background-color: #EB299F;
+    border-color: #EB299F;
+}
+
+
+:where(.css-dev-only-do-not-override-12jzuas).ant-btn-primary.ant-btn-background-ghost:not(:disabled):hover{
+    color: white;
+    border-color: #c22181;
+    background-color: #c22181;
+}
+
+/* ffffffffffffffffff */
+
+.feat-sec{
+    margin-bottom: 100px;
+
+}
+
+.about-title,
+.feature-title
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 60px;
+}
+.about-title strong,
+.feature-title strong{
+    color: #EB299F;
+}
+.about-title h3,
+.feature-title h3{
+    font-size: 25px;
+}
+.about-title p,
+.feature-title p{
+    width: 45%;
+    text-align: center;
+    font-size: 13px;
+    color: #696984;
+}
+
+.feat-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 100px;
+}
+
+.feature-ele-title{
+    width: 450px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .feature-ele-title h2{
+    font-size: 30px;
+  }
+
+.feature-ele-title h2 strong{
+    color: #EB299F;
+}
+
+  .feature-ele-title p{
+    font-size: 15px;
+    color: #696984;
+}
+
+
+
+/* aaaaaaaaaaaaaaaaa */
+
+
+.aboutus-sec{
+    margin-bottom: 100px;
+}
+
+.aboutus-container{
+    width: 100%;
+    display: flex;
+
+}
+
+
+
+:where(.css-dev-only-do-not-override-12jzuas).ant-card .ant-card-head,
+:where(.css-dev-only-do-not-override-12jzuas).ant-card .ant-card-body{
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.10);
+    
+}
+
+
+/* fooooooooooot */
+
+.foot{
+    margin: 0;
+    padding: 0;
+    height: 60px;
+    width: 100%;
+    background-color: black;
+}

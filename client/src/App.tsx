@@ -1,11 +1,10 @@
 import React from 'react';
-import './App.css';
-import Landing from './components/LandingPage/Landing.tsx';
+import Test2 from './components/test2/Test2.tsx';
 
 function App() {
   return (
     <div>
-      <Landing />
+      <Test2 />
     </div>
   );
 }

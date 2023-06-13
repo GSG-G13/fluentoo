@@ -1,0 +1,110 @@
+/* eslint-disable import/no-extraneous-dependencies */
+import React from 'react';
+import {
+  Layout, Row, Col, Button, Menu, Image,
+} from 'antd';
+import firstFeat from '../../assets/img/feat1.jpeg';
+import secFeat from '../../assets/img/feat2.jpeg';
+import thirdFeat from '../../assets/img/feat3.jpeg';
+
+function Feat() {
+  return (
+    <div className="feat-sec">
+      <Row>
+        <Col span={24} align="middle" justify="center">
+
+          <div className="feature-title">
+            <h3>
+              Our
+              {' '}
+              <strong>Features</strong>
+            </h3>
+            <p>
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dignissimos,
+            </p>
+          </div>
+        </Col>
+      </Row>
+
+      <Row>
+
+        <div className="feat-container">
+          <Col span={12} align="middle" justify="center">
+            <Image
+              width={350}
+              src={firstFeat}
+            />
+          </Col>
+          <Col span={12} align="middle" justify="center">
+
+            <div className="feature-ele-title">
+              <h2>Text, Voice, Video, and More</h2>
+              <p>
+                Chat with language partners through text and video calls.
+                Whatever your communication preference, choose the method that
+                best fits your learning goals!
+
+              </p>
+            </div>
+
+          </Col>
+        </div>
+
+        <div className="feat-container">
+
+          <Col span={12} align="middle" justify="center">
+
+            <div className="feature-ele-title">
+              <h2>
+                <strong>Intuitive</strong>
+                {' '}
+                Language Tools
+              </h2>
+              <p>
+                Built-in aids for translation, pronunciation, transliteration,
+                and corrections make conversations run smoothly. Learning is as simple as chatting!
+
+              </p>
+            </div>
+          </Col>
+
+          <Col span={12} align="middle" justify="center">
+            <Image
+              width={350}
+              src={secFeat}
+            />
+          </Col>
+
+        </div>
+
+        <div className="feat-container">
+          <Col span={12} align="middle" justify="center">
+            <Image
+              width={350}
+              src={thirdFeat}
+            />
+          </Col>
+          <Col span={12} align="middle" justify="center">
+
+            <div className="feature-ele-title">
+              <h2>
+                Assessments,
+                {' '}
+                <strong>Quizzes</strong>
+                , Tests
+              </h2>
+              <p>
+                Easily launch live assignments, quizzes, and tests.
+                Student results are automatically entered in the online gradebook.
+
+              </p>
+            </div>
+
+          </Col>
+        </div>
+      </Row>
+    </div>
+  );
+}
+
+export default Feat;
