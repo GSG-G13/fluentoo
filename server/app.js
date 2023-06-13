@@ -16,7 +16,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use('/api/v1', router);
 sequelize.authenticate().then(() => {
+  // eslint-disable-next-line no-console
   console.log('db connected');
+// eslint-disable-next-line no-console
 }).catch((err) => console.log(err));
 
 app.use(clientError);
