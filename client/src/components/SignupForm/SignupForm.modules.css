@@ -1,0 +1,92 @@
+.signup-form {
+  width: 100%;
+}
+
+.signup-form .ant-btn-primary {
+  background-color: var(--primary-color);
+  display: block;
+  width: 120px;
+  height: 35px;
+  border-radius: 15px
+}
+
+.signup-form .ant-col .ant-col-md-18 .css-dev-only-do-not-override-12jzuas {
+  margin: auto;
+}
+
+.signup-form .ant-btn-primary:hover {
+  background-color: var(--primary-color-hover);
+}
+
+.signup-form .login-or-signup {
+  width: fit-content;
+  margin: auto;
+}
+
+.signup-form .login-or-signup p {
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.signup-form .login-or-signup .btns {
+  display: flex;
+  gap: 5px;
+  background-color: #FFE9F8;
+  padding: 7px;
+  border-radius: 30px;
+}
+
+.signup-form .login-or-signup a {
+  flex: 1;
+  background-color: transparent;
+  color: var(--primary-color);
+  font-weight: bold;
+  box-shadow: none;
+  border-radius: 30px;
+  text-align: center;
+  padding: 10px 40px;
+}
+
+.signup-form .login-or-signup a.active {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+.signup-form .light-text {
+  margin: 50px 0 40px;
+}
+
+.signup-form label {
+  font-weight: 500;
+}
+
+.signup-form .ant-form-item-label>label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before {
+  display: none;
+}
+
+.signup-form .form-text input,
+.signup-form .form-password .ant-input-password {
+  width: 100%;
+  height: 45px;
+  border: 1px solid var(--primary-color);
+  border-radius: 30px;
+}
+
+.signup-form .form-text input,
+.signup-form .form-text input:hover,
+.signup-form .form-text input:focus {
+  border: 1px solid var(--primary-color);
+}
+
+.ant-form-item.form-text.css-dev-only-do-not-override-12jzuas,
+.ant-form-item.form-password.css-dev-only-do-not-override-12jzuas {
+  margin: 0 0 5px;
+}
+
+.signup-form .error-message {
+  display: inline-block;
+  color: red;
+  margin-bottom: 15px;
+}
