@@ -1,0 +1,27 @@
+.signup {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.signup .signup-container {
+  width: 90%;
+  height: 90%;
+}
+
+.signup .image-container,
+.signup .form-container {
+  max-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+}
+
+@media (max-width: 768px) {
+  .signup .image-container {
+    display: none;
+  }
+}

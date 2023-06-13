@@ -13,6 +13,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 sequelize.authenticate().then(() => {
+  // eslint-disable-next-line no-console
   console.log('db connected');
+// eslint-disable-next-line no-console
 }).catch((err) => console.log(err));
 module.exports = app;
