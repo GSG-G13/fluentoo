@@ -1,18 +1,19 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../database/config/connection');
 
-const User = sequelize.define('users', {
-  username: {
+const Language = sequelize.define('languages', {
+  name: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  email: {
+  shortcut: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  password: {
+  flag: {
     type: DataTypes.STRING,
+    allowNull: false,
   },
-
 });
-module.exports = User;
+
+module.exports = Language;

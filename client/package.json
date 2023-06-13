@@ -11,12 +11,13 @@
     "lint-fix": "eslint . --ext .tsx --fix"
   },
   "dependencies": {
+    "@vitejs/plugin-react": "^4.0.0",
     "axios": "^1.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-oauth": "^0.0.1",
     "vite": "^4.3.9",
-    "yup": "^1.2.0",
-    "@vitejs/plugin-react": "^4.0.0"
+    "yup": "^1.2.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.37",
