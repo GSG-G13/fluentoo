@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-undef */
 
 const getAllLanguages = require('../controllers/language/getAllLanguages');
