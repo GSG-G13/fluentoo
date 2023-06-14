@@ -10,10 +10,10 @@ const sequelize = new Sequelize(url, {
   dialectOptions: {
     charset: 'utf8',
   },
-  ssl: {
-    require: true,
-    rejectUnauthorized: NODE_ENV !== 'development',
-  },
+  // ssl: {
+  //   require: true,
+  //   rejectUnauthorized: NODE_ENV !== 'development',
+  // },
 });
 if (NODE_ENV === 'development') {
   // sequelize.sync();
