@@ -1,9 +1,10 @@
 const { hash } = require('bcrypt');
-const { signupValidation } = require('../../utils/validation/user');
-
-const { SignToken } = require('../../utils/jwt/jwt');
-const User = require('../../models/user');
-const CustomeError = require('../../utils/helper/customeError');
+const {
+  SignToken,
+  CustomeError,
+  signupValidation,
+} = require('../../utils');
+const { User } = require('../../models');
 
 const signUp = async (req, res, next) => {
   try {

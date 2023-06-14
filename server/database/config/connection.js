@@ -15,6 +15,8 @@ const sequelize = new Sequelize(url, {
     rejectUnauthorized: NODE_ENV !== 'development',
   },
 });
-sequelize.sync();
+if (NODE_ENV === 'development') {
+  sequelize.sync();
+}
 
 module.exports = sequelize;

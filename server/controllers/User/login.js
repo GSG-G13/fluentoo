@@ -1,12 +1,14 @@
 const { compare } = require('bcrypt');
-const { loginValidation } = require('../../utils/validation/user');
-const { SignToken } = require('../../utils/jwt/jwt');
-const { CustomeError } = require('../../utils/helper/customeError');
-const User = require('../../models/user');
+const {
+  loginValidation,
+  SignToken,
+  CustomeError,
+} = require('../../utils');
+const { User } = require('../../models');
 
 const login = async (req, res, next) => {
   try {
-    const { email, password: pass } = await loginValidation
+    const { email, password } = await loginValidation
       .validateAsync(req.body, { abortEarly: false });
 
     const user = await User.findOne({
@@ -18,11 +20,11 @@ const login = async (req, res, next) => {
     if (!user) {
       throw new CustomeError('Email doesnt exists', 401);
     }
-    const { id, username, password } = user;
-    const comparePassword = await compare(pass, password);
+    const { id, username, password: hashedPassword } = user;
+    const match = await compare(password, hashedPassword);
 
-    if (!comparePassword) {
-      return res.json('password incorrect');
+    if (!match) {
+      throw new CustomeError('password or email incorrect', 400);
     }
     const token = await SignToken({
       id,

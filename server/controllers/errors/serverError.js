@@ -7,8 +7,7 @@ const CustomeError = require('../../utils/helper/customeError');
 const serverError = (err, req, res, next) => {
   if (err instanceof ValidationError) {
     return res.status(400).json({
-      msg: 'Bad Request',
-      data: err.message,
+      msg: err.details[0].message,
       status: 400,
     });
   }

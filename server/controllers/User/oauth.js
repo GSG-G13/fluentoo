@@ -1,12 +1,12 @@
 const { OAuth2Client } = require('google-auth-library');
-const { SignToken } = require('../../utils/jwt/jwt');
+const { SignToken } = require('../../utils');
 
 const { GOOGLE_ID } = process.env;
-const User = require('../../models/user');
+const { User } = require('../../models');
 
 const client = new OAuth2Client(GOOGLE_ID);
 
-const oauth = async (req, res) => {
+const oauth = async (req, res, next) => {
   const { token: googleToken } = req.body;
   try {
     const ticket = await client.verifyIdToken({
@@ -16,20 +16,12 @@ const oauth = async (req, res) => {
 
     const { email, name } = ticket.getPayload();
 
-    const existingUser = User.findOne({
-      where: {
-        email,
-      },
+    const user = await User.findOrCreate({
+      where: { email },
+      defaults: { username: name, email },
     });
-    if (!existingUser) {
-      // eslint-disable-next-line no-unused-vars
-      const user = await User.create({
-        username: name,
-        email,
-      });
-    }
     const token = await SignToken({
-      id: existingUser.id,
+      id: user.id,
       name,
       email,
     });
@@ -37,9 +29,10 @@ const oauth = async (req, res) => {
       .json({
         msg: 'authenticated sucssfully',
         status: 201,
+        data: user,
       });
   } catch (error) {
-    return res.status(401).json({ message: 'Authentication failed' });
+    return next(error);
   }
 };
 module.exports = { oauth };
