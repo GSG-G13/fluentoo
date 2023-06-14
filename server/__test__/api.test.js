@@ -19,12 +19,12 @@ describe('Sign up tests', () => {
   it('should return validation error', async () => {
     const newUser = {
       username: 'aya',
-      email: 'basel@gmail.com',
-      password: '123aaaaaaa',
+      email: 'basel2@gmail.com',
+      password: '123',
     };
     const response = await request(app).post('/api/v1/auth/signup').send(newUser);
     expect(response.body.status).toBe(400);
-    expect(response.body.msg).toBe('Bad Request');
+    expect(response.body.msg).toBe('Password must be at least 8 characters long.');
   });
 
   it('should return email already exists error', async () => {
