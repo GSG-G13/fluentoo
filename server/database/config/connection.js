@@ -16,7 +16,7 @@ const sequelize = new Sequelize(url, {
   },
 });
 if (NODE_ENV === 'development') {
-  sequelize.sync();
+  // sequelize.sync();
 }
 
 module.exports = sequelize;
