@@ -3,7 +3,7 @@ require('dotenv').config();
 
 const { NODE_ENV } = process.env;
 
-const url = NODE_ENV === 'development' ? process.env.DB_URL : process.env.DB_URL_production;
+const url = NODE_ENV === 'development' ? process.env.DB_URL : process.env.DB_URL_PRODUCTION;
 
 const sequelize = new Sequelize(url, {
   logging: true,
