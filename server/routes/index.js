@@ -5,6 +5,6 @@ const profileRouter = require('./profile');
 
 router.use('/languages', languageRouter);
 router.use('/auth', authRouter);
-router.use('/user', profileRouter);
+router.use('/profile', profileRouter);
 
 module.exports = router;

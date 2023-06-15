@@ -1,29 +1,19 @@
 const { Profile } = require('../../models');
+const { profileValidation } = require('../../utils');
 
 const createProfile = async (req, res, next) => {
   try {
-    const {
-      gender,
-      country,
-      birthdate,
-      practiceLanguages,
-      spokenLanguages,
-      interests,
-      bio,
-      avatar,
-    } = req.body;
-    const userId = req.user.id;
+    const { user: { id: userId }, body } = req;
+    const Validation = await profileValidation
+      .validateAsync(
+        body,
+        { abortEarly: false },
+      );
+
     const newProfile = await Profile.create({
-      userId,
-      gender,
-      country,
-      birthdate,
-      practiceLanguages,
-      spokenLanguages,
-      interests,
-      bio,
-      avatar,
+      userId, ...Validation,
     });
+
     return res.json({
       msg: 'profile created successfully',
       status: 201,

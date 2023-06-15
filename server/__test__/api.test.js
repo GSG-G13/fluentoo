@@ -40,3 +40,29 @@ describe('Sign up tests', () => {
     User.findOne.mockRestore();
   });
 });
+describe('profile endpoints', () => {
+  it('should add user profile information', async () => {
+    const newProfile = {
+      gender: 'female',
+      country: 'gaza',
+      birthdate: '2002-1-25',
+      practiceLanguages: ['English', 'Spanish'],
+      spokenLanguages: ['French'],
+      intrests: ['Reading', 'Traveling'],
+      bio: 'I am a language enthusiast.',
+      avatar: 'https://example.com/avatar.jpg',
+    };
+    const newUser = {
+      email: 'basel@gmail.com',
+      password: '123@Aaaaaaaa',
+    };
+    const responseLogin = await request(app).post('/api/v1/auth/login').send(newUser);
+    const { token } = responseLogin.body;
+    const response = await request(app)
+      .post('/api/v1/profile')
+      .set('Cookie', [`token=${token}`])
+      .send(newProfile);
+    expect(response.body.status).toBe(201);
+    expect(response.body.msg).toBe('profile created successfully');
+  });
+});

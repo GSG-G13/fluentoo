@@ -1,37 +1,19 @@
 const { Profile } = require('../../models');
 const { CustomeError } = require('../../utils');
+const { profileValidation } = require('../../utils');
 
 const updateProfile = async (req, res, next) => {
   try {
-    const {
-      gender,
-      country,
-      birthdate,
-      practiceLanguages,
-      spokenLanguages,
-      intrests,
-      bio,
-      avatar,
-    } = req.body;
-
     const userId = req.user.id;
     const id = req.params.profileId;
+    const Validation = await profileValidation.validateAsync(req.body, { abortEarly: false });
     const updatedProfile = await Profile.update({
-      userId,
-      gender,
-      country,
-      birthdate,
-      practice_languages: practiceLanguages,
-      spoken_languages: spokenLanguages,
-      intrests,
-      bio,
-      avatar,
+      userId, ...Validation,
     }, {
       where: {
         id,
       },
       returning: true,
-
     });
     if (!updatedProfile) {
       throw new CustomeError('updating faild');

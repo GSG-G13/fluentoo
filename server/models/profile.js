@@ -16,15 +16,17 @@ const Profile = sequelize.define('profiles', {
     type: DataTypes.DATE,
     allowNull: false,
   },
-  practice_languages: {
+  practiceLanguages: {
     type: DataTypes.ARRAY(DataTypes.STRING),
     defaultValue: [],
     allowNull: false,
+
   },
-  spoken_languages: {
+  spokenLanguages: {
     type: DataTypes.ARRAY(DataTypes.STRING),
     defaultValue: [],
     allowNull: false,
+
   },
   intrests: {
     type: DataTypes.ARRAY(DataTypes.STRING),
@@ -36,8 +38,12 @@ const Profile = sequelize.define('profiles', {
   avatar: {
     type: DataTypes.TEXT,
   },
+}, {
+  underscored: true,
+  createdAt: 'created_at',
+  updatedAt: 'updated_at',
 });
 
-User.hasOne(Profile, { foreignKey: 'userId' });
-Profile.belongsTo(User, { foreignKey: 'userId' });
+User.hasOne(Profile);
+Profile.belongsTo(User);
 module.exports = Profile;

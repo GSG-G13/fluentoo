@@ -42,6 +42,7 @@ const signUp = async (req, res, next) => {
         msg: 'Signup successfully',
         status: 201,
         data: user,
+        token,
       });
   } catch (err) {
     return next(err);
