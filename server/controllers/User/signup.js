@@ -9,10 +9,13 @@ const { User } = require('../../models');
 const signUp = async (req, res, next) => {
   try {
     const {
-      password,
       username,
       email,
-    } = await signupValidation.validateAsync(req.body, { abortEarly: false });
+      password,
+    } = await signupValidation.validateAsync(
+      req.body,
+      { abortEarly: false },
+    );
 
     const existingUser = await User.findOne({
       where: {
@@ -30,7 +33,7 @@ const signUp = async (req, res, next) => {
       email,
       password: hashedPassword,
     });
-    const user = { name, useremail };
+    const user = { name, useremail, id };
     const token = await SignToken({
       id,
       username,
