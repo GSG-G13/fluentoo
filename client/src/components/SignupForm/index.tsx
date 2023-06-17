@@ -13,7 +13,7 @@ import { SignupCredentials, SignupSchema } from '../../utils';
 import { useAuthContext } from '../../context/AuthContext';
 
 function SignupForm() {
-  const { setUserId, setUserName, setIsAuthorized } = useAuthContext();
+  const { setUser } = useAuthContext();
 
   const initialErrors: SignupCredentials = {
     email: '',
@@ -30,10 +30,11 @@ function SignupForm() {
 
       const formData: SignupCredentials = await SignupSchema.validate(values, { abortEarly: false });
 
-      const { data } = await axios.post("/api/v1/auth/signup", { formData })
-      setUserId(data.data.id)
-      setUserName(data.data.name)
-      setIsAuthorized(true)
+      const { data: userData } = await axios.post("/api/v1/auth/signup", { ...formData });
+      setUser({
+        userId: userData.data.id,
+        userName: userData.data.username,
+      })
       setErrors({ ...initialErrors });
       setLoading(false);
     } catch (e: any) {

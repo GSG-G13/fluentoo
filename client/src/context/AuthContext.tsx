@@ -1,24 +1,13 @@
 import React from "react";
-import { createContext, useContext, ReactNode } from "react";
+import { createContext, useContext } from "react";
 
 import useAuth from "../hooks/useAuth";
 
-interface AuthContextType {
-  userId: string | null,
-  setUserId: (token: string | null) => void,
-  userName: string | null,
-  setUserName: (userName: string | null) => void,
-  isAuthorized: boolean,
-  setIsAuthorized: (isAuthorized: boolean) => void,
-}
+import { AuthContextType, AuthProviderPropsType } from '../utils'
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
-interface AuthProviderProps {
-  children: ReactNode;
-}
-
-const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+const AuthProvider: React.FC<AuthProviderPropsType> = ({ children }) => {
   const value = useAuth() as AuthContextType;
 
   return <AuthContext.Provider value={value}> {children} </AuthContext.Provider>;

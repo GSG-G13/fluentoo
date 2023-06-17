@@ -8,8 +8,12 @@ const { User } = require('../../models');
 
 const signUp = async (req, res, next) => {
   try {
-    const { username, email, password } = await signupValidation.validateAsync(
-      req.body.formData,
+    const {
+      username,
+      email,
+      password,
+    } = await signupValidation.validateAsync(
+      req.body,
       { abortEarly: false },
     );
 

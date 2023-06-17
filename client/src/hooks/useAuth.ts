@@ -2,17 +2,19 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 
 const useAuth = () => {
-  const [userId, setUserId] = useState(null);
-  const [userName, setUserName] = useState(null);
-  const [isAuthorized, setIsAuthorized] = useState(false);
+  const [user, setUser] = useState({
+    userId: null,
+    userName: null,
+  });
 
   useEffect(() => {
     const getProfileData = async () => {
-      const { data } = await axios.get('/api/v1/auth/profile');
-      if (data) {
-        setUserId(data.data.id);
-        setUserName(data.data.username);
-        setIsAuthorized(true);
+      const { data: userData } = await axios.get('/api/v1/auth/profile');
+      if (userData) {
+        setUser({
+          userId: userData.data.id,
+          userName: userData.data.username,
+        });
       }
     }
 
@@ -20,12 +22,8 @@ const useAuth = () => {
   }, [])
 
   return {
-    userId,
-    setUserId,
-    userName,
-    setUserName,
-    isAuthorized,
-    setIsAuthorized
+    user,
+    setUser,
   }
 }
 
