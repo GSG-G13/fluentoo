@@ -5,12 +5,12 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 
-import { Signup } from './pages';
+import { Signup, LandingPage } from './pages';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <div>Hello landing</div>,
+    element: <LandingPage/ >,
   },
   {
     path: '/signup',
