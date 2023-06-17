@@ -1,7 +1,8 @@
 const Joi = require('joi');
 
 const profileValidation = Joi.object({
-  gender: Joi.string(),
+  userId: Joi.number(),
+  gender: Joi.string().valid('female', 'male').required(),
   country: Joi.string(),
   birthdate: Joi.date(),
   intrests: Joi.array(),

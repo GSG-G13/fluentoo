@@ -4,16 +4,13 @@ const { profileValidation } = require('../../utils');
 const createProfile = async (req, res, next) => {
   try {
     const { user: { id: userId }, body } = req;
-    const Validation = await profileValidation
+    const ValidatedData = await profileValidation
       .validateAsync(
-        body,
+        { userId, ...body },
         { abortEarly: false },
       );
 
-    const newProfile = await Profile.create({
-      userId, ...Validation,
-    });
-
+    const newProfile = await Profile.create(ValidatedData);
     return res.json({
       msg: 'profile created successfully',
       status: 201,

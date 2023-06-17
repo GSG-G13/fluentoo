@@ -5,8 +5,8 @@ const User = require('./user');
 
 const Profile = sequelize.define('profiles', {
   gender: {
-    type: DataTypes.STRING,
-    allowNull: false,
+    type: DataTypes.ENUM,
+    values: ['female', 'male'],
   },
   country: {
     type: DataTypes.STRING,
