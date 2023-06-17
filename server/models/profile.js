@@ -7,6 +7,7 @@ const Profile = sequelize.define('profiles', {
   gender: {
     type: DataTypes.ENUM,
     values: ['female', 'male'],
+    allowNull: false,
   },
   country: {
     type: DataTypes.STRING,
