@@ -1,4 +1,4 @@
-.signup {
+.auth {
   width: 100%;
   height: 100vh;
   display: flex;
@@ -6,13 +6,13 @@
   align-items: center;
 }
 
-.signup .signup-container {
+.auth .auth-container {
   width: 90%;
   height: 90%;
 }
 
-.signup .image-container,
-.signup .form-container {
+.auth .image-container,
+.auth .form-container {
   max-height: 100%;
   display: flex;
   justify-content: center;
@@ -21,7 +21,7 @@
 }
 
 @media (max-width: 768px) {
-  .signup .image-container {
+  .auth .image-container {
     display: none;
   }
 }

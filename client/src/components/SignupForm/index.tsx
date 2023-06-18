@@ -8,9 +8,9 @@ import {
   Col,
 } from 'antd';
 import { Link } from 'react-router-dom';
-import './SignupForm.modules.css';
 import { SignupCredentials, SignupSchema } from '../../utils';
 import { useAuthContext } from '../../context/AuthContext';
+import './style.modules.css';
 
 function SignupForm() {
   const { setUser } = useAuthContext();
@@ -55,7 +55,7 @@ function SignupForm() {
     <Spin spinning={loading}>
       <Col md={18}>
         <Form
-          className="signup-form"
+          className="auth-form"
           form={form}
           initialValues={{ remember: true }}
           onFinish={onFinish}
