@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import { Routes, Route, Navigate } from "react-router-dom";
-import { Signup } from './pages';
+import { Signup, Login } from './pages';
 import { useAuthContext } from "./context/AuthContext";
 
 function App() {
@@ -16,6 +16,10 @@ function App() {
       <Route
         path="/signup"
         element={user.userId ? <Navigate to="/dashboard" /> : <Signup />}
+      />
+      <Route
+        path="/login"
+        element={user.userId ? <Navigate to="/dashboard" /> : <Login />}
       />
       <Route
         path="/dashboard"
