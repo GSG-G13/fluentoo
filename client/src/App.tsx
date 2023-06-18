@@ -3,7 +3,7 @@ import './App.css';
 import { Routes, Route, Navigate } from "react-router-dom";
 import { Signup } from './pages';
 import { useAuthContext } from "./context/AuthContext";
-
+import { Chat } from './pages';
 function App() {
   const { user } = useAuthContext();
 
@@ -20,6 +20,10 @@ function App() {
       <Route
         path="/dashboard"
         element={user.userId ? <div>dashbord sec</div> : <Navigate to="/signup" />}
+      />
+       <Route
+        path="/chat"
+        element={user.userId ? <Chat/> :<Signup/>}
       />
     </Routes>
   );
