@@ -12,6 +12,11 @@
   margin: 0;
 }
 
+:where(.css-dev-only-do-not-override-12jzuas)[class^="ant-layout"],
+:where(.css-dev-only-do-not-override-12jzuas)[class*=" ant-layout"] {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 /* Body */
 body {
   font-family: Arial, Helvetica, sans-serif;

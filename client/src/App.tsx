@@ -15,15 +15,11 @@ function App() {
       />
       <Route
         path="/signup"
-        element={user.userId ? <Navigate to="/dashboard" /> : <Signup />}
+        element={user.userId ? <Navigate to="/chat" /> : <Signup />}
       />
       <Route
-        path="/dashboard"
-        element={user.userId ? <div>dashbord sec</div> : <Navigate to="/signup" />}
-      />
-       <Route
         path="/chat"
-        element={user.userId ? <Chat/> :<Signup/>}
+        element={user.userId ? <Chat /> : <Navigate to="/signup" />}
       />
     </Routes>
   );
