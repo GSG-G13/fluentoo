@@ -1,0 +1,19 @@
+.choose-chat-button-wrapper {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.choose-chat-button {
+  display: flex;
+  align-items: center;
+  color: var(--gray-color);
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.choose-chat-button span.anticon.anticon-wechat {
+  margin-left: 8px;
+  font-size: 25px;
+}

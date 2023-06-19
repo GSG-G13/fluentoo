@@ -1,33 +1,33 @@
 import React, { useState, useEffect } from 'react';
-import InputEmoji from 'react-input-emoji';
-import './style.modules.css'
-import { Layout, Input, Button } from 'antd';
-import { SearchOutlined, SendOutlined, MenuOutlined } from '@ant-design/icons';
-import Message from '../Message';
-import User from '../User';
+import { Layout } from 'antd';
 import { useAuthContext } from '../../context/AuthContext';
+import { UserObjectType, MessageObjectType } from '../../utils';
+import './style.modules.css'
 const { Content, Sider } = Layout;
-
-interface onlineUsersObjectType {
-  userId: number;
-  userName: string;
-}
+import {
+  MessagesSiderHead,
+  ChooseChatButton,
+  User,
+  Message,
+  ChatUserHead,
+  SendMessageForm
+} from '..';
 
 function ChatBox() {
   const { user: { userId: loggedInUserId } } = useAuthContext();
   const [collapsed, setCollapsed] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [ws, setWs] = useState(null);
+  const [ws, setWs] = useState<WebSocket | null>(null);
   const [text, setText] = useState("");
-  const [onlineUsers, setOnlineUsers] = useState<onlineUsersObjectType[]>([]);
-  const [selectedUser, setSelectedUser] = useState<onlineUsersObjectType>({
+  const [onlineUsers, setOnlineUsers] = useState<UserObjectType[]>([]);
+  const [allMessages, setAllMessages] = useState<MessageObjectType[]>([]);
+  const [selectedUser, setSelectedUser] = useState<UserObjectType>({
     userId: 0,
-    userName: "",
+    userName: '',
   });
-  const [allMessages, setAllMessages] = useState([]);
 
-  const makeArrayOfObjectsUnique = (arr: onlineUsersObjectType[]) => {
-    const uniqueArray: onlineUsersObjectType[] = [];
+  const makeArrayOfObjectsUnique = (arr: UserObjectType[]) => {
+    const uniqueArray: UserObjectType[] = [];
     const keysSet: Set<number> = new Set();
     for (const obj of arr) {
       const key = obj["userId"];
@@ -41,23 +41,6 @@ function ChatBox() {
   }
 
   useEffect(() => {
-    const ws = new WebSocket('ws://localhost:5000');
-    setWs(ws);
-    ws.addEventListener('message', (message) => {
-      const receivedMessage = JSON.parse(message.data);
-
-      if ('onlineUsers' in receivedMessage) {
-        const uniqueOnlineUsers: onlineUsersObjectType[] = makeArrayOfObjectsUnique(receivedMessage.onlineUsers);
-        setOnlineUsers(uniqueOnlineUsers);
-      }
-      else if ('text' in receivedMessage) {
-        const { text } = receivedMessage;
-        setAllMessages((prev) => [...prev, { text, isOur: false }]);
-      }
-    })
-  }, []);
-
-  useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
     };
@@ -69,10 +52,33 @@ function ChatBox() {
     };
   }, []);
 
+  useEffect(() => {
+    const ws = new WebSocket('ws://localhost:5000');
+    setWs(ws);
+
+    ws.addEventListener('message', (message) => {
+      const receivedMessage = JSON.parse(message.data);
+
+      if ('onlineUsers' in receivedMessage) {
+        const uniqueOnlineUsers: UserObjectType[] = makeArrayOfObjectsUnique(receivedMessage.onlineUsers);
+        setOnlineUsers(uniqueOnlineUsers);
+      } else if ('text' in receivedMessage) {
+        const { text } = receivedMessage;
+        setAllMessages((prev) => [...prev, { text, isOur: false }]);
+      }
+    })
+  }, []);
+
   const handleSendMessage = () => {
-    ws.send(JSON.stringify({ message: { text, recipient: selectedUser.userId } }))
-    setAllMessages((prev) => [...prev, { text, isOur: true }]);
+    if (ws) {
+      ws.send(JSON.stringify({ message: { text, recipient: selectedUser.userId } }))
+      setAllMessages((prevMessages) => [...prevMessages, { text, isOur: true }]);
+    }
   }
+
+  const onlineUsersElements = onlineUsers
+    .filter((user) => user.userId !== loggedInUserId)
+    .map((user) => <User key={user.userId} selectedUser={selectedUser} setSelectedUser={setSelectedUser} user={user} />);
 
   return (
     <Layout className='main-layout' hasSider>
@@ -85,73 +91,32 @@ function ChatBox() {
         collapsedWidth={0}
       >
         <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
-          <div className='sider-head'>
-            <h2>Messages</h2>
-            {collapsed || (
-              <Button
-                className='burger-menu'
-                type="text"
-                icon={<MenuOutlined />}
-                onClick={() => setCollapsed(!collapsed)}
-                style={{
-                  fontSize: '16px',
-                  width: 64,
-                  height: 64,
-                }}
-              />
-            )}
-          </div>
-          <Input size="large" placeholder="Search for a friend" prefix={<SearchOutlined />} />
+          <MessagesSiderHead collapsed={collapsed} setCollapsed={setCollapsed} />
           <div className='users-box'>
-            {onlineUsers && onlineUsers.filter((user) => user.userId !== loggedInUserId).map((user) => <User key={user.userId} selectedUser={selectedUser} setSelectedUser={setSelectedUser} user={user} />)}
+            {onlineUsers && onlineUsersElements}
           </div>
         </Content>
       </Sider>
       <Layout className="site-layout">
+        {selectedUser.userId === 0 && <ChooseChatButton collapsed={collapsed} setCollapsed={setCollapsed} />}
 
-        {selectedUser.userId === 0 && (
-          <div onClick={() => setCollapsed(!collapsed)}>chose chat</div>
-        )}
         {selectedUser.userId > 0 && (
           <Content>
-            <div className='user-header'>
-              {collapsed && (
-                <Button
-                  className='burger-menu'
-                  type="text"
-                  icon={<MenuOutlined />}
-                  onClick={() => setCollapsed(!collapsed)}
-                  style={{
-                    fontSize: '16px',
-                    width: 64,
-                    height: 64,
-                  }}
-                />
-              )}
-              <img src='https://th.bing.com/th/id/OIP.f3DM2upCo-p_NPRwBAwbKQHaHa?pid=ImgDet&rs=1' width={50} height={50} />
-              <h3>{selectedUser.userName}</h3>
-            </div>
+            <ChatUserHead
+              selectedUser={selectedUser}
+              collapsed={collapsed}
+              setCollapsed={setCollapsed}
+            />
+
             <div className='chat-wraper'>
               <div className='conversation'>
-                {allMessages.map((message, i) => <Message key={i} message={message} />)}
+                {allMessages.map((message, i) => <Message key={i} text={message.text} isOur={message.isOur} />)}
               </div>
             </div>
 
-            <div className='user_input'>
-              <form> {/* should be on submit */}
-                <InputEmoji
-                  value={text}
-                  onChange={setText}
-                  cleanOnEnter
-                  placeholder="Type a message"
-                />
-                <Button type="primary" shape="round" onClick={handleSendMessage} icon={<SendOutlined />} />
-              </form>
-            </div>
-
+            <SendMessageForm text={text} setText={setText} handleSendMessage={handleSendMessage} />
           </Content>
         )}
-
       </Layout>
     </Layout >
   )

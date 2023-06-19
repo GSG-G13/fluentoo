@@ -1,17 +1,16 @@
 import React from "react";
+import { TranslationOutlined, SoundOutlined } from '@ant-design/icons';
+import { MessageObjectType } from '../../utils';
 
-function Message({ message }: any) {
-    console.log(message);
-
+function Message({ text, isOur }: MessageObjectType) {
     return (
-        <div className={message.isOur ? "message own" : "message"} >
-            <p className="text">{message.text}</p>
+        <div className={isOur ? "message own" : "message"} >
+            <p className="text">{text}</p>
             <div className="controler">
                 <div className="icons">
-                    <span>k</span>
-                    <span>j</span>
+                    <span><TranslationOutlined /></span>
+                    <span><SoundOutlined /></span>
                 </div>
-                <span>{message.data}</span>
             </div>
         </div>
     );

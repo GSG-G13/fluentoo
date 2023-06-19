@@ -14,25 +14,34 @@ const assignClient = async (connection, req) => {
   connection.userName = decoded.username;
 };
 
-wss.on(('connection'), async (connection, req) => {
-  await assignClient(connection, req);
-
+const getOnlineUsers = async () => {
   const onlineUsers = [...wss.clients]
     .map((client) => ({ userId: client.userId, userName: client.userName }));
 
   [...wss.clients].forEach((client) => {
     client.send(JSON.stringify({ onlineUsers }));
   });
+};
+
+const sendMessage = async (receivedMessage) => {
+  const { text, recipient } = receivedMessage.message;
+  [...wss.clients].forEach((client) => {
+    if (client.userId === recipient) {
+      client.send(JSON.stringify({ text }));
+    }
+  });
+};
+
+wss.on(('connection'), async (connection, req) => {
+  await assignClient(connection, req);
+
+  getOnlineUsers();
 
   connection.on('message', (message) => {
-    const userMessage = JSON.parse(message.toString());
-    if ('message' in userMessage) {
-      const { text, recipient } = userMessage.message;
-      [...wss.clients].forEach((client) => {
-        if (client.userId === recipient) {
-          client.send(JSON.stringify({ text }));
-        }
-      });
+    const receivedMessage = JSON.parse(message.toString());
+
+    if ('message' in receivedMessage) {
+      sendMessage(receivedMessage);
     }
   });
 });
