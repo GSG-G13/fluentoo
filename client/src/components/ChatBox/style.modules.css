@@ -146,6 +146,32 @@ main.ant-layout-content.css-dev-only-do-not-override-12jzuas {
     background-color: var(--primary-color-hover);
 }
 
+
+.language-choices{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.select-title{
+    font-size: 11px;
+}
+
+
+:where(.css-dev-only-do-not-override-12jzuas).ant-select-single .ant-select-selector .ant-select-selection-item,
+:where(.css-dev-only-do-not-override-12jzuas).ant-select-single.ant-select-sm .ant-select-selector .ant-select-selection-item{
+    font-size: 11px;
+}
+
+:where(.css-dev-only-do-not-override-12jzuas).ant-select-dropdown .ant-select-item-option-content{
+    font-size: 10px;
+}
+
+:where(.css-dev-only-do-not-override-12jzuas).ant-select-dropdown .ant-select-item{
+    padding: 1px;
+}
+
+
 @media (max-width: 990px) {
     .message {
         width: 350px;
