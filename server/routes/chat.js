@@ -4,7 +4,6 @@ const checkAuth = require('../middlewares/checkauth');
 
 profileRouter.post('/', checkAuth, createChat);
 profileRouter.get('/:chatId', checkAuth, getChat);
-// profileRouter.get('/', checkAuth, getAllChats);
-profileRouter.get('/', getAllChats);
+profileRouter.get('/', checkAuth, getAllChats);
 
 module.exports = profileRouter;
