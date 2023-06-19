@@ -1,12 +1,11 @@
 import React from "react";
 
 function Message({ message }: any) {
+    console.log(message);
 
-    // TODO get id from contecxt 
-    const id = 1;
     return (
-        <div className={message.sender == id ? "message own" : "message"} >
-            <p className="text">{message.text}{message.text}{message.text}{message.text}</p>
+        <div className={message.isOur ? "message own" : "message"} >
+            <p className="text">{message.text}</p>
             <div className="controler">
                 <div className="icons">
                     <span>k</span>

@@ -30,6 +30,7 @@
     cursor: pointer;
     padding: 5px;
     border-radius: 3px;
+    transition: 0.2s;
 }
 
 .user.active {
