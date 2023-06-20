@@ -15,7 +15,7 @@ const sequelize = new Sequelize(url, {
   //   rejectUnauthorized: NODE_ENV !== 'development',
   // },
 });
-// sequelize.sync({ force: true });
+// sequelize.sync({ force: true }); // just for one time
 
 if (NODE_ENV === 'development') {
   // sequelize.sync();
