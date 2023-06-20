@@ -1,7 +1,17 @@
 const { createProfile, updateProfile, getProfile } = require('./Profile');
-const { createChat, getChat, getAllChats } = require('./chat');
-const createMessage = require('./message');
+const {
+  createMessage,
+  readMessage,
+  deleteMessage,
+  updateMessage,
+} = require('./message');
 
 module.exports = {
-  createProfile, updateProfile, getProfile, createChat, getChat, getAllChats, createMessage,
+  createProfile,
+  updateProfile,
+  getProfile,
+  createMessage,
+  readMessage,
+  deleteMessage,
+  updateMessage,
 };

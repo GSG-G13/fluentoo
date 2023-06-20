@@ -1,7 +1,16 @@
-const profileRouter = require('express').Router();
-const { createChat } = require('../controllers');
+const messageRouter = require('express').Router();
+const {
+  createMessage,
+  readMessage,
+  deleteMessage,
+  updateMessage,
+} = require('../controllers');
 const checkAuth = require('../middlewares/checkauth');
+const { checkSenderReceiver } = require('../middlewares/checkSenderReceiver');
 
-profileRouter.post('/', checkAuth, createChat);
+messageRouter.get('/', checkAuth, checkSenderReceiver, readMessage);
+messageRouter.post('/', checkAuth, checkSenderReceiver, createMessage);
+messageRouter.patch('/:id', checkAuth, checkSenderReceiver, updateMessage);
+messageRouter.delete('/:id', checkAuth, checkSenderReceiver, deleteMessage);
 
-module.exports = profileRouter;
+module.exports = messageRouter;

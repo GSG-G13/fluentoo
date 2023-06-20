@@ -1,12 +1,13 @@
 const { Message } = require('../../models');
 
 const createMessage = async (req, res, next) => {
+  // const { sender, receiver, content } = req.params;
+  const { sender, receiver, content } = req.body;
   try {
-    const { messageText, senderId, chatId } = req.body;
     const message = await Message.create({
-      messageText,
-      senderId,
-      chatId,
+      sender,
+      receiver,
+      content,
     });
     return res.json({
       status: 200,
