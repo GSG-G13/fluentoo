@@ -1,4 +1,4 @@
-const CustomeError = require('../utils/helper/customeError');
+const { CustomeError } = require('../utils');
 const { User } = require('../models');
 
 const checkSenderReceiver = async (req, res, next) => {
