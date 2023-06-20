@@ -1,4 +1,4 @@
-const { CustomeError } = require('../utils/helper/customeError');
+const CustomeError = require('../utils/helper/customeError');
 const { verfiyToken } = require('../utils/jwt/jwt');
 
 const checkAuth = async (req, res, next) => {

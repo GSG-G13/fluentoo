@@ -40,6 +40,7 @@ const login = async (req, res, next) => {
         username,
         email,
       },
+      token,
     });
   } catch (err) {
     return next(err);
