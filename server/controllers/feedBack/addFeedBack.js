@@ -12,7 +12,7 @@ const addFeedBack = async (req, res, next) => {
 
     const data = await FeedBack.create({ commenterId, commentingId, ...validFeedBack });
     res.status(201).json({
-      msg: 'created successfully',
+      msg: 'Created Successfully',
       status: 201,
       data,
     });

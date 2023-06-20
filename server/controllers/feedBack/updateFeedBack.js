@@ -27,9 +27,9 @@ const updataFeedBack = async (req, res, next) => {
       throw new CustomeError('Updating Faild', 500);
     }
     res.status(201).json({
-      msg: 'updated successfully',
+      msg: 'Updated Successfully',
       status: 201,
-      comment: updatedData[1],
+      data: updatedData[1],
     });
   } catch (err) {
     next(err);

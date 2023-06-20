@@ -10,7 +10,7 @@ const getAllFeedBack = async (req, res, next) => {
       limit: 5,
     });
     res.status(200).json({
-      msg: 'returned successfully',
+      msg: 'Feedbacks Returned Successfully',
       status: 200,
       data,
     });
