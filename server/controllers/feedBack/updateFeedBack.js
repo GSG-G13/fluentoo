@@ -1,5 +1,5 @@
 const FeedBack = require('../../models/feedBack');
-const CustomeError = require('../../utils/helper/customeError');
+const { CustomeError } = require('../../utils');
 const { addFeedBackSchema } = require('../../utils/validation');
 
 const updataFeedBack = async (req, res, next) => {
