@@ -4,9 +4,9 @@ const {
 } = require('../controllers/feedBack');
 const checkAuth = require('../middlewares/checkauth');
 
-feedBackRouter.post('/addFeedback/:commentingId', checkAuth, addFeedBack);
-feedBackRouter.get('/allFeedback/:commentingId', getAllFeedBack);
-feedBackRouter.put('/editFeedback/:commentId', checkAuth, updateFeedBack);
-feedBackRouter.delete('/deleteFeedback', checkAuth, deleteFeedBack);
+feedBackRouter.post('/:commentingId', checkAuth, addFeedBack);
+feedBackRouter.get('/:commentingId', getAllFeedBack);
+feedBackRouter.put('/:commentId', checkAuth, updateFeedBack);
+feedBackRouter.delete('/', checkAuth, deleteFeedBack);
 
 module.exports = feedBackRouter;

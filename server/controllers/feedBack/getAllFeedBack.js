@@ -1,4 +1,4 @@
-const FeedBack = require('../../models/feedBack');
+const { FeedBack } = require('../../models');
 
 const getAllFeedBack = async (req, res, next) => {
   try {
@@ -7,6 +7,7 @@ const getAllFeedBack = async (req, res, next) => {
       where: {
         commentingId,
       },
+      limit: 5,
     });
     res.status(200).json({ data });
   } catch (err) {
