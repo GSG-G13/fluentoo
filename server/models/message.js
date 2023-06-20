@@ -10,10 +10,10 @@ const Message = sequelize.define('messages', {
   },
 });
 
-User.belongsTo(Message, {
+Message.belongsTo(User, {
   foreignKey: 'sender',
 });
-User.belongsTo(Message, {
+Message.belongsTo(User, {
   foreignKey: 'receiver',
 });
 
