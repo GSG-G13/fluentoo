@@ -11,8 +11,9 @@ const addFeedBack = async (req, res, next) => {
     }, { abortEarly: false });
 
     const data = await FeedBack.create({ commenterId, commentingId, ...validFeedBack });
-    res.status(200).json({
-      message: 'feedback added successfully',
+    res.status(201).json({
+      msg: 'created successfully',
+      status: 201,
       data,
     });
   } catch (err) {

@@ -9,7 +9,11 @@ const getAllFeedBack = async (req, res, next) => {
       },
       limit: 5,
     });
-    res.status(200).json({ data });
+    res.status(200).json({
+      msg: 'returned successfully',
+      status: 200,
+      data,
+    });
   } catch (err) {
     next(err);
   }

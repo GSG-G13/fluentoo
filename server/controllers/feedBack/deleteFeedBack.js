@@ -7,6 +7,7 @@ const deleteFeedBack = async (req, res, next) => {
     await feedback.destroy();
     res.status(200).json({
       msg: 'Deleted successful',
+      status: 200,
     });
   } catch (err) {
     next(err);
