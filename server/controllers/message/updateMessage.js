@@ -19,7 +19,7 @@ const updateMessage = async (req, res, next) => {
       },
     );
     if (!message) {
-      throw new CustomeError('updating faild');
+      throw new CustomeError('updating failed', 500);
     }
     return res.json({
       msg: 'Message updated successfully',
