@@ -6,7 +6,7 @@ const deleteFeedBack = async (req, res, next) => {
     const feedback = await FeedBack.findByPk(feedbackId);
     await feedback.destroy();
     res.status(200).json({
-      msg: 'Deleted successful',
+      msg: 'deleted successfully',
       status: 200,
     });
   } catch (err) {
