@@ -2,7 +2,9 @@ const { Op } = require('sequelize');
 const { Message } = require('../../models');
 
 const readMessage = async (req, res, next) => {
-  const { sender, receiver } = req.body;
+  const { id: sender } = req.user;
+  const { receiver } = req.params;
+
   try {
     const messages = await Message.findAndCountAll({
       where: {
@@ -21,7 +23,7 @@ const readMessage = async (req, res, next) => {
     });
     return res.json({
       status: 200,
-      data: messages,
+      data: messages.rows,
     });
   } catch (err) {
     return next(err);

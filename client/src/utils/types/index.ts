@@ -26,7 +26,9 @@ export interface UserObjectType {
 }
 
 export interface MessageObjectType {
-  text: string;
+  content: string;
+  sender: number;
+  receiver: number;
   isOur: boolean;
 }
 
