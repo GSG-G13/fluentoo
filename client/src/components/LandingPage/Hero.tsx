@@ -1,7 +1,10 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import {
-  Row, Col, Image, Button,
+  Row,
+  Col,
+  Image,
+  Button,
 } from 'antd';
 import heroImage from '../../assets/img/hero.png';
 import './LandingPage.css'
@@ -9,8 +12,7 @@ import './LandingPage.css'
 function Hero() {
   return (
     <div className="hero-sec">
-      <Row gutter={[8, 8]} style={{marginRight: 0}}>
-
+      <Row gutter={[8, 8]} style={{ marginRight: 0 }}>
         <div className="hero">
           <Col span={12}>
 
@@ -31,12 +33,10 @@ function Hero() {
             </div>
 
           </Col>
-          <Col span={12} align="middle">
-
+          <Col span={12} className='hero-image'>
             <Image
-              width={550}
               src={heroImage}
-              preview= {false}
+              preview={false}
             />
           </Col>
         </div>

@@ -8,7 +8,7 @@ function AboutUs() {
   return (
     <div className="aboutus-sec">
       <Row>
-        <Col span={24} align="middle" justify="center">
+        <Col span={24}>
 
           <div className="about-title">
             <h3>
@@ -19,37 +19,33 @@ function AboutUs() {
             <p>
               Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dignissimos,
               reprehenderit reiciendis nulla magnam
-
             </p>
           </div>
         </Col>
       </Row>
 
       <Row>
-        <div className="aboutus-container">
-          <Col span={8} align="middle" justify="center">
-          <Card style={{ width: 300, height: 250 }}>
-              <p>Card content</p>
-              <p>Card content</p>
-              <p>Card content</p>
-            </Card>
-          </Col>
-          <Col span={8} align="middle" justify="center">
-            <Card style={{ width: 300, height: 250 }}>
-              <p>Card content</p>
-              <p>Card content</p>
-              <p>Card content</p>
-            </Card>
-          </Col>
-
-          <Col span={8} align="middle" justify="center">
-          <Card style={{ width: 300, height: 250 }}>
-              <p>Card content</p>
-              <p>Card content</p>
-              <p>Card content</p>
-            </Card>
-          </Col>
-        </div>
+        <Col span={8}>
+          <Card className='gg'>
+            <p>Card content</p>
+            <p>Card content</p>
+            <p>Card content</p>
+          </Card>
+        </Col>
+        <Col span={8}>
+          <Card>
+            <p>Card content</p>
+            <p>Card content</p>
+            <p>Card content</p>
+          </Card>
+        </Col>
+        <Col span={8}>
+          <Card>
+            <p>Card content</p>
+            <p>Card content</p>
+            <p>Card content</p>
+          </Card>
+        </Col>
       </Row>
     </div>
   );

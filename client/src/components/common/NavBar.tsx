@@ -1,13 +1,13 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/function-component-definition */
 import {
-   Row, Col, Button, Menu,
-  } from 'antd';
-  import React from 'react';
-  
-  
-function Nav () {
-  return(
+  Row, Col, Button, Menu,
+} from 'antd';
+import React from 'react';
+
+
+function Nav() {
+  return (
     <div className="nav-bar">
       <Row align="middle">
         <Col span={8}>
@@ -22,15 +22,15 @@ function Nav () {
           </Menu>
         </Col>
         <Col span={8} style={{ textAlign: 'right' }}>
-    
-        <Button type="primary" ghost shape='round'>
-      SignUp
-    </Button>
+
+          <Button type="primary" ghost shape='round'>
+            SignUp
+          </Button>
         </Col>
       </Row>
-      </div>
+    </div>
 
-)};
-  
-  export default Nav;
-  
+  )
+};
+
+export default Nav;
