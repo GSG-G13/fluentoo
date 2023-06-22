@@ -1,4 +1,5 @@
 const { createProfile, updateProfile, getProfile } = require('./Profile');
+const search = require('./community/search');
 const {
   createMessage,
   readMessage,
@@ -14,4 +15,5 @@ module.exports = {
   readMessage,
   deleteMessage,
   updateMessage,
+  search,
 };
