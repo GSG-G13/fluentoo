@@ -5,11 +5,12 @@ const cookieParser = require('cookie-parser');
 const sequelize = require('./database/connection');
 const router = require('./routes');
 const { clientError, serverError } = require('./controllers/errors');
-require('dotenv').config();
+const appConfig = require('./config/app.config');
 
 const app = express();
 
-app.set('port', process.env.PORT || 5000);
+app.set('port', appConfig.port || 5000);
+console.log(appConfig.port);
 app.disable('x-powered-by');
 app.use(compression());
 app.use(express.json());
