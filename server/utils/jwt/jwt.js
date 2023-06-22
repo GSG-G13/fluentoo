@@ -1,6 +1,10 @@
 const jwt = require('jsonwebtoken');
+const {
+  appConfig: {
+    jwt: { SECRET },
+  },
+} = require('../../config');
 
-const { SECRET } = process.env;
 const SignToken = (payload) => new Promise((resolve, reject) => {
   jwt.sign(payload, SECRET, (err, token) => {
     if (err) reject(err);

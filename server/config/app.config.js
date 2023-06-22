@@ -1,10 +1,11 @@
+require('dotenv').config();
+
 const app = {
-  env: process.env.NODE_ENV || 'development',
   port: 3000,
   isProduction: process.env.NODE_ENV === 'production',
   debug: process.env.NODE_ENV !== 'production',
   jwt: {
-    secrt: 'flounto',
+    SECRET: process.env.SECRET || 'fluentoo',
     expiresIn: '1d',
   },
   cookies: {
