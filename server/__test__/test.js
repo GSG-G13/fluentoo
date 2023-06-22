@@ -2,7 +2,7 @@
 /* eslint-disable no-undef */
 
 const getAllLanguages = require('../controllers/language/getAllLanguages');
-const sequelize = require('../database/config/connection');
+const sequelize = require('../database/connection');
 const Language = require('../models/language');
 
 beforeAll(async () => {

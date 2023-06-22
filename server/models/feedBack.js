@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../database/config/connection');
+const sequelize = require('../database/connection');
 const User = require('./user');
 
 const FeedBack = sequelize.define('feedbacks', {
