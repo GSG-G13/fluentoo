@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 import './SignupForm.modules.css';
 import { SignupCredentials, SignupSchema } from '../../utils';
 import { useAuthContext } from '../../context/AuthContext';
-
+import GoogleAuth from '../GoogleAuth';
 function SignupForm() {
   const { setUser } = useAuthContext();
 
@@ -69,7 +69,7 @@ function SignupForm() {
               <Link to="/signup" className="active">Signup</Link>
             </div>
           </div>
-          <p className="light-text">By continuing, you are setting up an account and agree to our User Agreement.</p>
+          <p className="light-text">Connect with like-minded individuals and enhance your language skills.</p>
 
           <Form.Item
             className="form-text"
@@ -102,7 +102,10 @@ function SignupForm() {
             <Button type="primary" htmlType="submit">
               Sign Up
             </Button>
+
           </Form.Item>
+          <h5 className='or'>OR</h5>
+          <GoogleAuth />
         </Form>
       </Col>
     </Spin>
