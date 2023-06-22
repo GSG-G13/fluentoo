@@ -2,6 +2,7 @@
 const express = require('express');
 const compression = require('compression');
 const cookieParser = require('cookie-parser');
+const morgan = require("morgan");
 const sequelize = require('./database/connection');
 const router = require('./routes');
 const { clientError, serverError } = require('./controllers/errors');
@@ -9,8 +10,8 @@ const appConfig = require('./config/app.config');
 
 const app = express();
 
+if (appConfig.env === 'development') app.use(morgan('combined'));
 app.set('port', appConfig.port || 5000);
-console.log(appConfig.port);
 app.disable('x-powered-by');
 app.use(compression());
 app.use(express.json());
