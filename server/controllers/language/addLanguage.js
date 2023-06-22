@@ -5,7 +5,7 @@ const createLanguage = async (req, res, next) => {
   try {
     const { name, shortcut, flag } = req.body;
 
-    const { error, value } = addLangSchema.validateAsync({
+    const { error, value } = await addLangSchema.validateAsync({
       name, shortcut, flag,
     }, { abortEarly: false });
 

@@ -6,6 +6,11 @@ export interface SignupCredentials {
   password: string;
 }
 
+export interface LoginCredentials {
+  email: string;
+  password: string;
+}
+
 export interface AuthContextType {
   user: { userId: number | null; userName: string | null; }
   setUser: (user: {} | null) => void,
@@ -21,7 +26,9 @@ export interface UserObjectType {
 }
 
 export interface MessageObjectType {
-  text: string;
+  content: string;
+  sender: number;
+  receiver: number;
   isOur: boolean;
 }
 

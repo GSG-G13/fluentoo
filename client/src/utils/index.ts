@@ -1,5 +1,6 @@
 import type {
   SignupCredentials,
+  LoginCredentials,
   AuthContextType,
   AuthProviderPropsType,
   UserObjectType,
@@ -9,10 +10,12 @@ import type {
   ChatUserHeadPropsType,
   SendMessageFormPropsType
 } from './types';
-import { SignupSchema } from './validation';
+
+import { SignupSchema, LoginSchema } from './validation';
 
 export {
   SignupCredentials,
+  LoginCredentials,
   AuthContextType,
   AuthProviderPropsType,
   UserObjectType,
@@ -22,4 +25,5 @@ export {
   ChatUserHeadPropsType,
   SendMessageFormPropsType,
   SignupSchema,
+  LoginSchema
 };

@@ -44,7 +44,28 @@
     border-radius: 19px;
 }
 
+:where(.css-dev-only-do-not-override-12jzuas).ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled):hover {
+    border-color: var(--primary-color);
+}
 
+.ant-input-affix-wrapper .ant-input-affix-wrapper-lg .css-dev-only-do-not-override-12jzuas {
+    outline: none;
+    border: none;
+    box-shadow: none;
+}
+
+.react-input-emoji--container {
+    border-width: 1px;
+    border-style: solid;
+    border-color: #d9d9d9 !important;
+}
+
+:where(.css-dev-only-do-not-override-12jzuas).ant-input-affix-wrapper:focus {
+    box-shadow: none !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+    border-color: var(--primary-color) !important;
+}
 
 main.ant-layout-content.css-dev-only-do-not-override-12jzuas {
     display: flex;

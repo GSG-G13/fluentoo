@@ -15,8 +15,6 @@ const sequelize = new Sequelize(url, {
   //   rejectUnauthorized: NODE_ENV !== 'development',
   // },
 });
-// sequelize.sync({ force: true });
-
 if (NODE_ENV === 'development') {
   // sequelize.sync();
 }
