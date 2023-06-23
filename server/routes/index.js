@@ -11,6 +11,6 @@ router.use('/auth', authRouter);
 router.use('/feedback', feedBackRouter);
 router.use('/profile', profileRouter);
 router.use('/message', messageRouter);
-router.use(communityRouter);
+router.use('/search', communityRouter);
 
 module.exports = router;

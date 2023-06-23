@@ -1,7 +1,8 @@
 const { Op } = require('sequelize');
 const { Profile, User } = require('../../models');
+const { CustomeError } = require('../../utils');
 
-const search = async (req, res) => {
+const search = async (req, res, next) => {
   const {
     page, limit, name, spokenLanguages, practiceLanguages,
   } = req.query;
@@ -21,30 +22,68 @@ const search = async (req, res) => {
     where: {},
   };
 
-  if (name) {
+  if (name && spokenLanguages && practiceLanguages) {
+    query.where = {
+      username: {
+        [Op.like]: `%${name}%`,
+      },
+      spokenLanguages: {
+        [Op.contains]: [spokenLanguages],
+      },
+      practiceLanguages: {
+        [Op.contains]: [practiceLanguages],
+      },
+    };
+  } else if (name && spokenLanguages) {
+    query.where = {
+      username: {
+        [Op.like]: `%${name}%`,
+      },
+      spokenLanguages: {
+        [Op.contains]: [spokenLanguages],
+      },
+    };
+  } else if (name && practiceLanguages) {
+    query.where = {
+      username: {
+        [Op.like]: `%${name}%`,
+      },
+      practiceLanguages: {
+        [Op.contains]: [practiceLanguages],
+      },
+    };
+  } else if (spokenLanguages && practiceLanguages) {
+    query.where = {
+      spokenLanguages: {
+        [Op.contains]: [spokenLanguages],
+      },
+      practiceLanguages: {
+        [Op.contains]: [practiceLanguages],
+      },
+    };
+  } else if (name) {
     query.where = {
       username: {
         [Op.like]: `%${name}%`,
       },
     };
-  }
-
-  if (spokenLanguages) {
+  } else if (spokenLanguages) {
     query.where = {
-      ...query.where,
       spokenLanguages: {
         [Op.contains]: [spokenLanguages],
       },
     };
-  }
-
-  if (practiceLanguages) {
+  } else if (practiceLanguages) {
     query.where = {
-      ...query.where,
       practiceLanguages: {
         [Op.contains]: [practiceLanguages],
       },
     };
+  } else {
+    throw new CustomeError(
+      'You must provide a name, spokenLanguages or practiceLanguages.',
+      400,
+    );
   }
 
   try {
@@ -54,8 +93,7 @@ const search = async (req, res) => {
       profiles: profiles.rows,
     });
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ error: 'An error occurred while retrieving profiles.' });
+    return next(error);
   }
 };
 
