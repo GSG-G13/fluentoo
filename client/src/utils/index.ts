@@ -8,7 +8,9 @@ import type {
   UserComponentPropsType,
   SiderCollapsedPropsType,
   ChatUserHeadPropsType,
-  SendMessageFormPropsType
+  SendMessageFormPropsType,
+  DecodeJwtType,
+  LoggedUserObjectType
 } from './types';
 
 import { SignupSchema, LoginSchema } from './validation';
@@ -25,5 +27,7 @@ export {
   ChatUserHeadPropsType,
   SendMessageFormPropsType,
   SignupSchema,
-  LoginSchema
+  LoginSchema,
+  DecodeJwtType,
+  LoggedUserObjectType
 };
