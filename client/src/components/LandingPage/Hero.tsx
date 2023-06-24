@@ -12,7 +12,7 @@ import './LandingPage.css'
 function Hero() {
   return (
     <div className="hero-sec">
-      <Row gutter={[8, 8]} style={{ marginRight: 0 }}>
+      <Row gutter={[8, 8]}>
         <div className="hero">
           <Col span={12}>
 

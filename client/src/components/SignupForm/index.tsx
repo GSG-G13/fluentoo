@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import {
   Form,
   Input,
@@ -7,13 +8,16 @@ import {
   Col,
 } from 'antd';
 import { Link } from 'react-router-dom';
-import './SignupForm.modules.css';
 import { SignupCredentials, SignupSchema } from '../../utils';
+import { useAuthContext } from '../../context/AuthContext';
+import './style.modules.css';
 
 function SignupForm() {
+  const { setUser } = useAuthContext();
+
   const initialErrors: SignupCredentials = {
     email: '',
-    userName: '',
+    username: '',
     password: '',
   };
   const [errors, setErrors] = useState<SignupCredentials>(initialErrors);
@@ -23,9 +27,16 @@ function SignupForm() {
   const onFinish = async (values: SignupCredentials) => {
     setLoading(true);
     try {
-      const data: SignupCredentials = await SignupSchema.validate(values, { abortEarly: false });
-      console.log(data);
+
+      const formData: SignupCredentials = await SignupSchema.validate(values, { abortEarly: false });
+
+      const { data: userData } = await axios.post("/api/v1/auth/signup", { ...formData });
+      setUser({
+        userId: userData.data.id,
+        userName: userData.data.username,
+      })
       setErrors({ ...initialErrors });
+      setLoading(false);
     } catch (e: any) {
       if (e.name === 'ValidationError') {
         setErrors({ ...initialErrors });
@@ -36,6 +47,7 @@ function SignupForm() {
           }));
         });
       }
+      setLoading(false);
     }
   };
 
@@ -43,7 +55,7 @@ function SignupForm() {
     <Spin spinning={loading}>
       <Col md={18}>
         <Form
-          className="signup-form"
+          className="auth-form"
           form={form}
           initialValues={{ remember: true }}
           onFinish={onFinish}
@@ -71,11 +83,11 @@ function SignupForm() {
           <Form.Item
             className="form-text"
             label="User Name"
-            name="userName"
+            name="username"
           >
             <Input />
           </Form.Item>
-          <span className="error-message">{errors.userName}</span>
+          <span className="error-message">{errors.username}</span>
 
           <Form.Item
             className="form-password"

@@ -2,12 +2,12 @@ import React from 'react';
 import { Col, Row, Image } from 'antd';
 import signupImage from '../../assets/signup.svg';
 import { SignupForm } from '../../components';
-import './Signup.moduels.css';
+import './style.moduels.css';
 
 function Signup() {
   return (
-    <div className="signup">
-      <Row className="signup-container">
+    <div className="auth">
+      <Row className="auth-container">
         <Col className="image-container" md={12}>
           <Image
             src={signupImage}
