@@ -23,8 +23,11 @@ function Hero() {
                 Online is now much easier
               </h2>
               <p>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dignissimos,
-                reprehenderit reiciendis nulla magnam consequuntur ?
+              Join our language exchange website and connect with
+               a global community of language enthusiasts. Enhance
+                your language skills by engaging in meaningful conversations 
+                with fellow learners.
+
               </p>
 
               <Button type="primary" shape='round'>
