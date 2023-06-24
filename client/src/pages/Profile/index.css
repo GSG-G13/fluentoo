@@ -20,7 +20,7 @@
   width: 55vh;
   display: flex;
   flex-direction: column;
-  gap: 5vh;
+  /* gap: 5vh; */
 }
 .profile-header {
   display: flex;
@@ -49,10 +49,10 @@
   gap: 1vh;
 }
 
-:where(.css-dev-only-do-not-override-12jzuas).ant-input,
+/* :where(.css-dev-only-do-not-override-12jzuas).ant-input,
 :where(.css-dev-only-do-not-override-12jzuas).ant-btn {
   border-radius: 0;
-}
+} */
 :where(.css-dev-only-do-not-override-12jzuas).ant-btn {
   background-color: #9cbe85;
 }

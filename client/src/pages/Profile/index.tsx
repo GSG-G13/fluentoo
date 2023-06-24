@@ -4,16 +4,20 @@ import {
   RatingAndReview,
   TotalReview,
 } from '../../components/Profile';
+import EditProfile from '../../components/Profile/EditProfile';
+import EditableTextField from '../../components/Profile/test';
 import './index.css';
 import React from 'react';
 
 const ProfilePage = () => {
   return (
     <div>
-      <ProfileInfo />
+      {/* <EditableTextField /> */}
+      <EditProfile/>
+      {/* <ProfileInfo />
       <TotalReview />
       <RatingAndReview />
-      <Footer />
+      <Footer /> */}
     </div>
   );
 };
