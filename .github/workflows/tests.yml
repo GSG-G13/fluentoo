@@ -52,5 +52,8 @@ jobs:
       env:
         DB_URL: ${{ secrets.DB_URL }}
         DB_URL_PRODUCTION: ${{ secrets.DB_URL_PRODUCTION }}
- 
+        TEST_DB_HOSTNAME: ${{secrets.TEST_DB_HOSTNAME}}
+        TEST_DB_NAME: ${{secrets.TEST_DB_NAME}}
+        TEST_DB_USERNAME: ${{secrets.TEST_DB_USERNAME}}
+        TEST_DB_PASSWORD: ${{secrets.TEST_DB_PASSWORD}}
 
