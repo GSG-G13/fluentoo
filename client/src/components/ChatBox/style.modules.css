@@ -129,14 +129,28 @@ main.ant-layout-content.css-dev-only-do-not-override-12jzuas {
 
 .controler {
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     align-items: center;
+}
+
+.features{
+    display: flex;
+}
+
+:where(.css-dev-only-do-not-override-12jzuas).ant-alert{
+    font-size: 9px;
+    padding: 2px;
 }
 
 .controler div span {
     margin-right: 10px;
 }
 
+.copy-alert {
+    position: absolute;
+    top: -19px;
+    left: -9px;
+}
 
 :where(.css-dev-only-do-not-override-12jzuas).ant-btn-primary {
     background-color: var(--primary-color);
@@ -169,6 +183,34 @@ main.ant-layout-content.css-dev-only-do-not-override-12jzuas {
 
 :where(.css-dev-only-do-not-override-12jzuas).ant-select-dropdown .ant-select-item{
     padding: 1px;
+}
+
+
+:where(.css-dev-only-do-not-override-12jzuas).ant-collapse>.ant-collapse-item >.ant-collapse-header{
+    padding: 0;
+}
+:where(.css-dev-only-do-not-override-12jzuas).ant-collapse{
+    border: none;
+    color: white;
+    background: none;
+}
+
+:where(.css-dev-only-do-not-override-12jzuas).ant-collapse>.ant-collapse-item >.ant-collapse-header .ant-collapse-arrow svg{
+    color: white;
+    cursor: pointer;
+
+}
+
+
+
+:where(.css-dev-only-do-not-override-12jzuas).ant-collapse>.ant-collapse-item >.ant-collapse-header .ant-collapse-expand-icon{
+    padding: 0;
+    display: block;
+}
+
+:where(.css-dev-only-do-not-override-12jzuas).ant-collapse>.ant-collapse-item:last-child, :where(.css-dev-only-do-not-override-12jzuas).ant-collapse>.ant-collapse-item:last-child>.ant-collapse-header{
+    border: none;
+    border-radius: 0;
 }
 
 

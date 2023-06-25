@@ -6,14 +6,16 @@ import {
   CopyOutlined,
 } from '@ant-design/icons';
 import { MessageObjectType } from '../../utils';
-import { Select } from 'antd';
+import { Select,Collapse, Alert } from 'antd';
+const {Panel}= Collapse;
 const { Option } = Select;
 
 function Message({ text, isOur }: MessageObjectType) {
-  const [toText, setToText] = useState('');
   const [translatedText, setTranslatedText] = useState('');
   const [translateFrom, setTranslateFrom] = useState('en-GB');
   const [translateTo, setTranslateTo] = useState('ar-SA');
+  const [copy, setCopy] = useState(false);
+  const [translate, setTranslate] = useState(false);
 
   const countries = {
     'am-ET': 'Amharic',
@@ -118,6 +120,10 @@ function Message({ text, isOur }: MessageObjectType) {
   const handleCopy = () => {
     const textToCopy = text;
     navigator.clipboard.writeText(textToCopy);
+    setCopy(true);
+    setTimeout(()=>{
+      setCopy(false)
+    },1000)
   };
 
   const handleTextToSpeech = () => {
@@ -138,6 +144,12 @@ function Message({ text, isOur }: MessageObjectType) {
       const res = await axios.get(apiUrl);
       const translation = res.data.responseData.translatedText;
       setTranslatedText(translation);
+      if(translate){
+        setTranslate(false)
+
+      }else{
+        setTranslate(true)
+      }
     } catch (error) {
       console.log(error);
     }
@@ -147,51 +159,60 @@ function Message({ text, isOur }: MessageObjectType) {
   return (
     <div className={isOur ? 'message own' : 'message'}>
       <p className="text">{text}</p>
-      {translatedText && text && <p>{translatedText}</p>}
+      {translatedText && translate &&text && <p>{translatedText}</p>}
       <div className="controler">
-        <div className="icons">
-          <span>
-            <TranslationOutlined onClick={handleTranslate} />
-          </span>
-          <span>
-            <CopyOutlined onClick={handleCopy} />
+      <div className="features">
+
+          <span style={{position: 'relative'}}>
+          {copy ?<Alert message="Copied!" type="warning" className='copy-alert'/>:null}
+            <CopyOutlined onClick={handleCopy }/>
+    
           </span>
           <span>
             <SoundOutlined onClick={handleTextToSpeech} />
           </span>
+          <span>
+      <TranslationOutlined onClick={handleTranslate} />
+    </span>
+<Collapse size='small'>
+<Panel header="" key="1">
+  <div className="icons">
 
-          <div className="language-choices">
-            <span className="select-title">Your Language :</span>
+    <div className="language-choices">
 
-            <Select
-              size="small"
-              showArrow={false}
-              value={translateFrom}
-              onChange={(value) => setTranslateFrom(value)}
-            >
-              {Object.entries(countries).map(([code, name]) => (
-                <Option key={code} value={code}>
-                  {name}
-                </Option>
-              ))}
-            </Select>
+      <Select
+        size="small"
+        showArrow={false}
+        value={translateFrom}
+        onChange={(value) => setTranslateFrom(value)}
+      >
+        {Object.entries(countries).map(([code, name]) => (
+          <Option key={code} value={code}>
+            {name}
+          </Option>
+        ))}
+      </Select>
 
-            <span className="select-title">Translate to :</span>
+      <span className="select-title">to :</span>
 
-            <Select
-              size="small"
-              showArrow={false}
-              value={translateTo}
-              onChange={(value) => setTranslateTo(value)}
-            >
-              {Object.entries(countries).map(([code, name]) => (
-                <Option key={code} value={code}>
-                  {name}
-                </Option>
-              ))}
-            </Select>
-          </div>
-        </div>
+      <Select
+        size="small"
+        showArrow={false}
+        value={translateTo}
+        onChange={(value) => setTranslateTo(value)}
+      >
+        {Object.entries(countries).map(([code, name]) => (
+          <Option key={code} value={code}>
+            {name}
+          </Option>
+        ))}
+      </Select>
+    </div>
+  </div>
+</Panel>
+</Collapse>
+   
+    </div>
       </div>
     </div>
   );
