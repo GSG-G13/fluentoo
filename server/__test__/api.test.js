@@ -15,7 +15,6 @@ describe('Sign up tests', () => {
       password: '123@Aaaaaaaa',
     };
     const response = await request(app).post('/api/v1/auth/signup').send(newUser);
-    console.log(process.env);
     expect(response.body.status).toBe(201);
     expect(response.body.msg).toBe('Signup successfully');
   });
