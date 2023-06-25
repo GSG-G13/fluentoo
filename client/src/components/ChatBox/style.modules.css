@@ -1,253 +1,268 @@
 .main-layout {
-    height: 100vh;
-    overflow: hidden;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .side-bar {
-    background-color: #fff !important;
-    height: 100%;
-    width: 20%;
+  background-color: #fff !important;
+  height: 100%;
+  width: 20%;
 }
 
 .side-bar main.ant-layout-content.css-dev-only-do-not-override-12jzuas {
-    margin: 0 !important;
-    height: 100% !important;
-    padding: 15px;
+  margin: 0 !important;
+  height: 100% !important;
+  padding: 15px;
 }
 
 .side-bar .users-box {
-    height: 100% !important;
-    margin-top: 10px;
-    overflow-y: auto !important;
-    padding: 10px;
+  height: 100% !important;
+  margin-top: 10px;
+  overflow-y: auto !important;
+  padding: 10px;
 }
 
 .user {
-    display: flex;
-    gap: 7px;
-    align-items: center;
-    margin-top: 15px;
-    cursor: pointer;
-    padding: 5px;
-    border-radius: 3px;
-    transition: 0.2s;
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  margin-top: 15px;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 3px;
+  transition: 0.2s;
 }
 
 .user.active {
-    transform: translateX(8px);
-    border-left: 5px solid var(--primary-color);
-    background-color: #f5f5f5;
+  transform: translateX(8px);
+  border-left: 5px solid var(--primary-color);
+  background-color: #f5f5f5;
 }
 
 .css-dev-only-do-not-override-12jzuas.ant-btn,
 .css-dev-only-do-not-override-12jzuas.ant-input-affix-wrapper-lg {
-    border-radius: 19px;
+  border-radius: 19px;
 }
 
-:where(.css-dev-only-do-not-override-12jzuas).ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled):hover {
-    border-color: var(--primary-color);
+:where(.css-dev-only-do-not-override-12jzuas).ant-input-affix-wrapper:not(
+    .ant-input-affix-wrapper-disabled
+  ):hover {
+  border-color: var(--primary-color);
 }
 
-.ant-input-affix-wrapper .ant-input-affix-wrapper-lg .css-dev-only-do-not-override-12jzuas {
-    outline: none;
-    border: none;
-    box-shadow: none;
+.ant-input-affix-wrapper
+  .ant-input-affix-wrapper-lg
+  .css-dev-only-do-not-override-12jzuas {
+  outline: none;
+  border: none;
+  box-shadow: none;
 }
 
 .react-input-emoji--container {
-    border-width: 1px;
-    border-style: solid;
-    border-color: #d9d9d9 !important;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #d9d9d9 !important;
 }
 
 :where(.css-dev-only-do-not-override-12jzuas).ant-input-affix-wrapper:focus {
-    box-shadow: none !important;
-    border-width: 1px !important;
-    border-style: solid !important;
-    border-color: var(--primary-color) !important;
+  box-shadow: none !important;
+  border-width: 1px !important;
+  border-style: solid !important;
+  border-color: var(--primary-color) !important;
 }
 
 main.ant-layout-content.css-dev-only-do-not-override-12jzuas {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .user-header {
-    background-color: #fff;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    padding: 10px 15px
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 10px 15px;
 }
 
 .sider-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-
 .chat-wraper {
-    overflow-y: scroll;
-    height: 100vh;
+  overflow-y: scroll;
+  height: 100vh;
 }
 
 .conversation {
-    flex-grow: 1;
-    overflow-y: auto;
-    display: flex;
-    min-height: 95% !important;
-    flex-direction: column;
-    justify-content: flex-end;
+  flex-grow: 1;
+  overflow-y: auto;
+  display: flex;
+  min-height: 95% !important;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
 .user_input {
-    background-color: #fff;
-    padding: 10px 15px
+  background-color: #fff;
+  padding: 10px 15px;
 }
 
 .user_input form {
-    width: 75%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 7px;
-    margin: auto;
+  width: 75%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+  margin: auto;
 }
 
 .user_input input {
-    flex: 1;
-    padding: 7px 11px;
-    font-size: 16px;
-    line-height: 1.5;
-    border-radius: 8px;
-    border-radius: 19px;
+  flex: 1;
+  padding: 7px 11px;
+  font-size: 16px;
+  line-height: 1.5;
+  border-radius: 8px;
+  border-radius: 19px;
 }
 
 :where(.css-dev-only-do-not-override-12jzuas).ant-input:hover {
-    border-color: var(--primary-color);
+  border-color: var(--primary-color);
 }
 
 .message {
-    padding: 0.6rem 1rem !important;
-    background-color: var(--gray-color);
-    color: #fff;
-    font-size: 1rem;
-    border-radius: 1rem 1rem 1rem 0;
-    width: 500px;
-    margin: 0.3rem 0.65rem;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-
+  padding: 0.6rem 1rem !important;
+  background-color: var(--gray-color);
+  color: #fff;
+  font-size: 1rem;
+  border-radius: 1rem 1rem 1rem 0;
+  width: 500px;
+  margin: 0.3rem 0.65rem;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .message.own {
-    margin-left: auto;
-    border-radius: 1rem 1rem 0 1rem;
-    background-color: var(--primary-color);
+  margin-left: auto;
+  border-radius: 1rem 1rem 0 1rem;
+  background-color: var(--primary-color);
 }
 
 .controler {
-    display: flex;
-    /* justify-content: space-between; */
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
-.features{
-    display: flex;
+.features {
+  display: flex;
 }
 
-:where(.css-dev-only-do-not-override-12jzuas).ant-alert{
-    font-size: 9px;
-    padding: 2px;
+:where(.css-dev-only-do-not-override-12jzuas).ant-alert {
+  font-size: 9px;
+  padding: 2px;
 }
 
 .controler div span {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
 .copy-alert {
-    position: absolute;
-    top: -19px;
-    left: -9px;
+  position: absolute;
+  top: -19px;
+  left: -9px;
 }
 
 :where(.css-dev-only-do-not-override-12jzuas).ant-btn-primary {
-    background-color: var(--primary-color);
+  background-color: var(--primary-color);
 }
 
-:where(.css-dev-only-do-not-override-12jzuas).ant-btn-primary:not(:disabled):hover {
-    background-color: var(--primary-color-hover);
+:where(.css-dev-only-do-not-override-12jzuas).ant-btn-primary:not(
+    :disabled
+  ):hover {
+  background-color: var(--primary-color-hover);
 }
 
-
-.language-choices{
-    display: flex;
-    align-items: center;
-    gap: 5px;
+.language-choices {
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
-.select-title{
-    font-size: 11px;
+.select-title {
+  font-size: 11px;
 }
 
-
-:where(.css-dev-only-do-not-override-12jzuas).ant-select-single .ant-select-selector .ant-select-selection-item,
-:where(.css-dev-only-do-not-override-12jzuas).ant-select-single.ant-select-sm .ant-select-selector .ant-select-selection-item{
-    font-size: 11px;
+:where(.css-dev-only-do-not-override-12jzuas).ant-select-single
+  .ant-select-selector
+  .ant-select-selection-item,
+:where(.css-dev-only-do-not-override-12jzuas).ant-select-single.ant-select-sm
+  .ant-select-selector
+  .ant-select-selection-item {
+  font-size: 11px;
 }
 
-:where(.css-dev-only-do-not-override-12jzuas).ant-select-dropdown .ant-select-item-option-content{
-    font-size: 10px;
+:where(.css-dev-only-do-not-override-12jzuas).ant-select-dropdown
+  .ant-select-item-option-content {
+  font-size: 10px;
 }
 
-:where(.css-dev-only-do-not-override-12jzuas).ant-select-dropdown .ant-select-item{
-    padding: 1px;
+:where(.css-dev-only-do-not-override-12jzuas).ant-select-dropdown
+  .ant-select-item {
+  padding: 1px;
 }
 
-
-:where(.css-dev-only-do-not-override-12jzuas).ant-collapse>.ant-collapse-item >.ant-collapse-header{
-    padding: 0;
+:where(.css-dev-only-do-not-override-12jzuas).ant-collapse
+  > .ant-collapse-item
+  > .ant-collapse-header {
+  padding: 0;
 }
-:where(.css-dev-only-do-not-override-12jzuas).ant-collapse{
-    border: none;
-    color: white;
-    background: none;
-}
-
-:where(.css-dev-only-do-not-override-12jzuas).ant-collapse>.ant-collapse-item >.ant-collapse-header .ant-collapse-arrow svg{
-    color: white;
-    cursor: pointer;
-
+:where(.css-dev-only-do-not-override-12jzuas).ant-collapse {
+  border: none;
+  color: white;
+  background: none;
 }
 
-
-
-:where(.css-dev-only-do-not-override-12jzuas).ant-collapse>.ant-collapse-item >.ant-collapse-header .ant-collapse-expand-icon{
-    padding: 0;
-    display: block;
+:where(.css-dev-only-do-not-override-12jzuas).ant-collapse
+  > .ant-collapse-item
+  > .ant-collapse-header
+  .ant-collapse-arrow
+  svg {
+  color: white;
+  cursor: pointer;
 }
 
-:where(.css-dev-only-do-not-override-12jzuas).ant-collapse>.ant-collapse-item:last-child, :where(.css-dev-only-do-not-override-12jzuas).ant-collapse>.ant-collapse-item:last-child>.ant-collapse-header{
-    border: none;
-    border-radius: 0;
+:where(.css-dev-only-do-not-override-12jzuas).ant-collapse
+  > .ant-collapse-item
+  > .ant-collapse-header
+  .ant-collapse-expand-icon {
+  padding: 0;
+  display: block;
 }
 
+:where(.css-dev-only-do-not-override-12jzuas).ant-collapse
+  > .ant-collapse-item:last-child,
+:where(.css-dev-only-do-not-override-12jzuas).ant-collapse
+  > .ant-collapse-item:last-child
+  > .ant-collapse-header {
+  border: none;
+  border-radius: 0;
+}
 
 @media (max-width: 990px) {
-    .message {
-        width: 350px;
-    }
+  .message {
+    width: 350px;
+  }
 }
 
 @media (max-width: 768px) {
-    .message {
-        width: fit-content;
-        max-width: 500px;
-    }
+  .message {
+    width: fit-content;
+    max-width: 500px;
+  }
 
-    .user_input form {
-        width: 100%;
-    }
+  .user_input form {
+    width: 100%;
+  }
 }
