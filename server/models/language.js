@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../database/config/connection');
+const sequelize = require('../database/connection');
 
 const Language = sequelize.define('languages', {
   name: {
