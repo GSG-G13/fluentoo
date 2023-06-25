@@ -13,10 +13,6 @@ const {
   },
 } = require('../config');
 
-// eslint-disable-next-line no-console
-console.log({
-  database, username, password, hostname, dialect,
-});
 const sequelize = new Sequelize(database, username, password, {
   hostname,
   dialect,
