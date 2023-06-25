@@ -1,5 +1,5 @@
 const { createProfile, updateProfile, getProfile } = require('./Profile');
-const search = require('./community/search');
+const { search } = require('./community');
 const {
   createMessage,
   readMessage,

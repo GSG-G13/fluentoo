@@ -1,24 +1,32 @@
 const { Op } = require('sequelize');
-const { Profile, User } = require('../../models');
+const { Profile, User, FeedBack } = require('../../models');
+const sequelize = require('../../database/config/connection');
 
-const search = async (req, res) => {
+const search = async (req, res, next) => {
   const {
-    page, limit, name, spokenLanguages, practiceLanguages,
+    name, spokenLanguages, practiceLanguages,
   } = req.query;
-  const pageNumber = parseInt(page, 10);
-  const pageSize = parseInt(limit, 10);
-  const currentPage = pageNumber || 1;
-  const itemsPerPage = pageSize || 10;
 
   const query = {
-    limit: itemsPerPage,
-    offset: (currentPage - 1) * itemsPerPage,
-    include: {
-      model: User,
-      attributes: ['id', 'username', 'email'],
+    include: [
+      {
+        model: FeedBack,
+        attributes: [],
+      },
+      {
+        model: Profile,
+        attributes: ['spokenLanguages', 'country', 'id', 'practiceLanguages'],
+      },
+    ],
+    attributes: [
+      'id',
+      'username',
+      'email',
+      [sequelize.fn('AVG', sequelize.col('feedbacks.star')), 'avgRating'],
+    ],
+    where: {
     },
-    attributes: ['avatar', 'spokenLanguages', 'country'],
-    where: {},
+    group: ['users.id', 'profile.id'],
   };
 
   if (name) {
@@ -32,31 +40,30 @@ const search = async (req, res) => {
   if (spokenLanguages) {
     query.where = {
       ...query.where,
-      spokenLanguages: {
-        [Op.contains]: [spokenLanguages],
+      '$profile.spoken_languages$': {
+        [Op.overlap]: `{${spokenLanguages}}`,
       },
+
     };
   }
 
   if (practiceLanguages) {
     query.where = {
       ...query.where,
-      practiceLanguages: {
-        [Op.contains]: [practiceLanguages],
+      '$profile.practice_languages$': {
+        [Op.overlap]: `{${practiceLanguages}}`,
       },
     };
   }
 
   try {
-    const profiles = await Profile.findAndCountAll(query);
+    const profiles = await User.findAll(query);
     return res.json({
-      totalProfiles: profiles.count,
-      profiles: profiles.rows,
+      data: profiles,
     });
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ error: 'An error occurred while retrieving profiles.' });
+    return next(error);
   }
 };
 
-module.exports = search;
+module.exports = { search };

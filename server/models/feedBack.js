@@ -19,4 +19,7 @@ FeedBack.belongsTo(User, {
 FeedBack.belongsTo(User, {
   foreignKey: 'commentingId',
 });
+User.hasMany(FeedBack, {
+  foreignKey: 'commentingId',
+});
 module.exports = FeedBack;
