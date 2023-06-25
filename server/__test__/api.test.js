@@ -2,6 +2,7 @@
 const request = require('supertest');
 const app = require('../app');
 const sequelize = require('../database/connection');
+require('dotenv').config();
 
 afterAll(async () => {
   await sequelize.close();
@@ -14,6 +15,7 @@ describe('Sign up tests', () => {
       password: '123@Aaaaaaaa',
     };
     const response = await request(app).post('/api/v1/auth/signup').send(newUser);
+    console.log(process.env);
     expect(response.body.status).toBe(201);
     expect(response.body.msg).toBe('Signup successfully');
   });
@@ -30,7 +32,7 @@ describe('Sign up tests', () => {
   // });
 
 //   it('should return email already exists error', async () => {
-//     jest.spyOn(User, 'findOne').mockImplementation(() => 
+//     jest.spyOn(User, 'findOne').mockImplementation(() =>
 //     Promise.resolve({ email: 'existing@example.com' }));
 //     const newUser = {
 //       email: 'existing@example.com',
