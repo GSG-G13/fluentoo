@@ -17,13 +17,13 @@ const development = {
 
 const test = {
   hostname: process.env.TEST_DB_HOSTNAME || 'localhost',
-  database: process.env.DB_NAME || 'fluento',
-  username: process.env.DB_USERNAME || 'team3',
-  port: process.env.DB_PORT || 5432,
-  password: process.env.DB_PASSWORD || '123',
+  database: process.env.TEST_DB_NAME || 'fluento',
+  username: process.env.TEST_DB_USERNAME || 'team3',
+  port: process.env.TEST_DB_PORT || 5432,
+  password: process.env.TEST_DB_PASSWORD || '123',
   dialect: 'postgres',
   charset: 'utf8',
-  logging: true,
+  logging: false,
   timestamps: true,
   underscored: true,
 };
