@@ -11,7 +11,7 @@
     "lint": "eslint .",
     "lint-staged": "lint-staged",
     "lint-fix": "cross-env eslint . --ext .js --fix",
-    "db:seed": "node server/database/seed/index.js"
+    "db:seed": "node server/database/seed"
   },
   "lint-staged": {
     "*.js": [
