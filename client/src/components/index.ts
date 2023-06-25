@@ -1,4 +1,5 @@
 import SignupForm from './SignupForm';
+import LoginForm from './LoginForm';
 import ChatBox from './ChatBox';
 import MessagesSiderHead from './MessagesSiderHead';
 import ChooseChatButton from './ChooseChatButton';
@@ -9,6 +10,7 @@ import SendMessageForm from './SendMessageForm';
 
 export {
   SignupForm,
+  LoginForm,
   ChatBox,
   MessagesSiderHead,
   ChooseChatButton,

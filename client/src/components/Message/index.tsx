@@ -10,7 +10,7 @@ import { Select,Collapse, Alert } from 'antd';
 const {Panel}= Collapse;
 const { Option } = Select;
 
-function Message({ text, isOur }: MessageObjectType) {
+function Message({ content, sender, receiver, isOur }: MessageObjectType) {
   const [translatedText, setTranslatedText] = useState('');
   const [translateFrom, setTranslateFrom] = useState('en-GB');
   const [translateTo, setTranslateTo] = useState('ar-SA');
@@ -118,7 +118,7 @@ function Message({ text, isOur }: MessageObjectType) {
   };
 
   const handleCopy = () => {
-    const textToCopy = text;
+    const textToCopy = content;
     navigator.clipboard.writeText(textToCopy);
     setCopy(true);
     setTimeout(()=>{
@@ -127,7 +127,7 @@ function Message({ text, isOur }: MessageObjectType) {
   };
 
   const handleTextToSpeech = () => {
-    const textToSpeech = text;
+    const textToSpeech = content;
     const lang = translateFrom;
     const utterance = new SpeechSynthesisUtterance(textToSpeech);
     utterance.lang = lang;
@@ -137,7 +137,7 @@ function Message({ text, isOur }: MessageObjectType) {
 
   const handleTranslate = async () => {
     const apiUrl = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(
-      text
+      content
     )}&langpair=${translateFrom}|${translateTo}`;
   
     try {
@@ -158,8 +158,8 @@ function Message({ text, isOur }: MessageObjectType) {
 
   return (
     <div className={isOur ? 'message own' : 'message'}>
-      <p className="text">{text}</p>
-      {translatedText && translate &&text && <p>{translatedText}</p>}
+      <p className="text">{content}</p>
+      {translatedText && translate &&content && <p>{translatedText}</p>}
       <div className="controler">
       <div className="features">
 

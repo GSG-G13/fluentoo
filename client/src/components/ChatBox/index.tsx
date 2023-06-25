@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Layout } from 'antd';
 import { useAuthContext } from '../../context/AuthContext';
 import { UserObjectType, MessageObjectType } from '../../utils';
@@ -12,6 +12,7 @@ import {
   ChatUserHead,
   SendMessageForm
 } from '..';
+import axios from 'axios';
 
 function ChatBox() {
   const { user: { userId: loggedInUserId } } = useAuthContext();
@@ -25,6 +26,7 @@ function ChatBox() {
     userId: 0,
     userName: '',
   });
+  const chatWraper = useRef<HTMLDivElement>(null);
 
   const makeArrayOfObjectsUnique = (arr: UserObjectType[]) => {
     const uniqueArray: UserObjectType[] = [];
@@ -63,18 +65,39 @@ function ChatBox() {
         const uniqueOnlineUsers: UserObjectType[] = makeArrayOfObjectsUnique(receivedMessage.onlineUsers);
         setOnlineUsers(uniqueOnlineUsers);
       } else if ('text' in receivedMessage) {
-        const { text } = receivedMessage;
-        setAllMessages((prev) => [...prev, { text, isOur: false }]);
+        const { text, sender, receiver } = receivedMessage;
+        setAllMessages((prevMessages) => [...prevMessages, { content: text, sender, receiver, isOur: false }]);
       }
     })
   }, []);
 
+  useEffect(() => {
+    if (selectedUser.userId) {
+      const getAllMessages = async () => {
+        const { data } = await axios.get(`/api/v1/message/${selectedUser.userId}`)
+        let tempmsg = data.data.map(({ id, updatedAt, createdAt, ...rest }: any) => ({ ...rest, isOur: rest.sender === loggedInUserId }))
+        setAllMessages(tempmsg);
+      }
+      getAllMessages();
+    }
+  }, [selectedUser.userId]);
+
   const handleSendMessage = () => {
     if (ws) {
-      ws.send(JSON.stringify({ message: { text, recipient: selectedUser.userId } }))
-      setAllMessages((prevMessages) => [...prevMessages, { text, isOur: true }]);
+      ws.send(JSON.stringify({ message: { text, sender: loggedInUserId, receiver: selectedUser.userId } }))
+      if (loggedInUserId) {
+        setAllMessages((prevMessages) => [...prevMessages, { content: text, sender: loggedInUserId, receiver: selectedUser.userId, isOur: true }]);
+      }
     }
+    setText('');
   }
+
+  useEffect(() => {
+    if (chatWraper.current) {
+      chatWraper.current.scrollTop = chatWraper.current.scrollHeight;
+    }
+
+  }, [allMessages]);
 
   const onlineUsersElements = onlineUsers
     .filter((user) => user.userId !== loggedInUserId)
@@ -108,9 +131,9 @@ function ChatBox() {
               setCollapsed={setCollapsed}
             />
 
-            <div className='chat-wraper'>
+            <div ref={chatWraper} className='chat-wraper'>
               <div className='conversation'>
-                {allMessages.map((message, i) => <Message key={i} text={message.text} isOur={message.isOur} />)}
+                {allMessages.map((message, i) => <Message key={i} {...message} />)}
               </div>
             </div>
 

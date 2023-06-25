@@ -1,10 +1,11 @@
 /* eslint-disable consistent-return */
 const { ValidationError } = require('joi');
 const { JsonWebTokenError } = require('jsonwebtoken');
-const CustomeError = require('../../utils/helper/customeError');
+const { CustomeError } = require('../../utils');
 
 // eslint-disable-next-line no-unused-vars
 const serverError = (err, req, res, next) => {
+  console.log(err);
   if (err instanceof ValidationError) {
     return res.status(400).json({
       msg: err.details[0].message,

@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 const cookie = require('cookie');
 const { WebSocketServer } = require('ws');
+const { Message } = require('../models');
 const server = require('..');
 const { verfiyToken } = require('../utils');
 
@@ -24,12 +25,24 @@ const getOnlineUsers = async () => {
 };
 
 const sendMessage = async (receivedMessage) => {
-  const { text, recipient } = receivedMessage.message;
-  [...wss.clients].forEach((client) => {
-    if (client.userId === recipient) {
-      client.send(JSON.stringify({ text }));
+  try {
+    const { text, sender, receiver } = receivedMessage.message;
+    const message = await Message.create({
+      sender,
+      receiver,
+      content: text,
+    });
+    if (message) {
+      [...wss.clients].forEach((client) => {
+        if (client.userId === receiver) {
+          client.send(JSON.stringify({ text, sender, receiver }));
+        }
+      });
     }
-  });
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.log(err);
+  }
 };
 
 wss.on(('connection'), async (connection, req) => {
