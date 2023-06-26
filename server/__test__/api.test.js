@@ -88,7 +88,8 @@ describe('Login tests', () => {
 });
 
 describe('Profile model', () => {
-  it('should add user profile information', async () => {
+  // ? Create a profile
+  it('should Create a profile successfully', async () => {
     const newProfile = {
       gender: 'female',
       country: 'gaza',
@@ -104,8 +105,8 @@ describe('Profile model', () => {
       username: 'adalah',
       password: '123@Aaaaaaaa',
     };
-    const responseLogin = await request(app).post('/api/v1/auth/signup').send(newUser);
-    const { token } = responseLogin.body;
+    const responseSignup = await request(app).post('/api/v1/auth/signup').send(newUser);
+    const { token } = responseSignup.body;
     const response = await request(app)
       .post('/api/v1/profile')
       .set('Cookie', [`token=${token}`])
@@ -113,6 +114,160 @@ describe('Profile model', () => {
     expect(response.body.status).toBe(201);
     expect(response.body.msg).toBe('profile created successfully');
   });
+  it('should return validation error', async () => {
+    const newProfile = {
+      gender: 'male',
+      birthdate: '2002-1-25',
+      practiceLanguages: ['English', 'Spanish'],
+      spokenLanguages: ['French', 'German'],
+      intrests: ['Reading', 'Traveling'],
+      bio: 'I am a language enthusiast.',
+      avatar: 'https://example.com/avatar.jpg',
+    };
+    const newUser = {
+      email: 'adalah02@gmail.com',
+      username: 'adalah02',
+      password: '123@Aaaaaaaa',
+    };
+    const responseSignup = await request(app).post('/api/v1/auth/signup').send(newUser);
+    const { token } = responseSignup.body;
+    const response = await request(app)
+      .post('/api/v1/profile')
+      .set('Cookie', [`token=${token}`])
+      .send(newProfile);
+    expect(response.body.status).toBe(400);
+    expect(response.body.msg).toBe('"country" is required');
+  });
+
+  // ? Get a profile
+  it('should return all profiles', async () => {
+    const response = await request(app)
+      .get('/api/v1/profile');
+    expect(response.body.status).toBe(200);
+    expect(response.body.data[0]).toHaveProperty('user');
+  });
+  it('should return a profile', async () => {
+    const response = await request(app)
+      .get('/api/v1/profile/1');
+    expect(response.body.status).toBe(200);
+    console.log(response.body.data);
+    expect(response.body.data).toHaveProperty('user');
+    expect(typeof response.body.data.user).toBe('object');
+  });
+  it('should pass the error Profile not found', async () => {
+    const response = await request(app)
+      .get('/api/v1/profile/100');
+    expect(response.body.status).toBe(404);
+    expect(response.body.msg).toBe('Profile not found');
+  });
+  // ? add this test after fixing the validation error for params datatype
+  // it('should return validation error', async () => {
+  //   const response = await request(app)
+  //     .get('/api/v1/profile/abc');
+  //   expect(response.body.status).toBe(400);
+  //   expect(response.body.msg).toBe('"profileId" must be a number');
+  // });
+
+  // ? Update a profile
+  it('should update a profile successfully', async () => {
+    const newUser = {
+      email: 'adalah03@gmail.com',
+      username: 'adalah',
+      password: '123@Aaaaaaaa',
+    };
+    const newProfile = {
+      gender: 'male',
+      country: 'Gaza',
+      birthdate: '2000-5-25',
+      practiceLanguages: ['English', 'German'],
+      spokenLanguages: ['Arabic'],
+      intrests: ['Reading', 'coding'],
+      bio: 'I am a language enthusiast.',
+      avatar: 'https://example.com/avatar.jpg',
+    };
+    const responseSignup = await request(app).post('/api/v1/auth/signup').send(newUser);
+    const { token } = responseSignup.body;
+    const responseCreateProfile = await request(app)
+      .post('/api/v1/profile')
+      .set('Cookie', [`token=${token}`])
+      .send(newProfile);
+    const { id } = responseCreateProfile.body.data;
+    const updatedProfile = {
+      ...newProfile,
+      intrests: ['Reading', 'coding', 'Traveling'],
+    };
+    const response = await request(app)
+      .put(`/api/v1/profile/${id}`)
+      .set('Cookie', [`token=${token}`])
+      .send(updatedProfile);
+    expect(response.body.status).toBe(200);
+    expect(response.body.msg).toBe('profile updated successfully');
+  });
+  it('should return validation error in update profile', async () => {
+    const newUser = {
+      email: 'adalah04@gmail.com',
+      username: 'adalah',
+      password: '123@Aaaaaaaa',
+    };
+    const newProfile = {
+      gender: 'male',
+      country: 'Gaza',
+      birthdate: '2000-5-25',
+      practiceLanguages: ['English', 'German'],
+      spokenLanguages: ['Arabic'],
+      intrests: ['Reading', 'coding'],
+      bio: 'I am a language enthusiast.',
+      avatar: 'https://example.com/avatar.jpg',
+    };
+    const responseSignup = await request(app).post('/api/v1/auth/signup').send(newUser);
+    const { token } = responseSignup.body;
+    const responseCreateProfile = await request(app)
+      .post('/api/v1/profile')
+      .set('Cookie', [`token=${token}`])
+      .send(newProfile);
+    const { id } = responseCreateProfile.body.data;
+    const updatedProfile = {
+      ...newProfile,
+      intrests: 'Traveling',
+    };
+    const response = await request(app)
+      .put(`/api/v1/profile/${id}`)
+      .set('Cookie', [`token=${token}`])
+      .send(updatedProfile);
+    expect(response.body.status).toBe(400);
+    expect(response.body.msg).toBe('"intrests" must be an array');
+  });
+
+  // ? add this test after fixing the error handling
+  // it('should pass the error Profile not found', async () => {
+  //   const newUser = {
+  //     email: 'adalah05@gmail.com',
+  //     username: 'adalah',
+  //     password: '123@Aaaaaaaa',
+  //   };
+  //   const newProfile = {
+  //     gender: 'male',
+  //     country: 'Gaza',
+  //     birthdate: '2000-5-25',
+  //     practiceLanguages: ['English', 'German'],
+  //     spokenLanguages: ['Arabic'],
+  //     intrests: ['Reading', 'coding'],
+  //     bio: 'I am a language enthusiast.',
+  //     avatar: 'https://example.com/avatar.jpg',
+  //   };
+  //   const responseSignup = await request(app).post('/api/v1/auth/signup').send(newUser);
+  //   const { token } = responseSignup.body;
+  //   const updatedProfile = {
+  //     ...newProfile,
+  //     intrests: ['Traveling'],
+  //   };
+  //   const response = await request(app)
+  //     .put('/api/v1/profile/100')
+  //     .set('Cookie', [`token=${token}`])
+  //     .send(updatedProfile);
+  //   expect(response.body.status).toBe(404);
+  //   expect(response.body.msg).toBe('Profile not found');
+  // });
 });
 
 describe('Language model', () => {
@@ -128,7 +283,6 @@ describe('Language model', () => {
     expect(createdLanguage.shortcut).toBe(languageData.shortcut);
     expect(createdLanguage.flag).toBe(languageData.flag);
   });
-
   it('should not allow null values', async () => {
     try {
       await Language.create({
@@ -159,14 +313,7 @@ afterAll(async () => {
     - should return email doesn't exists error
     - should return password or email incorrect
   * profile: in-progress
-    - should add user profile information
-    - should return validation error
-    - should return the profile with the associated user
-    - should pass the error to the next middleware
-    ...
   * language: in-progress
-    - should create a new language
-    - should not allow null values
   * message: todo
   * feedback: todo
 */
