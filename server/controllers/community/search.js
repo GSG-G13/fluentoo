@@ -15,7 +15,7 @@ const search = async (req, res, next) => {
       },
       {
         model: Profile,
-        attributes: ['spokenLanguages', 'country', 'id', 'practiceLanguages'],
+        attributes: ['id', 'spokenLanguages', 'country', 'avatar'],
       },
     ],
     attributes: [
@@ -36,7 +36,6 @@ const search = async (req, res, next) => {
       },
     };
   }
-
   if (spokenLanguages) {
     query.where = {
       ...query.where,
@@ -46,7 +45,6 @@ const search = async (req, res, next) => {
 
     };
   }
-
   if (practiceLanguages) {
     query.where = {
       ...query.where,
