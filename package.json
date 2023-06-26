@@ -6,7 +6,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=production node server",
     "dev": "cross-env NODE_ENV=development nodemon server",
-    "test": "cross-env NODE_ENV=test node server/database/seed && jest",
+    "test": "cross-env NODE_ENV=test jest",
     "prepare": "husky install",
     "lint": "eslint .",
     "lint-staged": "lint-staged",

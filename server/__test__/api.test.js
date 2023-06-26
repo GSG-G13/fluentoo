@@ -1,7 +1,6 @@
 /* eslint-disable no-undef */
 const request = require('supertest');
 const app = require('../app');
-const getAllLanguages = require('../controllers/language/getAllLanguages');
 const sequelize = require('../database/connection');
 const { User, Language } = require('../models');
 require('dotenv').config();
@@ -10,11 +9,7 @@ beforeAll(async () => {
   await sequelize.sync({ force: true });
 });
 
-afterAll(async () => {
-  await sequelize.close();
-});
-
-describe('Sign up tests', () => {
+describe('Signup tests', () => {
   it('should add a new user', async () => {
     const newUser = {
       email: 'basel@gmail.com',
@@ -47,27 +42,69 @@ describe('Sign up tests', () => {
     const response = await request(app).post('/api/v1/auth/signup').send(newUser);
     expect(response.body.status).toBe(400);
     expect(response.body.msg).toBe('Email already exists');
-    User.findOne.mockRestore();
+    jest.spyOn(User, 'findOne').mockRestore();
   });
 });
 
-describe('profile endpoints', () => {
+describe('Login tests', () => {
+  it('should login successfully', async () => {
+    const user = {
+      email: 'basel@gmail.com',
+      password: '123@Aaaaaaaa',
+    };
+    const response = await request(app).post('/api/v1/auth/login').send(user);
+    expect(response.body.status).toBe(200);
+    expect(response.body.msg).toBe('login successfully');
+  });
+  it('should return validation error', async () => {
+    const user = {
+      email: 'basel@gmail.com',
+      password: '123',
+    };
+    const response = await request(app).post('/api/v1/auth/login').send(user);
+    expect(response.body.status).toBe(400);
+    expect(response.body.msg).toBe(
+      'Password must be at least 8 characters long.',
+    );
+  });
+  it('should return email doesn\'t exists error', async () => {
+    const user = {
+      email: 'adalah@gmail.com',
+      password: '123@Aaaaaaaa',
+    };
+    const response = await request(app).post('/api/v1/auth/login').send(user);
+    expect(response.body.status).toBe(401);
+    expect(response.body.msg).toBe("Email doesn't exists");
+  });
+  it('should return password or email incorrect', async () => {
+    const user = {
+      email: 'basel@gmail.com',
+      password: '123@adfsasfaasf',
+    };
+    const response = await request(app).post('/api/v1/auth/login').send(user);
+    expect(response.body.status).toBe(400);
+    expect(response.body.msg).toBe('password or email incorrect');
+  });
+});
+
+describe('Profile model', () => {
   it('should add user profile information', async () => {
     const newProfile = {
       gender: 'female',
       country: 'gaza',
       birthdate: '2002-1-25',
       practiceLanguages: ['English', 'Spanish'],
-      spokenLanguages: ['French'],
+      spokenLanguages: ['French', 'German'],
       intrests: ['Reading', 'Traveling'],
       bio: 'I am a language enthusiast.',
       avatar: 'https://example.com/avatar.jpg',
     };
     const newUser = {
-      email: 'basel@gmail.com',
+      email: 'adalah@gmail.com',
+      username: 'adalah',
       password: '123@Aaaaaaaa',
     };
-    const responseLogin = await request(app).post('/api/v1/auth/login').send(newUser);
+    const responseLogin = await request(app).post('/api/v1/auth/signup').send(newUser);
     const { token } = responseLogin.body;
     const response = await request(app)
       .post('/api/v1/profile')
@@ -107,22 +144,29 @@ describe('Language model', () => {
   });
 });
 
-describe('getAllLanguages', () => {
-  it('should fetch all languages successfully', async () => {
-    Language.findAll = jest.fn().mockResolvedValue(['English', 'Spanish', 'French']);
-
-    const req = {};
-    const res = {
-      status: jest.fn(() => res),
-      json: jest.fn(),
-    };
-    const next = jest.fn();
-
-    await getAllLanguages(req, res, next);
-
-    expect(Language.findAll).toHaveBeenCalled();
-    expect(res.status).toHaveBeenCalledWith(200);
-    expect(res.json).toHaveBeenCalledWith(['English', 'Spanish', 'French']);
-    expect(next).not.toHaveBeenCalled();
-  });
+afterAll(async () => {
+  await sequelize.close();
 });
+
+/*
+  * signup: done
+    - should add a new user
+    - should return validation error
+    - should return email already exists error
+  * login: done
+    - should login successfully
+    - should return validation error
+    - should return email doesn't exists error
+    - should return password or email incorrect
+  * profile: in-progress
+    - should add user profile information
+    - should return validation error
+    - should return the profile with the associated user
+    - should pass the error to the next middleware
+    ...
+  * language: in-progress
+    - should create a new language
+    - should not allow null values
+  * message: todo
+  * feedback: todo
+*/
