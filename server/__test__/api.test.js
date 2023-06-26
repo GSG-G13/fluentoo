@@ -65,3 +65,13 @@ describe('profile endpoints', () => {
     expect(response.body.msg).toBe('profile created successfully');
   });
 });
+describe('community endpoints', () => {
+  it('should return data based on the params', async () => {
+    const name = 'aya';
+    const spokenLanguages = 'French';
+    const response = await request(app).get(`/api/v1/search?name=${name}&spokenLanguages=${spokenLanguages}`);
+    expect(response.status).toBe(200);
+    expect(response.body.data[0].username).toEqual(name);
+    expect(response.body.data[0].profile.spokenLanguages).toContain(spokenLanguages);
+  });
+});
