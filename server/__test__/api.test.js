@@ -160,13 +160,12 @@ describe('Profile model', () => {
     expect(response.body.status).toBe(404);
     expect(response.body.msg).toBe('Profile not found');
   });
-  // ? add this test after fixing the validation error for params datatype
-  // it('should return validation error', async () => {
-  //   const response = await request(app)
-  //     .get('/api/v1/profile/abc');
-  //   expect(response.body.status).toBe(400);
-  //   expect(response.body.msg).toBe('"profileId" must be a number');
-  // });
+  it('should return validation error', async () => {
+    const response = await request(app)
+      .get('/api/v1/profile/abc');
+    expect(response.body.status).toBe(400);
+    expect(response.body.msg).toBe('"profileId" must be a number');
+  });
 
   // ? Update a profile
   it('should update a profile successfully', async () => {

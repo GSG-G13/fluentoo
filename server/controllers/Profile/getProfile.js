@@ -4,6 +4,7 @@ const { CustomeError } = require('../../utils');
 const getProfile = async (req, res, next) => {
   try {
     const { profileId } = req.params;
+    if (profileId && Number.isNaN(+profileId)) throw new CustomeError('"profileId" must be a number', 400);
     let profile;
     if (profileId) {
       profile = await Profile.findByPk(profileId, {
