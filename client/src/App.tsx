@@ -1,29 +1,36 @@
 import React from 'react';
 import './App.css';
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from 'react-router-dom';
-
-import { Signup } from './pages';
-import Community from './pages/Community';
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <div>Hello landing</div>,
-  },
-  {
-    path: '/signup',
-    element: <Signup />,
-  },
-  {
-    path:'/community',
-    element:<Community/>
-  }
-]);
-
+import { Routes, Route, Navigate } from "react-router-dom";
+import { Signup, Login , Community} from './pages';
+import { useAuthContext } from "./context/AuthContext";
+import { Chat } from './pages';
 function App() {
-  return <RouterProvider router={router} />;
+  const { user } = useAuthContext();
+
+  return (
+    <Routes>
+      <Route
+        path="/"
+        element={<div>Hi landing</div>}
+      />
+      <Route
+        path="/signup"
+        element={user.userId ? <Navigate to="/chat" /> : <Signup />}
+      />
+      <Route
+        path="/login"
+        element={user.userId ? <Navigate to="/chat" /> : <Login />}
+      />
+      <Route
+        path="/chat"
+        element={user.userId ? <Chat /> : <Navigate to="/signup" />}
+      />
+        <Route
+        path="/community"
+        element= {<Community/>}
+      />
+    </Routes>
+  );
 }
 
 export default App;
