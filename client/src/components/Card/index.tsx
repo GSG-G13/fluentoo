@@ -1,12 +1,11 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Card, Rate, Button, Image } from 'antd';
 import {
   SendOutlined
 } from '@ant-design/icons';
 import './style.modules.css'
-function UserCard({ data }) {
-  console.log(data.avgRating);
-
+function UserCard(props:any) {
+   let data =props.data;
   return (
     <Card style={{ width: 300 }}>
       <div className='head'>
@@ -25,6 +24,7 @@ function UserCard({ data }) {
       <div className='bottom'>
         <Rate disabled defaultValue={0} value={data.avgRating} />
         <div className='flags'>
+          //to be changed 
           <img src="https://cdn-icons-png.flaticon.com/128/206/206657.png" alt="" />
           <img src="https://cdn-icons-png.flaticon.com/128/555/555613.png" alt="" /></div>
       </div>
