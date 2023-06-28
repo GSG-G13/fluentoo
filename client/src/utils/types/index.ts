@@ -64,3 +64,8 @@ export interface LoggedUserObjectType {
   userId: number | null;
   userName: string | null;
 }
+export interface DropMenuProps {
+  name: string;
+  setLanguage: (language: string) => void;
+}
+
