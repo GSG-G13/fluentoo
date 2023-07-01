@@ -8,11 +8,16 @@ const {
 } = require('../../models');
 
 const seeder = async () => {
-  await sequelize.sync({ force: env !== 'production' });
-  await User.bulkCreate(USERS);
-  await Language.bulkCreate(LANGUAGES);
-  await Profile.bulkCreate(PROFILES);
-  await FeedBack.bulkCreate(FEEDBACKS);
-  await Message.bulkCreate(MESSAGES);
+  try {
+    await sequelize.sync({ force: env !== 'production' });
+    await User.bulkCreate(USERS);
+    await Language.bulkCreate(LANGUAGES);
+    await Profile.bulkCreate(PROFILES);
+    await FeedBack.bulkCreate(FEEDBACKS);
+    await Message.bulkCreate(MESSAGES);
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.log(err);
+  }
 };
 seeder();

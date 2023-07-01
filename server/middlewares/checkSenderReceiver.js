@@ -1,5 +1,5 @@
-const { CustomeError } = require('../utils');
-const { User } = require('../models');
+const { CustomError } = require("../utils");
+const { User } = require("../models");
 
 const checkSenderReceiver = async (req, res, next) => {
   const { sender, receiver } = req.body;
@@ -15,7 +15,7 @@ const checkSenderReceiver = async (req, res, next) => {
       },
     });
     if (!senderExists || !receiverExists) {
-      throw new CustomeError('user not found', 404);
+      throw new CustomError("user not found", 404);
     }
     next();
   } catch (err) {

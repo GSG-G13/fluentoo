@@ -1,8 +1,13 @@
-const { Profile, User } = require('../../models');
+const { Profile, User } = require("../../models");
+const { CustomError, profileIdValidation } = require("../../utils");
 
 const getProfile = async (req, res, next) => {
   try {
     const { profileId } = req.params;
+    await profileIdValidation.validateAsync(
+      { profileId },
+      { abortEarly: false }
+    );
     const profile = await Profile.findByPk(profileId, {
       include: [
         {
@@ -10,6 +15,9 @@ const getProfile = async (req, res, next) => {
         },
       ],
     });
+    if (!profile) {
+      throw new CustomError("Profile not found", 404);
+    }
     return res.json({
       status: 200,
       data: profile,
