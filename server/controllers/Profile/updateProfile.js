@@ -1,6 +1,6 @@
-const { Profile } = require('../../models');
-const { CustomeError } = require('../../utils');
-const { profileValidation } = require('../../utils');
+const { Profile } = require("../../models");
+const { CustomError } = require("../../utils");
+const { profileValidation } = require("../../utils");
 
 const updateProfile = async (req, res, next) => {
   try {
@@ -13,17 +13,17 @@ const updateProfile = async (req, res, next) => {
         ...req.body,
         profileId,
       },
-      { abortEarly: false },
+      { abortEarly: false }
     );
 
     const existProfile = await Profile.findByPk(profileId);
 
     if (!existProfile) {
-      throw new CustomeError('Profile not found', 404);
+      throw new CustomError("Profile not found", 404);
     }
 
     if (existProfile.userId !== userId) {
-      throw new CustomeError('Not authorized', 401);
+      throw new CustomError("Not authorized", 401);
     }
 
     const [updatedRows, [updatedProfile]] = await Profile.update(
@@ -33,15 +33,15 @@ const updateProfile = async (req, res, next) => {
           id: profileId,
         },
         returning: true,
-      },
+      }
     );
 
     if (updatedRows === 0) {
-      throw new CustomeError('Updating failed', 400);
+      throw new CustomError("Updating failed", 400);
     }
 
     return res.json({
-      msg: 'Profile updated successfully',
+      msg: "Profile updated successfully",
       status: 200,
       data: updatedProfile,
     });
