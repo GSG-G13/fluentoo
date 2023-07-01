@@ -3,6 +3,7 @@ const {
   signupValidation,
   loginValidation,
   profileValidation,
+  profileIdValidation,
 } = require('./validation/index');
 const { SignToken, verfiyToken } = require('./jwt/jwt');
 const { CustomeError } = require('./helper');
@@ -15,4 +16,5 @@ module.exports = {
   verfiyToken,
   CustomeError,
   profileValidation,
+  profileIdValidation,
 };

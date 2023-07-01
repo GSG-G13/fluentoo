@@ -1,30 +1,19 @@
 const { Profile, User } = require('../../models');
-const { CustomeError } = require('../../utils');
+const { CustomeError, profileIdValidation } = require('../../utils');
 
 const getProfile = async (req, res, next) => {
   try {
     const { profileId } = req.params;
-    if (profileId && Number.isNaN(+profileId)) throw new CustomeError('"profileId" must be a number', 400);
-    let profile;
-    if (profileId) {
-      profile = await Profile.findByPk(profileId, {
-        include: [
-          {
-            model: User,
-          },
-        ],
-      });
-      if (!profile) {
-        throw new CustomeError('Profile not found', 404);
-      }
-    } else {
-      profile = await Profile.findAll({
-        include: [
-          {
-            model: User,
-          },
-        ],
-      });
+    await profileIdValidation.validateAsync({ profileId }, { abortEarly: false });
+    const profile = await Profile.findByPk(profileId, {
+      include: [
+        {
+          model: User,
+        },
+      ],
+    });
+    if (!profile) {
+      throw new CustomeError('Profile not found', 404);
     }
     return res.json({
       status: 200,

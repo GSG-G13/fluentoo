@@ -87,8 +87,7 @@ describe('Login tests', () => {
   });
 });
 
-describe('Profile model', () => {
-  // ? Create a profile
+describe('Profile endPoints', () => {
   it('should Create a profile successfully', async () => {
     const newProfile = {
       gender: 'female',
@@ -105,7 +104,9 @@ describe('Profile model', () => {
       username: 'adalah',
       password: '123@Aaaaaaaa',
     };
-    const responseSignup = await request(app).post('/api/v1/auth/signup').send(newUser);
+    const responseSignup = await request(app)
+      .post('/api/v1/auth/signup')
+      .send(newUser);
     const { token } = responseSignup.body;
     const response = await request(app)
       .post('/api/v1/profile')
@@ -129,7 +130,9 @@ describe('Profile model', () => {
       username: 'adalah02',
       password: '123@Aaaaaaaa',
     };
-    const responseSignup = await request(app).post('/api/v1/auth/signup').send(newUser);
+    const responseSignup = await request(app)
+      .post('/api/v1/auth/signup')
+      .send(newUser);
     const { token } = responseSignup.body;
     const response = await request(app)
       .post('/api/v1/profile')
@@ -139,35 +142,23 @@ describe('Profile model', () => {
     expect(response.body.msg).toBe('"country" is required');
   });
 
-  // ? Get a profile
-  it('should return all profiles', async () => {
-    const response = await request(app)
-      .get('/api/v1/profile');
-    expect(response.body.status).toBe(200);
-    expect(response.body.data[0]).toHaveProperty('user');
-  });
   it('should return a profile', async () => {
-    const response = await request(app)
-      .get('/api/v1/profile/1');
+    const response = await request(app).get('/api/v1/profile/1');
     expect(response.body.status).toBe(200);
-    console.log(response.body.data);
     expect(response.body.data).toHaveProperty('user');
     expect(typeof response.body.data.user).toBe('object');
   });
   it('should pass the error Profile not found', async () => {
-    const response = await request(app)
-      .get('/api/v1/profile/100');
+    const response = await request(app).get('/api/v1/profile/100');
     expect(response.body.status).toBe(404);
     expect(response.body.msg).toBe('Profile not found');
   });
   it('should return validation error', async () => {
-    const response = await request(app)
-      .get('/api/v1/profile/abc');
+    const response = await request(app).get('/api/v1/profile/abc');
     expect(response.body.status).toBe(400);
     expect(response.body.msg).toBe('"profileId" must be a number');
   });
 
-  // ? Update a profile
   it('should update a profile successfully', async () => {
     const newUser = {
       email: 'adalah03@gmail.com',
@@ -184,7 +175,9 @@ describe('Profile model', () => {
       bio: 'I am a language enthusiast.',
       avatar: 'https://example.com/avatar.jpg',
     };
-    const responseSignup = await request(app).post('/api/v1/auth/signup').send(newUser);
+    const responseSignup = await request(app)
+      .post('/api/v1/auth/signup')
+      .send(newUser);
     const { token } = responseSignup.body;
     const responseCreateProfile = await request(app)
       .post('/api/v1/profile')
@@ -200,7 +193,7 @@ describe('Profile model', () => {
       .set('Cookie', [`token=${token}`])
       .send(updatedProfile);
     expect(response.body.status).toBe(200);
-    expect(response.body.msg).toBe('profile updated successfully');
+    expect(response.body.msg).toBe('Profile updated successfully');
   });
   it('should return validation error in update profile', async () => {
     const newUser = {
@@ -218,7 +211,9 @@ describe('Profile model', () => {
       bio: 'I am a language enthusiast.',
       avatar: 'https://example.com/avatar.jpg',
     };
-    const responseSignup = await request(app).post('/api/v1/auth/signup').send(newUser);
+    const responseSignup = await request(app)
+      .post('/api/v1/auth/signup')
+      .send(newUser);
     const { token } = responseSignup.body;
     const responseCreateProfile = await request(app)
       .post('/api/v1/profile')
@@ -236,40 +231,71 @@ describe('Profile model', () => {
     expect(response.body.status).toBe(400);
     expect(response.body.msg).toBe('"intrests" must be an array');
   });
-
-  // ? add this test after fixing the error handling
-  // it('should pass the error Profile not found', async () => {
-  //   const newUser = {
-  //     email: 'adalah05@gmail.com',
-  //     username: 'adalah',
-  //     password: '123@Aaaaaaaa',
-  //   };
-  //   const newProfile = {
-  //     gender: 'male',
-  //     country: 'Gaza',
-  //     birthdate: '2000-5-25',
-  //     practiceLanguages: ['English', 'German'],
-  //     spokenLanguages: ['Arabic'],
-  //     intrests: ['Reading', 'coding'],
-  //     bio: 'I am a language enthusiast.',
-  //     avatar: 'https://example.com/avatar.jpg',
-  //   };
-  //   const responseSignup = await request(app).post('/api/v1/auth/signup').send(newUser);
-  //   const { token } = responseSignup.body;
-  //   const updatedProfile = {
-  //     ...newProfile,
-  //     intrests: ['Traveling'],
-  //   };
-  //   const response = await request(app)
-  //     .put('/api/v1/profile/100')
-  //     .set('Cookie', [`token=${token}`])
-  //     .send(updatedProfile);
-  //   expect(response.body.status).toBe(404);
-  //   expect(response.body.msg).toBe('Profile not found');
-  // });
+  it('should pass Profile not found on update with cheat user', async () => {
+    const newUser = {
+      email: 'adalah05@gmail.com',
+      username: 'adalah',
+      password: '123@Aaaaaaaa',
+    };
+    const newProfile = {
+      gender: 'male',
+      country: 'Gaza',
+      birthdate: '2000-5-25',
+      practiceLanguages: ['English', 'German'],
+      spokenLanguages: ['Arabic'],
+      intrests: ['Reading', 'coding'],
+      bio: 'I am a language enthusiast.',
+      avatar: 'https://example.com/avatar.jpg',
+    };
+    const responseSignup = await request(app)
+      .post('/api/v1/auth/signup')
+      .send(newUser);
+    const { token } = responseSignup.body;
+    const updatedProfile = {
+      ...newProfile,
+      intrests: ['Reading', 'coding', 'Traveling'],
+    };
+    const response = await request(app)
+      .put('/api/v1/profile/1001')
+      .set('Cookie', [`token=${token}`])
+      .send(updatedProfile);
+    expect(response.body.status).toBe(404);
+    expect(response.body.msg).toBe('Profile not found');
+  });
+  it('should pass validation error when update with cheat and wrong user id ', async () => {
+    const newUser = {
+      email: 'adalah06@gmail.com',
+      username: 'adalah',
+      password: '123@Aaaaaaaa',
+    };
+    const newProfile = {
+      gender: 'male',
+      country: 'Gaza',
+      birthdate: '2000-5-25',
+      practiceLanguages: ['English', 'German'],
+      spokenLanguages: ['Arabic'],
+      intrests: ['Reading', 'coding'],
+      bio: 'I am a language enthusiast.',
+      avatar: 'https://example.com/avatar.jpg',
+    };
+    const responseSignup = await request(app)
+      .post('/api/v1/auth/signup')
+      .send(newUser);
+    const { token } = responseSignup.body;
+    const updatedProfile = {
+      ...newProfile,
+      intrests: ['Reading', 'coding', 'Traveling'],
+    };
+    const response = await request(app)
+      .put('/api/v1/profile/abc')
+      .set('Cookie', [`token=${token}`])
+      .send(updatedProfile);
+    expect(response.body.status).toBe(400);
+    expect(response.body.msg).toBe('"profileId" must be a number');
+  });
 });
 
-describe('Language model', () => {
+describe('Language endPoints', () => {
   it('should create a new language', async () => {
     const languageData = {
       name: 'English',
@@ -300,19 +326,3 @@ describe('Language model', () => {
 afterAll(async () => {
   await sequelize.close();
 });
-
-/*
-  * signup: done
-    - should add a new user
-    - should return validation error
-    - should return email already exists error
-  * login: done
-    - should login successfully
-    - should return validation error
-    - should return email doesn't exists error
-    - should return password or email incorrect
-  * profile: in-progress
-  * language: in-progress
-  * message: todo
-  * feedback: todo
-*/
