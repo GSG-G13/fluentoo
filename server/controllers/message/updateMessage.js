@@ -1,5 +1,5 @@
-const { Message } = require("../../models");
-const { CustomError } = require("../../utils");
+const { Message } = require('../../models');
+const { CustomError } = require('../../utils');
 
 const updateMessage = async (req, res, next) => {
   const { id } = req.params;
@@ -7,7 +7,7 @@ const updateMessage = async (req, res, next) => {
   try {
     const data = await Message.findByPk(id);
     if (!data) {
-      throw new CustomError("Message not found", 404);
+      throw new CustomError('Message not found', 404);
     }
     const message = await Message.update(
       { content },
@@ -16,13 +16,13 @@ const updateMessage = async (req, res, next) => {
           id,
         },
         returning: true,
-      }
+      },
     );
     if (!message) {
-      throw new CustomError("updating failed", 500);
+      throw new CustomError('updating failed', 500);
     }
     return res.json({
-      msg: "Message updated successfully",
+      msg: 'Message updated successfully',
       status: 200,
       data: message[1],
     });

@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
-const { ValidationError } = require("joi");
-const { JsonWebTokenError } = require("jsonwebtoken");
-const { CustomError } = require("../../utils");
+const { ValidationError } = require('joi');
+const { JsonWebTokenError } = require('jsonwebtoken');
+const { CustomError } = require('../../utils');
 
 // eslint-disable-next-line no-unused-vars
 const serverError = (err, req, res, next) => {
@@ -15,7 +15,7 @@ const serverError = (err, req, res, next) => {
   }
   if (err instanceof JsonWebTokenError) {
     return res.status(401).json({
-      msg: "Unauthorized",
+      msg: 'Unauthorized',
       status: 401,
     });
   }
@@ -27,7 +27,7 @@ const serverError = (err, req, res, next) => {
     });
   }
   res.status(500).json({
-    msg: "Internal Server Error",
+    msg: 'Internal Server Error',
     status: 500,
   });
 };

@@ -4,9 +4,9 @@ const {
   loginValidation,
   profileValidation,
   profileIdValidation,
-} = require("./validation/index");
-const { SignToken, verfiyToken } = require("./jwt/jwt");
-const { CustomError } = require("./helper");
+} = require('./validation/index');
+const { SignToken, verfiyToken } = require('./jwt/jwt');
+const { CustomError } = require('./helper');
 
 module.exports = {
   addLangSchema,
