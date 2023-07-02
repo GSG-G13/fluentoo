@@ -1,9 +1,10 @@
 import React from 'react'
 import { Select } from 'antd';
+import {DropMenuProps}from '../../utils'
 const languages = [
     'English', 'Arabic', 'French'
 ]
-function Menu({ name, setLanguage }: any) {
+function Menu({ name, setLanguage }: DropMenuProps) {
 
     return (
         <>

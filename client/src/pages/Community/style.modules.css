@@ -7,6 +7,24 @@
     margin-bottom: 39px;
 }
 
+:where(.css-dev-only-do-not-override-12jzuas).ant-row {
+    display: grid;
+    grid-template-columns: repeat(3, 0.5fr);
+    margin-top: 4%;
+}
+
+@media screen and (max-width: 1200px) {
+    :where(.css-dev-only-do-not-override-12jzuas).ant-row {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media screen and (max-width: 992px) {
+    :where(.css-dev-only-do-not-override-12jzuas).ant-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 .css-dev-only-do-not-override-12jzuas.ant-btn,
 .css-dev-only-do-not-override-12jzuas.ant-input-affix-wrapper-lg {
     border-radius: 7px;

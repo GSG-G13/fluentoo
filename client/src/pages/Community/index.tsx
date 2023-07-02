@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { Col, Row, Input } from 'antd';
+import { Row, Input } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
-import UserCard from '../../components/Card';
-import Menu from '../../components/DropDownMenu';
+import { Menu, UserCard } from '../../components';
 import axios from 'axios';
 import './style.modules.css'
 
@@ -12,6 +11,7 @@ function Community() {
   const [spokenLanguages, setSpokenLanguages] = useState<string>('')
   const [practiceLanguages, setPracticeLanguages] = useState<string>('')
   const [data, setData] = useState<Array<Object>>([])
+
   useEffect(() => {
     const fetchData = async () => {
       const response =
@@ -36,7 +36,6 @@ function Community() {
         {data.map((user) =>
           <UserCard data={user} />
         )}
-
       </Row>
     </div>
   )
