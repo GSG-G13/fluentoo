@@ -18,8 +18,6 @@ function ProfileForm() {
     const { user } = useAuthContext();
     const navigate = useNavigate();
     const userId = user.userId;
-    console.log(userId, 'gggg', user);
-
     const [form] = Form.useForm();
     const initialErrors: ProfileCredentials = {
         gender: '',
@@ -30,13 +28,10 @@ function ProfileForm() {
         bio: ''
     };
     const [errors, setErrors] = useState<ProfileCredentials>(initialErrors);
-
     const onFinish = async (values: ProfileCredentials) => {
         try {
             const FormData = await ProfileSchema.validate(values, { abortEarly: false })
-
-
-            const data = await axios.post("/api/v1/profile", { userId, ...FormData });
+            await axios.post("/api/v1/profile", { userId, ...FormData });
             navigate("/community");
         } catch (e: any) {
             if (e.name === 'ValidationError') {
@@ -72,14 +67,14 @@ function ProfileForm() {
                 </Form.Item>
                 <Form.Item label="Country" name="country">
                     <Select>
-                        <Select.Option value="demo">Demo</Select.Option>
+                        <Select.Option value="demo">Palestine</Select.Option>
                     </Select>
 
                 </Form.Item>
                 <span className="error-message ">{errors.country}</span>
                 <Form.Item label="Native Languages" name="spokenLanguages">
                     <Select mode='multiple'>
-                        <Select.Option value="English">🧮English</Select.Option>
+                        <Select.Option value="English">English</Select.Option>
                         <Select.Option value="French">French</Select.Option>
                     </Select>
 
@@ -108,13 +103,10 @@ function ProfileForm() {
 
                 <Form.Item label="Bio" name='bio'>
                     <TextArea rows={4} placeholder='optional' />
-
-
                 </Form.Item>
                 <span className="error-message">{errors.bio}</span>
                 <Button className='button' htmlType="submit">Submit</Button>
             </Form>
-
         </>
     );
 };

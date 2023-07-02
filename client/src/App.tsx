@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import { Routes, Route, Navigate } from "react-router-dom";
-import { Signup, Login, Home, Community, ProfileInfo, Auth } from './pages';
+import { Home, Community, ProfileInfo, Auth } from './pages';
 import { useAuthContext } from "./context/AuthContext";
 import { Chat } from './pages';
 function App() {
@@ -14,19 +14,11 @@ function App() {
         element={<Home />}
       />
       <Route
-        path="/signup"
-        element={user.userId ? <Navigate to="/chat" /> : <Signup />}
-      />
-      <Route
-        path="/login"
-        element={user.userId ? <Navigate to="/chat" /> : <Login />}
-      />
-      <Route
         path="/chat"
-        element={user.userId ? <Chat /> : <Navigate to="/signup" />}
+        element={user.userId ? <Chat /> : <Navigate to="/auth" />}
       />
       <Route path='/community' element={<Community />} />
-      <Route path='/profile' element={<ProfileInfo />} />
+      <Route path='/Createprofile' element={<ProfileInfo />} />
       <Route path='/auth' element={user.userId ? <Navigate to="/community" /> : <Auth />} />
 
     </Routes>

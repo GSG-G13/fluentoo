@@ -37,7 +37,7 @@ function SignupForm({ setActive }: any) {
       })
       setErrors({ ...initialErrors });
       setLoading(false);
-      navigate("/profile");
+      navigate("/createprofile");
     } catch (e: any) {
       if (e.name === 'ValidationError') {
         setErrors({ ...initialErrors });
