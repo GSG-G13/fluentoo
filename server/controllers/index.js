@@ -6,6 +6,7 @@ const {
   deleteMessage,
   updateMessage,
 } = require('./message');
+const { createLanguage, getAllLanguages } = require('./language');
 
 module.exports = {
   createProfile,
@@ -16,4 +17,6 @@ module.exports = {
   deleteMessage,
   updateMessage,
   search,
+  createLanguage,
+  getAllLanguages,
 };
