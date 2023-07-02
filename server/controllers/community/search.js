@@ -1,6 +1,6 @@
 const { Op } = require('sequelize');
 const { Profile, User, FeedBack } = require('../../models');
-const sequelize = require('../../database/config/connection');
+const sequelize = require('../../database/connection');
 
 const search = async (req, res, next) => {
   const {

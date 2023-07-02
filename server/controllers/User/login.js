@@ -1,6 +1,6 @@
-const { compare } = require("bcrypt");
-const { loginValidation, SignToken, CustomError } = require("../../utils");
-const { User } = require("../../models");
+const { compare } = require('bcrypt');
+const { loginValidation, SignToken, CustomError } = require('../../utils');
+const { User } = require('../../models');
 
 const login = async (req, res, next) => {
   try {
@@ -21,7 +21,7 @@ const login = async (req, res, next) => {
     const match = await compare(password, hashedPassword);
 
     if (!match) {
-      throw new CustomError("password or email incorrect", 400);
+      throw new CustomError('password or email incorrect', 400);
     }
     const token = await SignToken({
       id,
@@ -29,8 +29,8 @@ const login = async (req, res, next) => {
       email,
     });
 
-    return res.cookie("token", token).json({
-      msg: "login successfully",
+    return res.cookie('token', token).json({
+      msg: 'login successfully',
       status: 200,
       data: {
         id,

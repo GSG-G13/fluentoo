@@ -1,12 +1,12 @@
-const { hash } = require("bcrypt");
-const { SignToken, CustomError, signupValidation } = require("../../utils");
-const { User } = require("../../models");
+const { hash } = require('bcrypt');
+const { SignToken, CustomError, signupValidation } = require('../../utils');
+const { User } = require('../../models');
 
 const signUp = async (req, res, next) => {
   try {
     const { username, email, password } = await signupValidation.validateAsync(
       req.body,
-      { abortEarly: false }
+      { abortEarly: false },
     );
 
     const existingUser = await User.findOne({
@@ -16,7 +16,7 @@ const signUp = async (req, res, next) => {
     });
 
     if (existingUser) {
-      throw new CustomError("Email already exists", 400);
+      throw new CustomError('Email already exists', 400);
     }
 
     const hashedPassword = await hash(password, 10);
@@ -36,8 +36,8 @@ const signUp = async (req, res, next) => {
       email,
     });
 
-    return res.cookie("token", token).json({
-      msg: "Signup successfully",
+    return res.cookie('token', token).json({
+      msg: 'Signup successfully',
       status: 201,
       data: user,
       token,
