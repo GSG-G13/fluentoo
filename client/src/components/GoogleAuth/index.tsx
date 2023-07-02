@@ -15,7 +15,7 @@ function GoogleAuth() {
   return (
     <div style={{ display: 'flex' ,justifyContent:'center' }}>
       <GoogleLogin
-        shape='pill'
+        shape='rectangular'
         context='signup'
         text='continue_with'
         onSuccess={signUpWithGoogle}

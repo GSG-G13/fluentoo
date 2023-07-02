@@ -7,6 +7,7 @@ import User from './User';
 import Message from './Message';
 import ChatUserHead from './ChatUserHead';
 import SendMessageForm from './SendMessageForm';
+import ProfileForm from './ProfileForm'
 
 export {
   SignupForm,
@@ -17,5 +18,6 @@ export {
   User,
   Message,
   ChatUserHead,
-  SendMessageForm
+  SendMessageForm,
+  ProfileForm
 }
