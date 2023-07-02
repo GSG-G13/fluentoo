@@ -2,14 +2,16 @@
 const express = require('express');
 const compression = require('compression');
 const cookieParser = require('cookie-parser');
-const sequelize = require('./database/config/connection');
+const morgan = require('morgan');
+const sequelize = require('./database/connection');
 const router = require('./routes');
 const { clientError, serverError } = require('./controllers/errors');
-require('dotenv').config();
+const { appConfig } = require('./config');
 
 const app = express();
 
-app.set('port', process.env.PORT || 5000);
+if (appConfig.debug) app.use(morgan('combined'));
+app.set('port', appConfig.port || 5000);
 app.disable('x-powered-by');
 app.use(compression());
 app.use(express.json());

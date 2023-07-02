@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../database/config/connection');
+const sequelize = require('../database/connection');
 
 const User = require('./user');
 
@@ -8,6 +8,8 @@ const Message = sequelize.define('messages', {
     type: DataTypes.TEXT,
     allowNull: false,
   },
+}, {
+  tableName: 'messages',
 });
 
 Message.belongsTo(User, {

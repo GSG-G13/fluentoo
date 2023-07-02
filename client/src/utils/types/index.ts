@@ -52,3 +52,15 @@ export interface SendMessageFormPropsType {
   setText: (text: string) => void;
   handleSendMessage: () => void;
 }
+
+export interface DecodeJwtType {
+  id: number;
+  username: string;
+  email: string;
+  iat: number;
+}
+
+export interface LoggedUserObjectType {
+  userId: number | null;
+  userName: string | null;
+}

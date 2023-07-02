@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import { Routes, Route, Navigate } from "react-router-dom";
-import { Signup, Login } from './pages';
+import { Signup, Login, Home } from './pages';
 import { useAuthContext } from "./context/AuthContext";
 import { Chat } from './pages';
 function App() {
@@ -11,7 +11,7 @@ function App() {
     <Routes>
       <Route
         path="/"
-        element={<div>Hi landing</div>}
+        element={<Home/>}
       />
       <Route
         path="/signup"

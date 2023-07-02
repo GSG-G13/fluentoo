@@ -10,7 +10,8 @@
     "prepare": "husky install",
     "lint": "eslint .",
     "lint-staged": "lint-staged",
-    "lint-fix": "cross-env eslint . --ext .js --fix"
+    "lint-fix": "cross-env eslint . --ext .js --fix",
+    "db:seed": "node server/database/seed"
   },
   "lint-staged": {
     "*.js": [
@@ -22,6 +23,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@faker-js/faker": "^8.0.2",
     "bcrypt": "^5.1.0",
     "compression": "^1.7.4",
     "cookie": "^0.5.0",
@@ -31,6 +33,7 @@
     "google-auth-library": "^8.8.0",
     "joi": "^17.9.1",
     "jsonwebtoken": "^9.0.0",
+    "morgan": "^1.10.0",
     "passport": "^0.6.0",
     "pg": "^8.11.0",
     "pg-hstore": "^2.3.4",
