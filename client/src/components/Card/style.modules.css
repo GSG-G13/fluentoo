@@ -1,4 +1,12 @@
+.card {
+    width: 300px;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out;
+}
 
+.card:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
 
 .css-dev-only-do-not-override-12jzuas.ant-btn-dashed:hover {
     color: #ff40e2;
@@ -27,4 +35,28 @@
     width: 20px;
     height: 20px;
     margin-left: 5px;
+}
+
+:where(.css-dev-only-do-not-override-12jzuas).ant-row {
+    display: grid;
+    grid-template-columns: repeat(3, 0.5fr);
+    margin-top: 4%;
+}
+
+@media screen and (max-width: 1200px) {
+    :where(.css-dev-only-do-not-override-12jzuas).ant-row {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media screen and (max-width: 992px) {
+    :where(.css-dev-only-do-not-override-12jzuas).ant-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width: 576px) {
+    :where(.css-dev-only-do-not-override-12jzuas).ant-row {
+        grid-template-columns: 1fr;
+    }
 }

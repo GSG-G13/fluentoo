@@ -4,17 +4,20 @@ import {
   SendOutlined
 } from '@ant-design/icons';
 import './style.modules.css'
-function UserCard(props:any) {
-   let data =props.data;
+function UserCard(props: any) {
+  let data = props.data;
+  console.log(data);
+
   return (
-    <Card style={{ width: 300 }}>
+    <Card className='card' >
       <div className='head'>
         <Image
           width={70}
           height={70}
           preview={false}
           style={{ borderRadius: '50%' }}
-          src={data.profile.avatar}
+          src={data.profile?.avatar}
+          fallback='https://www.pngall.com/wp-content/uploads/5/Profile-PNG-File.png'
         />
         <Button type="dashed" icon={<SendOutlined />} shape="round" >
           Message
@@ -24,7 +27,6 @@ function UserCard(props:any) {
       <div className='bottom'>
         <Rate disabled defaultValue={0} value={data.avgRating} />
         <div className='flags'>
-          //to be changed 
           <img src="https://cdn-icons-png.flaticon.com/128/206/206657.png" alt="" />
           <img src="https://cdn-icons-png.flaticon.com/128/555/555613.png" alt="" /></div>
       </div>

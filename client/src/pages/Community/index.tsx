@@ -12,9 +12,6 @@ function Community() {
   const [spokenLanguages, setSpokenLanguages] = useState<string>('')
   const [practiceLanguages, setPracticeLanguages] = useState<string>('')
   const [data, setData] = useState<Array<Object>>([])
-
-
-
   useEffect(() => {
     const fetchData = async () => {
       const response =
@@ -29,16 +26,17 @@ function Community() {
       <div className='header'>
         <Input size="large" placeholder="search for a friend" prefix={<SearchOutlined />}
           onChange={(e) => setName(e.target.value)} />
-        <div>
+        <div className='filter'>
           <Menu name={'native language'} setLanguage={setSpokenLanguages} />
           <Menu name={'practice language'} setLanguage={setPracticeLanguages} />
         </div>
 
       </div>
       <Row gutter={16} >
-        <Col xs={24} sm={16} md={12} lg={7} xl={8}>
-          {data.map((user) => <UserCard data={user} />)}
-        </Col>
+        {data.map((user) =>
+          <UserCard data={user} />
+        )}
+
       </Row>
     </div>
   )
