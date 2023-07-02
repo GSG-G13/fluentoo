@@ -46,12 +46,7 @@ function Message({ content, sender, receiver, isOur }: MessageObjectType) {
       const res = await axios.get(apiUrl);
       const translation = res.data.responseData.translatedText;
       setTranslatedText(translation);
-      if(translate){
-        setTranslate(false)
-
-      }else{
-        setTranslate(true)
-      }
+      setTranslate(!translate)
     } catch (error) {
       console.log(error);
     }
