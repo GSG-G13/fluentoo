@@ -1,12 +1,12 @@
 const { Message } = require('../../models');
-const { CustomeError } = require('../../utils');
+const { CustomError } = require('../../utils');
 
 const deleteMessage = async (req, res, next) => {
   const { id } = req.params;
   try {
     const message = await Message.findByPk(id);
     if (!message) {
-      throw new CustomeError('Message not found', 404);
+      throw new CustomError('Message not found', 404);
     }
     const rowsAffected = await Message.destroy({
       where: {
@@ -14,7 +14,7 @@ const deleteMessage = async (req, res, next) => {
       },
     });
     if (rowsAffected === 0) {
-      throw new CustomeError('Message not deleted', 500);
+      throw new CustomError('Message not deleted', 500);
     }
     return res.json({
       status: 200,

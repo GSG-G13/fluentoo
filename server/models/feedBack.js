@@ -13,10 +13,7 @@ const FeedBack = sequelize.define('feedbacks', {
   },
 });
 
-FeedBack.belongsTo(User, {
-  foreignKey: 'commenterId',
-});
-FeedBack.belongsTo(User, {
-  foreignKey: 'commentingId',
-});
+User.hasMany(FeedBack, { foreignKey: 'commenter_id' });
+FeedBack.belongsTo(User, { foreignKey: 'commenter_id' });
+FeedBack.belongsTo(User, { foreignKey: 'commenting_id' });
 module.exports = FeedBack;
