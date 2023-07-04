@@ -11,6 +11,7 @@ import { ProfileCredentials, ProfileSchema } from '../../utils';
 import axios from 'axios';
 import { useAuthContext } from "../../context/AuthContext";
 import { useNavigate } from 'react-router-dom';
+import ReactFlagsSelect from "react-flags-select";
 const { TextArea } = Input;
 
 
@@ -21,16 +22,19 @@ function ProfileForm() {
     const [form] = Form.useForm();
     const initialErrors: ProfileCredentials = {
         gender: '',
-        country: '',
         birthdate: '',
+        country: '',
         spokenLanguages: '',
         practiceLanguages: '',
         bio: ''
     };
     const [errors, setErrors] = useState<ProfileCredentials>(initialErrors);
+    const [country, setCountry] = useState("")
     const onFinish = async (values: ProfileCredentials) => {
         try {
-            const FormData = await ProfileSchema.validate(values, { abortEarly: false })
+            const FormData = await ProfileSchema.validate({ ...values, country }, { abortEarly: false })
+            console.log(FormData);
+            
             await axios.post("/api/v1/profile", { userId, ...FormData });
             navigate("/community");
         } catch (e: any) {
@@ -65,13 +69,6 @@ function ProfileForm() {
                 <Form.Item label="Image URL" name="avatar">
                     <Input type='url' placeholder='optional' />
                 </Form.Item>
-                <Form.Item label="Country" name="country">
-                    <Select>
-                        <Select.Option value="demo">Palestine</Select.Option>
-                    </Select>
-
-                </Form.Item>
-                <span className="error-message ">{errors.country}</span>
                 <Form.Item label="Native Languages" name="spokenLanguages">
                     <Select mode='multiple'>
                         <Select.Option value="English">English</Select.Option>
@@ -95,6 +92,11 @@ function ProfileForm() {
                     </Select>
 
                 </Form.Item>
+                <Form.Item label='Country' name='country'><ReactFlagsSelect
+                    selected={country}
+                    onSelect={(code) => setCountry(code)}
+                /></Form.Item>
+                <span className="error-message ">{errors.country}</span>
                 <Form.Item label="Birth Date" name='birthdate'>
                     <DatePicker />
 
@@ -104,9 +106,11 @@ function ProfileForm() {
                 <Form.Item label="Bio" name='bio'>
                     <TextArea rows={4} placeholder='optional' />
                 </Form.Item>
+
                 <span className="error-message">{errors.bio}</span>
                 <Button className='button' htmlType="submit">Submit</Button>
             </Form>
+
         </>
     );
 };
