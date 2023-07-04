@@ -27,7 +27,7 @@ function App() {
       />
       <Route
         path='/community'
-        element={user.userId ? <Community /> : <Navigate to="/signup" />}
+        element={<Community />}
       />
     </Routes>
   );
