@@ -12,11 +12,11 @@ const FeedBack = sequelize.define('feedbacks', {
     allowNull: false,
   },
 });
-
-FeedBack.belongsTo(User, {
-  foreignKey: 'commenterId',
-});
 FeedBack.belongsTo(User, {
   foreignKey: 'commentingId',
 });
+FeedBack.belongsTo(User, {
+  foreignKey: 'commenterId',
+});
+
 module.exports = FeedBack;

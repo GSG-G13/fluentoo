@@ -9,6 +9,7 @@ const getProfile = async (req, res, next) => {
       },
       include: {
         model: User,
+        attributes: ['id', 'username'],
       },
     });
     return res.json({

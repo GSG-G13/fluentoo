@@ -2,21 +2,46 @@ import React, { useState } from 'react';
 import { Progress, Row, Col, Rate, Button, Modal, Input } from 'antd';
 const { TextArea } = Input;
 import { UserOutlined } from '@ant-design/icons';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 const TotalReview = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [review, setReview] = useState({
+    comment: '',
+    star: 1,
+  })
+
+
+  const handleRate = (value) =>{
+    setReview({...review, star:value});
+  }
+
+  const handleInput = (e) =>{
+    setReview({...review, [e.target.name]:e.target.value});
+  };
+
+
 
   const showModal = () => {
     setIsModalOpen(true);
   };
 
-  const handleOk = () => {
-    setIsModalOpen(false);
+  const handleOk = (e) => {
+    e.preventDefault();
+    axios.post(`/api/v1/feedback/${profileId}`,review)
+    .then(res => console.log(res,'uuuuuuuu'))
+    .catch(err => console.log(err))
   };
 
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+
+  const {profileId} = useParams();
+
+
+
 
   return (
     <div className="total">
@@ -31,7 +56,7 @@ const TotalReview = () => {
           <div className="review-container">
             <div className="total-review">
               <h1>4.3</h1>
-              <Rate allowHalf defaultValue={3.5} />
+              <Rate defaultValue={3.5} disabled={true} allowHalf={false}/>
               <div>
                 <UserOutlined />
                 <span>15,372 reviewer</span>
@@ -71,12 +96,14 @@ const TotalReview = () => {
                     />
                     <div className="feedback-form">
                       <h1>Add your rate:</h1>
-                      <Rate allowHalf defaultValue={0} className="feed-rate" />
+                      <Rate allowHalf={false} defaultValue={0} className="feed-rate" value={review.star} onChange={handleRate}/>
 
                       <TextArea
                         style={{ width: 450 }}
                         placeholder="Add your comment ..."
                         autoSize={{ minRows: 6, maxRows: 5 }}
+                        name='comment'
+                        onChange={handleInput}
                       />
                     </div>
                   </div>

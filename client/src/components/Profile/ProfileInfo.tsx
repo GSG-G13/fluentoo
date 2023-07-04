@@ -13,7 +13,7 @@ const ProfileInfo = () => {
   const [profile, setProfile] = useState<any>(null);
 
   const { profileId } = useParams();
-
+  
   useEffect(() => {
     const userData = async () => {
       try {
@@ -21,6 +21,7 @@ const ProfileInfo = () => {
         const data = res.data;
 
         setProfile(data.data[0]);
+        
       } catch (err) {
         console.log(err);
       }

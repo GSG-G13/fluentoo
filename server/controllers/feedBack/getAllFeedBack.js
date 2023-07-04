@@ -1,4 +1,4 @@
-const { FeedBack } = require('../../models');
+const { FeedBack, User } = require('../../models');
 
 const getAllFeedBack = async (req, res, next) => {
   try {
@@ -7,7 +7,12 @@ const getAllFeedBack = async (req, res, next) => {
       where: {
         commentingId,
       },
-      limit: 5,
+      include: [
+        {
+          model: User,
+          attributes: ['id', 'username'],
+        },
+      ],
     });
     res.status(200).json({
       msg: 'Feedbacks Returned Successfully',

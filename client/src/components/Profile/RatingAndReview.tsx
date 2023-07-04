@@ -1,12 +1,36 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Progress, Row, Col, Rate, Button, Image } from 'antd';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 const RatingAndReview = () => {
+  const [feedback, setFeedback] = useState([]);
+  const {profileId} = useParams();
+
+console.log(feedback,'glhf');
+
+  useEffect(()=>{
+    const userFeedback = async()=>{
+      try{
+        const res = await axios.get(`/api/v1/feedback/${profileId}`);
+        const data = res.data;
+        setFeedback(data.data);
+        
+        console.log(data.data,'gg');  
+        
+      }catch(err){
+        console.log(err);
+      }
+    }
+    userFeedback();
+  },[])
+
   return (
     <div className="reviewer">
       <Row>
         <Col span={24}>
           <div className="all-comments">
+            {feedback.map((item, index) => (
             <div className="comment-container">
               <div className="commenter-info">
                 <Image
@@ -15,65 +39,18 @@ const RatingAndReview = () => {
                   src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
                 />
                 <div className="commenter-name-star">
-                  <h3>Saleh Alsharif</h3>
-                  <Rate className='stars' style={{fontSize:'14px'}} allowHalf defaultValue={3.5} />
+                  <h3 key={index}>{item.user.username}</h3>
+                  <Rate className='stars' style={{fontSize:'14px'}} allowHalf defaultValue={item.star}  disabled={true}/>
                 </div>
               </div>
               <div className="comment-content">
-                <p>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Ipsum aliquam libero fuga cupiditate distinctio non
-                  dignissimos officiis, quaerat quam, odit doloremque harum
-                  pariatur vitae consequuntur sit! Ut fugiat sequi quaerat.
+                <p key={index}>
+                  {item.comment}
                 </p>
               </div>
+
             </div>
-
-
-            <div className="comment-container">
-              <div className="commenter-info">
-                <Image
-                  width="10vh"
-                  className='commenter-user'
-                  src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-                />
-                <div className="commenter-name-star">
-                  <h3>Saleh Alsharif</h3>
-                  <Rate className='stars' style={{fontSize:'14px'}} allowHalf defaultValue={3.5} />
-                </div>
-              </div>
-              <div className="comment-content">
-                <p>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Ipsum aliquam libero fuga cupiditate distinctio non
-                  dignissimos officiis, quaerat quam, odit doloremque harum
-                  pariatur vitae consequuntur sit! Ut fugiat sequi quaerat.
-                </p>
-              </div>
-            </div>
-
-
-            <div className="comment-container">
-              <div className="commenter-info">
-                <Image
-                  width="10vh"
-                  className='commenter-user'
-                  src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-                />
-                <div className="commenter-name-star">
-                  <h3>Saleh Alsharif</h3>
-                  <Rate className='stars' style={{fontSize:'14px'}} allowHalf defaultValue={3.5} />
-                </div>
-              </div>
-              <div className="comment-content">
-                <p>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Ipsum aliquam libero fuga cupiditate distinctio non
-                  dignissimos officiis, quaerat quam, odit doloremque harum
-                  pariatur vitae consequuntur sit! Ut fugiat sequi quaerat.
-                </p>
-              </div>
-            </div>
+      ))}
             <div>
 
             <a href="#" className='see-more'>See More ...</a>

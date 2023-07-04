@@ -12,8 +12,8 @@ const ProfilePage = () => {
   return (
     <div>
       <ProfileInfo />
-      {/* <TotalReview /> */}
-      {/* <RatingAndReview /> */}
+      <TotalReview />
+      <RatingAndReview />
       {/* <Footer /> */}
     </div>
   );
