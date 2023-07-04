@@ -10,7 +10,8 @@ import type {
   ChatUserHeadPropsType,
   SendMessageFormPropsType,
   DecodeJwtType,
-  LoggedUserObjectType
+  LoggedUserObjectType,
+  DropMenuProps
 } from './types';
 
 import { SignupSchema, LoginSchema } from './validation';
@@ -29,5 +30,6 @@ export {
   SignupSchema,
   LoginSchema,
   DecodeJwtType,
-  LoggedUserObjectType
+  LoggedUserObjectType,
+  DropMenuProps
 };
