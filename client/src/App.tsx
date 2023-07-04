@@ -15,17 +15,20 @@ function App() {
       />
       <Route
         path="/signup"
-        element={user.userId ? <Navigate to="/chat" /> : <Signup />}
+        element={user.userId ? <Navigate to="/community" /> : <Signup />}
       />
       <Route
         path="/login"
-        element={user.userId ? <Navigate to="/chat" /> : <Login />}
+        element={user.userId ? <Navigate to="/community" /> : <Login />}
       />
       <Route
         path="/chat"
         element={user.userId ? <Chat /> : <Navigate to="/signup" />}
       />
-      <Route path='/community' element={<Community />} />
+      <Route
+        path='/community'
+        element={user.userId ? <Community /> : <Navigate to="/signup" />}
+      />
     </Routes>
   );
 }
