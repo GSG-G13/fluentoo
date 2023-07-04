@@ -32,11 +32,11 @@ function Community() {
         </div>
 
       </div>
-      <Row gutter={16} >
+      <div className='community-cards'>
         {data.map((user) =>
           <UserCard data={user} />
         )}
-      </Row>
+      </div>
     </div>
   )
 }
