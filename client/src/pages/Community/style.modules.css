@@ -51,7 +51,7 @@
     color: #ff40e2;
 }
 
-:where(.css-dev-only-do-not-override-12jzuas).ant-select-multiple {
+.filter :where(.css-dev-only-do-not-override-12jzuas).ant-select-multiple {
     width: 100%;
     margin-left: 10px;
 }
@@ -60,6 +60,9 @@
     display: flex;
     width: 50%;
 }
+
+
+
 
 .pagination {
     display: flex;

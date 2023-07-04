@@ -1,3 +1,6 @@
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import {
     Button,
     DatePicker,
@@ -6,14 +9,12 @@ import {
     Radio,
     Select,
 } from 'antd';
-import React, { useState } from 'react';
+import ReactFlagsSelect from 'react-flags-select';
+import { useAuthContext } from '../../context/AuthContext';
 import { ProfileCredentials, ProfileSchema } from '../../utils';
-import axios from 'axios';
-import { useAuthContext } from "../../context/AuthContext";
-import { useNavigate } from 'react-router-dom';
-import ReactFlagsSelect from "react-flags-select";
-const { TextArea } = Input;
+import { intrests } from './intrests';
 
+const { TextArea } = Input;
 
 function ProfileForm() {
     const { user } = useAuthContext();
@@ -34,7 +35,7 @@ function ProfileForm() {
         try {
             const FormData = await ProfileSchema.validate({ ...values, country }, { abortEarly: false })
             console.log(FormData);
-            
+
             await axios.post("/api/v1/profile", { userId, ...FormData });
             navigate("/community");
         } catch (e: any) {
@@ -87,8 +88,8 @@ function ProfileForm() {
                 <span className="error-message ">{errors.practiceLanguages}</span>
                 <Form.Item label="Intrests" name='intrests'>
                     <Select mode='multiple'>
-                        <Select.Option value="Reading">Reading</Select.Option>
-                        <Select.Option value="Swimming">Swimming</Select.Option>
+                        {intrests.map((intrest: any) => <Select.Option value={`${intrest}`} >{intrest}</Select.Option>)}
+
                     </Select>
 
                 </Form.Item>
