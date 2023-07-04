@@ -17,6 +17,7 @@ const sequelize = new Sequelize(database, username, password, {
   hostname,
   dialect,
   logging,
+  ssl: true,
   dialectOptions: {
     charset,
   },

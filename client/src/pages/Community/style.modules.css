@@ -7,9 +7,27 @@
     margin-bottom: 39px;
 }
 
+.community-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 4%;
+    min-height: 500px;
+}
+
+.community-cards .ant-card.ant-card-bordered.css-dev-only-do-not-override-12jzuas {
+    max-width: 250px;
+}
+
+.community-cards .not-found {
+    flex: 1;
+}
+
+
+
 .css-dev-only-do-not-override-12jzuas.ant-btn,
 .css-dev-only-do-not-override-12jzuas.ant-input-affix-wrapper-lg {
-    border-radius: 19px;
+    border-radius: 7px;
 }
 
 .css-dev-only-do-not-override-12jzuas.ant-input-affix-wrapper {
@@ -31,4 +49,20 @@
 :where(.css-dev-only-do-not-override-12jzuas).ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled):hover {
     border-color: #ff40e2;
     color: #ff40e2;
+}
+
+:where(.css-dev-only-do-not-override-12jzuas).ant-select-multiple {
+    width: 100%;
+    margin-left: 10px;
+}
+
+.filter {
+    display: flex;
+    width: 50%;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

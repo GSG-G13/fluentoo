@@ -1,4 +1,13 @@
+.card {
+    width: 350px;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out;
+    align-self: self-start;
+}
 
+.card:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
 
 .css-dev-only-do-not-override-12jzuas.ant-btn-dashed:hover {
     color: #ff40e2;
@@ -27,4 +36,12 @@
     width: 20px;
     height: 20px;
     margin-left: 5px;
+}
+
+
+
+@media screen and (max-width: 576px) {
+    :where(.css-dev-only-do-not-override-12jzuas).ant-row {
+        grid-template-columns: 1fr;
+    }
 }

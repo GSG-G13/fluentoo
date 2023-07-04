@@ -10,5 +10,6 @@ const profileValidation = Joi.object({
   avatar: Joi.string(),
   practiceLanguages: Joi.array().required(),
   spokenLanguages: Joi.array().required(),
+  profileId: Joi.number(),
 });
 module.exports = profileValidation;
