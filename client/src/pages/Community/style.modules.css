@@ -8,22 +8,22 @@
 }
 
 .community-cards {
-    display: grid;
-    grid-template-columns: repeat(3, 0.5fr);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
     margin-top: 4%;
+    min-height: 500px;
 }
 
-@media screen and (max-width: 1200px) {
-    .community-cards {
-        grid-template-columns: repeat(3, 1fr);
-    }
+.community-cards .ant-card.ant-card-bordered.css-dev-only-do-not-override-12jzuas {
+    max-width: 250px;
 }
 
-@media screen and (max-width: 992px) {
-    .community-cards {
-        grid-template-columns: repeat(2, 1fr);
-    }
+.community-cards .not-found {
+    flex: 1;
 }
+
+
 
 .css-dev-only-do-not-override-12jzuas.ant-btn,
 .css-dev-only-do-not-override-12jzuas.ant-input-affix-wrapper-lg {
@@ -59,4 +59,10 @@
 .filter {
     display: flex;
     width: 50%;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
