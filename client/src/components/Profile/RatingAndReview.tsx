@@ -5,25 +5,20 @@ import { useParams } from 'react-router-dom';
 
 const RatingAndReview = () => {
   const [feedback, setFeedback] = useState([]);
-  const {profileId} = useParams();
+  const { profileId } = useParams();
 
-console.log(feedback,'glhf');
-
-  useEffect(()=>{
-    const userFeedback = async()=>{
-      try{
+  useEffect(() => {
+    const userFeedback = async () => {
+      try {
         const res = await axios.get(`/api/v1/feedback/${profileId}`);
         const data = res.data;
         setFeedback(data.data);
-        
-        console.log(data.data,'gg');  
-        
-      }catch(err){
+      } catch (err) {
         console.log(err);
       }
-    }
+    };
     userFeedback();
-  },[])
+  }, []);
 
   return (
     <div className="reviewer">
@@ -31,29 +26,33 @@ console.log(feedback,'glhf');
         <Col span={24}>
           <div className="all-comments">
             {feedback.map((item, index) => (
-            <div className="comment-container">
-              <div className="commenter-info">
-                <Image
-                  width="10vh"
-                  className='commenter-user'
-                  src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-                />
-                <div className="commenter-name-star">
-                  <h3 key={index}>{item.user.username}</h3>
-                  <Rate className='stars' style={{fontSize:'14px'}} allowHalf defaultValue={item.star}  disabled={true}/>
+              <div className="comment-container">
+                <div className="commenter-info">
+                  <Image
+                    width="10vh"
+                    className="commenter-user"
+                    src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                  />
+                  <div className="commenter-name-star">
+                    <h3 key={index}>{item.user.username}</h3>
+                    <Rate
+                      className="stars"
+                      style={{ fontSize: '14px' }}
+                      allowHalf
+                      defaultValue={item.star}
+                      disabled={true}
+                    />
+                  </div>
+                </div>
+                <div className="comment-content">
+                  <p key={index}>{item.comment}</p>
                 </div>
               </div>
-              <div className="comment-content">
-                <p key={index}>
-                  {item.comment}
-                </p>
-              </div>
-
-            </div>
-      ))}
+            ))}
             <div>
-
-            <a href="#" className='see-more'>See More ...</a>
+              <a href="#" className="see-more">
+                See More ...
+              </a>
             </div>
           </div>
         </Col>

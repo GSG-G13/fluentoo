@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Progress, Row, Col, Rate, Button, Modal, Input } from 'antd';
 const { TextArea } = Input;
 import { UserOutlined } from '@ant-design/icons';
@@ -10,38 +10,61 @@ const TotalReview = () => {
   const [review, setReview] = useState({
     comment: '',
     star: 1,
-  })
+  });
+  const [totalRate, setTotalRate] = useState({
+    rating: '',
+    comments: '',
+    stars: [],
+  });
+  const { profileId } = useParams();
 
+  useEffect(() => {
+    const rate = async () => {
+      try {
+        const total = await axios.get(`/api/v1/feedback/total/${profileId}`);
+        const totalStars = total.data.totalStars[0];
+        const totalReview = total.data.total[0].avgRating.slice(0, 3);
+        const totalComments = total.data.total[0].commentsCount;
+        setTotalRate((prev) => ({
+          ...prev,
+          rating: totalReview,
+          comments: totalComments,
+          stars: totalStars,
+        }));
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    rate();
+  }, []);
 
-  const handleRate = (value) =>{
-    setReview({...review, star:value});
-  }
-
-  const handleInput = (e) =>{
-    setReview({...review, [e.target.name]:e.target.value});
+  const handleRate = (value) => {
+    setReview({ ...review, star: value });
   };
 
-
+  const handleInput = (e) => {
+    setReview({ ...review, [e.target.name]: e.target.value });
+  };
 
   const showModal = () => {
     setIsModalOpen(true);
   };
 
-  const handleOk = (e) => {
+  const handleOk = async (e) => {
     e.preventDefault();
-    axios.post(`/api/v1/feedback/${profileId}`,review)
-    .then(res => console.log(res,'uuuuuuuu'))
-    .catch(err => console.log(err))
+
+
+    try {
+      await axios.post(`/api/v1/feedback/${profileId}`, review);
+      setIsModalOpen(false);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-
-  const {profileId} = useParams();
-
-
-
 
   return (
     <div className="total">
@@ -55,20 +78,25 @@ const TotalReview = () => {
           </div>
           <div className="review-container">
             <div className="total-review">
-              <h1>4.3</h1>
-              <Rate defaultValue={3.5} disabled={true} allowHalf={false}/>
+              <h1>{totalRate.rating}</h1>
+              <Rate
+                disabled={true}
+                allowHalf={true}
+                value={+totalRate.rating}
+              />
               <div>
                 <UserOutlined />
-                <span>15,372 reviewer</span>
+                <span>{totalRate.comments}</span>
               </div>
             </div>
-
             <div className="total-review-diagram">
-              <Progress percent={30} />
-              <Progress percent={30} />
-              <Progress percent={30} />
-              <Progress percent={30} />
-              <Progress percent={50} status="active" />
+              {Object.entries(totalRate.stars).map(([stars, value]) => (
+                <Progress
+                  key={stars}
+                  percent={(value / 100) * 100}
+                  status="active"
+                />
+              ))}
             </div>
 
             <div className="write-and-review-btn">
@@ -83,7 +111,7 @@ const TotalReview = () => {
                 </Button>
 
                 <Modal
-                  open={isModalOpen}
+                  visible={isModalOpen}
                   onOk={handleOk}
                   onCancel={handleCancel}
                   width={1000}
@@ -96,13 +124,19 @@ const TotalReview = () => {
                     />
                     <div className="feedback-form">
                       <h1>Add your rate:</h1>
-                      <Rate allowHalf={false} defaultValue={0} className="feed-rate" value={review.star} onChange={handleRate}/>
+                      <Rate
+                        allowHalf={false}
+                        defaultValue={0}
+                        className="feed-rate"
+                        value={review.star}
+                        onChange={handleRate}
+                      />
 
                       <TextArea
                         style={{ width: 450 }}
                         placeholder="Add your comment ..."
                         autoSize={{ minRows: 6, maxRows: 5 }}
-                        name='comment'
+                        name="comment"
                         onChange={handleInput}
                       />
                     </div>

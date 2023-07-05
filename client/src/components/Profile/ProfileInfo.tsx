@@ -64,7 +64,7 @@ const ProfileInfo = () => {
                   <Image width="12vh" src={tunisFlag} />
 
                   <div className="user-info">
-                    <span className="age">{profile.birthdate}</span>
+                    <span className="age">{2023 - profile.birthdate.slice(0,4)}y.o</span>
 
                     <h1>{profile.user.username}</h1>
                     <p>{profile.bio}</p>
