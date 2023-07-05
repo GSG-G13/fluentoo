@@ -3,7 +3,7 @@ import { Progress, Row, Col, Rate, Button, Image } from 'antd';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
-const RatingAndReview = () => {
+const RatingAndReview = ({ isSuccess, setIsSuccess }:any) => {
   const [feedback, setFeedback] = useState([]);
   const { profileId } = useParams();
 
@@ -18,7 +18,7 @@ const RatingAndReview = () => {
       }
     };
     userFeedback();
-  }, []);
+  }, [isSuccess]);
 
   return (
     <div className="reviewer">

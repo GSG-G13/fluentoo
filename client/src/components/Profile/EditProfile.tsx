@@ -1,72 +1,40 @@
 import React, { useEffect, useState } from 'react';
-import { Row, Col, Image, Input, Button, Select } from 'antd';
+import { Row, Col, Image, Input, Button, Select, Form, DatePicker } from 'antd';
 const { Option } = Select;
 const { TextArea } = Input;
 import tunisFlag from '../../assets/img/tunisFlag.png';
 import { SendOutlined, EditOutlined, SaveOutlined } from '@ant-design/icons';
+import ReactFlagsSelect from 'react-flags-select';
 import axios from 'axios';
+import { useAuthContext } from '../../context/AuthContext';
 
 
 const EditProfile = () => {
   const [email, setEmail] = useState('johndoe@domain.com');
-  const [editMode, setEditMode] = useState(false);
-  const [countries, setCountries] = useState([]);
-  const [language, setLanguage] = useState([]);
-  const [selectedCountry, setSelectedCountry] = useState('select country');
-
+  const [editMode, setEditMode] = useState(false); 
+  
+  const[profile, setProfile] = useState<any>(null);
+  const [country, setCountry] = useState("")
+  const { user } = useAuthContext();
   
 
+  
+  
   useEffect(() => {
-    const handleCountry = async () => {
-      const url = 'https://restcountries.com/v3.1/all';
-
+    const userData = async () => {
       try {
-        const res = await axios.get(url);
-        const countriesData = res.data.map(
-          (country: any) => country.name.common
-        );
-        const sortedCountries = countriesData.sort();
-        setCountries(sortedCountries);
+        const res = await axios.get(`/api/v1/profile/${user.userId}`);
+        const data = res.data;
+
+        setProfile(data.data[0]);
+        
       } catch (err) {
         console.log(err);
       }
     };
-    handleCountry();
+    userData();
   }, []);
 
-
-    const handleLanguage = async () => {
-        const url =
-          'https://restcountries.com/v3.1/independent?status=true&fields=languages,capital';
-        try {
-          const res = await axios.get(url);
-          const languagesData = res.data.map((lang: any) => lang.languages);
-          const uniqueLanguagesSet = new Set();
-    
-          languagesData.forEach((language: any) => {
-            Object.values(language).forEach((value) => {
-              uniqueLanguagesSet.add(value);
-            });
-          });
-    
-          const uniqueLanguages = Array.from(uniqueLanguagesSet);
-    
-          uniqueLanguages.forEach((lang) => {
-            const allLanguages = [];
-            allLanguages.push(lang);
-           setLanguage(allLanguages);
-            
-          });
-        } catch (err) {
-          console.log(err);
-        }
-      };
-
-
-
-  const handleCountryChange = (event: any) => {
-    setSelectedCountry(event.target.value);
-  };
 
   const handleEditClick = () => {
     setEditMode(true);
@@ -93,7 +61,7 @@ const EditProfile = () => {
 
                 <div className="user-info">
                   <span>Name:</span>
-                  <Input name="email" value={email} disabled={!editMode} />
+                  <Input placeholder={profile?.user.username} name="email"disabled={!editMode} />
 
                   <span>Birthdate:</span>
                   <Input
@@ -101,42 +69,26 @@ const EditProfile = () => {
                     type="date"
                     disabled={!editMode}
                   />
-
                   <span>Country:</span>
-                  <Select
-                    disabled={!editMode}
-                    value={selectedCountry}
-                    onChange={handleCountryChange}
-                  >
-                    <Option value="select country">Select Country</Option>
-                    {countries.map((country, index) => (
-                      <Option key={index} value={country}>
-                        {country}
-                      </Option>
-                    ))}
-                  </Select>
+                  <Form.Item >
+  <Form.Item name="country" noStyle>
+    <ReactFlagsSelect
+      selected={country}
+      onSelect={(code) => setCountry(code)}
+      disabled={!editMode}
+    />
+  </Form.Item>
+</Form.Item>
+
 
                   <span>Bio:</span>
                   <TextArea
-                    placeholder="Controlled autosize"
+                    placeholder={profile?.bio}
                     autoSize={{ minRows: 3, maxRows: 5 }}
                     disabled={!editMode}
                   />
                 </div>
-
-                <Select
-                  disabled={!editMode}
-                  value={language}
-                >
-                  <Option value="select country">Select Country</Option>
-                  {countries.map((country, index) => (
-                      <Option key={index} value={country}>
-                        {country}
-                      </Option>
-                    ))}
-               
-                </Select>
-
+  
                 <div className="msg-input-btn">
                   {editMode ? (
                     <Button

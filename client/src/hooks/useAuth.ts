@@ -1,27 +1,20 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Cookies from "js-cookie";
 import jwt_decode from "jwt-decode";
 import { LoggedUserObjectType, DecodeJwtType } from '../utils'
 
 
 const useAuth = () => {
+  const token: string | undefined = Cookies.get('token');
+  let logedInUser: DecodeJwtType = {};
+  if (token) {
+    logedInUser = jwt_decode(token)
+  }
   const [user, setUser] = useState<LoggedUserObjectType>({
-    userId: null,
-    userName: null,
+    userId: logedInUser?.id,
+    userName: logedInUser?.username,
   });
 
-  useEffect(() => {
-    const token: string | undefined = Cookies.get('token');
-    if (token) {
-      var decode: DecodeJwtType = jwt_decode(token);
-      if (decode) {
-        setUser({
-          userId: decode.id,
-          userName: decode.username,
-        });
-      }
-    }
-  }, [])
 
   return {
     user,
