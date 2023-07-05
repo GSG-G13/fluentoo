@@ -12,7 +12,8 @@ import type {
   DecodeJwtType,
   LoggedUserObjectType,
   DropMenuProps,
-  ProfileCredentials
+  ProfileCredentials,
+  UploadImageProps
 } from './types';
 
 import { SignupSchema, LoginSchema ,ProfileSchema} from './validation';
@@ -34,5 +35,6 @@ export {
   LoggedUserObjectType,
   DropMenuProps,
   ProfileCredentials,
-  ProfileSchema
+  ProfileSchema,
+  UploadImageProps
 };

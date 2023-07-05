@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import {
@@ -9,6 +9,7 @@ import {
     Radio,
     Select,
 } from 'antd';
+import {UploadImage} from '../index'
 import ReactFlagsSelect from 'react-flags-select';
 import { useAuthContext } from '../../context/AuthContext';
 import { ProfileCredentials, ProfileSchema } from '../../utils';
@@ -20,6 +21,7 @@ function ProfileForm() {
     const { user } = useAuthContext();
     const navigate = useNavigate();
     const userId = user.userId;
+    const [avatar, setAvatar] = useState('');
     const [form] = Form.useForm();
     const initialErrors: ProfileCredentials = {
         gender: '',
@@ -33,9 +35,7 @@ function ProfileForm() {
     const [country, setCountry] = useState("")
     const onFinish = async (values: ProfileCredentials) => {
         try {
-            const FormData = await ProfileSchema.validate({ ...values, country }, { abortEarly: false })
-            console.log(FormData);
-
+            const FormData = await ProfileSchema.validate({ ...values, country, avatar }, { abortEarly: false })
             await axios.post("/api/v1/profile", { userId, ...FormData });
             navigate("/community");
         } catch (e: any) {
@@ -49,6 +49,7 @@ function ProfileForm() {
             }
         }
     };
+   
     return (
         <>
             <Form
@@ -67,15 +68,14 @@ function ProfileForm() {
 
                 </Form.Item>
                 <span className="error-message ">{errors.gender}</span>
-                <Form.Item label="Image URL" name="avatar">
-                    <Input type='url' placeholder='optional' />
+                <Form.Item label="Image" name="avatar">
+                    <UploadImage avatar={avatar} setAvatar={setAvatar}/>
                 </Form.Item>
                 <Form.Item label="Native Languages" name="spokenLanguages">
                     <Select mode='multiple'>
                         <Select.Option value="English">English</Select.Option>
                         <Select.Option value="French">French</Select.Option>
                     </Select>
-
                 </Form.Item>
                 <span className="error-message ">{errors.spokenLanguages}</span>
                 <Form.Item label="practice Languages" name='practiceLanguages'>

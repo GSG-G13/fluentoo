@@ -78,3 +78,7 @@ export interface DropMenuProps {
   setLanguage: (language: string) => void;
 }
 
+export interface UploadImageProps {
+  avatar: string;
+  setAvatar: React.Dispatch<React.SetStateAction<string>>;
+}

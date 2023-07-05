@@ -10,7 +10,7 @@ import SendMessageForm from './SendMessageForm';
 import ProfileForm from './ProfileForm'
 import UserCard from './Card';
 import Menu from './DropDownMenu'
-
+import UploadImage from './UploadImage'
 export {
   SignupForm,
   LoginForm,
@@ -23,5 +23,6 @@ export {
   SendMessageForm,
   ProfileForm,
   UserCard,
-  Menu
+  Menu,
+  UploadImage
 }
