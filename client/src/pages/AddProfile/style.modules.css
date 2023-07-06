@@ -1,0 +1,45 @@
+.container-2 {
+    width: 50%;
+    margin: 3% auto;
+    background: rgba(255, 255, 255, 0.01);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 50px;
+}
+
+:where(.css-dev-only-do-not-override-12jzuas).ant-input,
+:where(.css-dev-only-do-not-override-12jzuas).ant-select:not(.ant-select-customize-input) .ant-select-selector {
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid var(--primary-color);
+    ;
+}
+
+:where(.css-dev-only-do-not-override-12jzuas).ant-input:focus {
+    box-shadow: none;
+    border-inline-end-width: 1px;
+    outline: 0;
+}
+
+.button {
+    float: right;
+}
+
+.css-dev-only-do-not-override-12jzuas.ant-btn {
+    border-radius: 6px;
+}
+
+textarea:where(.css-dev-only-do-not-override-12jzuas).ant-input {
+
+    border: 1px solid var(--primary-color);
+    border-radius: 6px;
+}
+
+.error-message {
+    color: red;
+    margin-bottom: 5px;
+    display: block;
+    text-align: center;
+}

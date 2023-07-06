@@ -10,7 +10,16 @@ export interface LoginCredentials {
   email: string;
   password: string;
 }
-
+export interface ProfileCredentials{
+  gender:  string
+  country: string
+  birthdate: string
+  intrests?:  string | null
+  bio?:  string
+  avatar?: string | null | undefined
+  practiceLanguages: string
+  spokenLanguages:  string
+}
 export interface AuthContextType {
   user: { userId: number | null; userName: string | null; }
   setUser: (user: {} | null) => void,
@@ -69,3 +78,7 @@ export interface DropMenuProps {
   setLanguage: (language: string) => void;
 }
 
+export interface UploadImageProps {
+  avatar: string;
+  setAvatar: React.Dispatch<React.SetStateAction<string>>;
+}

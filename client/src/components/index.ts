@@ -7,9 +7,10 @@ import User from './User';
 import Message from './Message';
 import ChatUserHead from './ChatUserHead';
 import SendMessageForm from './SendMessageForm';
+import ProfileForm from './ProfileForm'
 import UserCard from './Card';
 import Menu from './DropDownMenu'
-
+import UploadImage from './UploadImage'
 export {
   SignupForm,
   LoginForm,
@@ -20,6 +21,8 @@ export {
   Message,
   ChatUserHead,
   SendMessageForm,
+  ProfileForm,
   UserCard,
-  Menu
+  Menu,
+  UploadImage
 }

@@ -7,11 +7,10 @@ import {
   Spin,
   Col,
 } from 'antd';
-import { Link } from 'react-router-dom';
 import { LoginCredentials, LoginSchema } from '../../utils';
 import { useAuthContext } from '../../context/AuthContext';
-
-function LoginForm() {
+import GoogleAuth from '../GoogleAuth';
+function LoginForm({ setActive }: any) {
   const { setUser } = useAuthContext();
 
   const initialErrors: LoginCredentials = {
@@ -51,7 +50,9 @@ function LoginForm() {
 
   return (
     <Spin spinning={loading}>
-      <Col md={18}>
+      <Col md={15}>
+        <h1>Welcome Back!!</h1>
+
         <Form
           className="auth-form"
           form={form}
@@ -60,38 +61,31 @@ function LoginForm() {
           autoComplete="off"
           layout="vertical"
         >
-          <div className="login-or-signup">
-            <p>Welcome To Our App</p>
-            <div className="btns">
-              <Link to="/login" className="active">Login</Link>
-              <Link to="/signup">Signup</Link>
-            </div>
-          </div>
-          <p className="light-text">By continuing, you are setting up an account and agree to our User Agreement.</p>
-
+          <p className='light-text'>Expand your language skills through global connections.</p>
           <Form.Item
             className="form-text"
-            label="Email"
             name="email"
           >
-            <Input />
+            <Input placeholder='Email' />
           </Form.Item>
-          <span className="error-message">{errors.email}</span>
+          <span className="error-message e">{errors.email}</span>
 
           <Form.Item
             className="form-password"
-            label="Password"
             name="password"
           >
-            <Input.Password />
+            <Input.Password placeholder='Password' />
           </Form.Item>
-          <span className="error-message">{errors.password}</span>
+          <span className="error-message e">{errors.password}</span>
 
           <Form.Item wrapperCol={{ offset: 0, span: 16 }}>
             <Button type="primary" htmlType="submit">
               Log In
             </Button>
           </Form.Item>
+          <h5 className='or'>OR</h5>
+          <GoogleAuth page={'/community'} />
+          <p className='light-text p'>You dont have an account ? <button type='button' className='register' onClick={() => setActive(true)}>Sign Up </button> </p>
         </Form>
       </Col>
     </Spin>

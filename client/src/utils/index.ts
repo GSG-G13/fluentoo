@@ -11,10 +11,12 @@ import type {
   SendMessageFormPropsType,
   DecodeJwtType,
   LoggedUserObjectType,
-  DropMenuProps
+  DropMenuProps,
+  ProfileCredentials,
+  UploadImageProps
 } from './types';
 
-import { SignupSchema, LoginSchema } from './validation';
+import { SignupSchema, LoginSchema ,ProfileSchema} from './validation';
 
 export {
   SignupCredentials,
@@ -31,5 +33,8 @@ export {
   LoginSchema,
   DecodeJwtType,
   LoggedUserObjectType,
-  DropMenuProps
+  DropMenuProps,
+  ProfileCredentials,
+  ProfileSchema,
+  UploadImageProps
 };
