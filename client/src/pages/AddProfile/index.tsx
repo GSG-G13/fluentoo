@@ -1,14 +1,17 @@
 import React from 'react';
-import { ProfileForm } from '../../components'
-import './style.modules.css'
+import { EditProfile } from '../../components';
+import './style.modules.css';
+import { Banner } from '../../components/Profile';
 
 function ProfileInfo() {
   return (
-    <div className='container-2'>
-      <ProfileForm />
+    <div>
+      <Banner />
+      <div className='container-2'>
+        <EditProfile />
+      </div>
     </div>
-
-  )
+  );
 }
 
-export default ProfileInfo
+export default ProfileInfo;

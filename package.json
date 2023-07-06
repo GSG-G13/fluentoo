@@ -38,7 +38,9 @@
     "passport": "^0.6.0",
     "pg": "^8.11.0",
     "pg-hstore": "^2.3.4",
+    "react-flags-select": "^2.2.3",
     "react-input-emoji": "^5.1.0",
+    "react-world-flags": "^1.5.1",
     "sequelize": "^6.32.0",
     "web-audio-api": "^0.2.2",
     "ws": "^8.13.0"

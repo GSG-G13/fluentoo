@@ -7,6 +7,7 @@ import User from './User';
 import Message from './Message';
 import ChatUserHead from './ChatUserHead';
 import SendMessageForm from './SendMessageForm';
+import { EditProfile } from './Profile';
 import ProfileForm from './ProfileForm'
 import UserCard from './Card';
 import Menu from './DropDownMenu'
@@ -21,6 +22,7 @@ export {
   Message,
   ChatUserHead,
   SendMessageForm,
+  EditProfile,
   ProfileForm,
   UserCard,
   Menu,

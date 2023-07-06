@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 
 export interface SignupCredentials {
   email: string;
@@ -10,19 +10,10 @@ export interface LoginCredentials {
   email: string;
   password: string;
 }
-export interface ProfileCredentials{
-  gender:  string
-  country: string
-  birthdate: string
-  intrests?:  string | null
-  bio?:  string
-  avatar?: string | null | undefined
-  practiceLanguages: string
-  spokenLanguages:  string
-}
+
 export interface AuthContextType {
-  user: { userId: number | null; userName: string | null; }
-  setUser: (user: {} | null) => void,
+  user: { userId: number | null; userName: string | null };
+  setUser: (user: {} | null) => void;
 }
 
 export interface AuthProviderPropsType {
@@ -76,6 +67,16 @@ export interface LoggedUserObjectType {
 export interface DropMenuProps {
   name: string;
   setLanguage: (language: string) => void;
+}
+export interface ProfileCredentials{
+  gender:  string
+  country: string
+  birthdate: string
+  intrests?:  string | null
+  bio?:  string
+  avatar?: string | null | undefined
+  practiceLanguages: string
+  spokenLanguages:  string
 }
 
 export interface UploadImageProps {
