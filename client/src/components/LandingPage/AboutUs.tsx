@@ -27,35 +27,35 @@ const aboutusDesc = [
     icon:<UserOutlined/>,
     classN: 'pinkIco',
     content: `At Fluentoo, we prioritize building a supportive and inclusive
-  community. Our platform is driven by passionate language learners
-   who share their knowledge and experiences with others. Through interactive
+    community. Our platform is driven by passionate language learners
+    who share their knowledge and experiences with others. Through interactive
     features, discussion forums, and language-specific groups, we encourage users
-     to engage actively, help one another, and create meaningful connections that
-      go beyond language exchange.`,
+    to engage actively, help one another, and create meaningful connections that
+    go beyond language exchange.`,
   },
 ];
 function AboutUs() {
   return (
-    <div className="aboutus-sec">
+    <div className='aboutus-sec'>
       <Row>
         <Col span={24}>
-          <div className="about-title">
+          <div className='about-title'>
             <h3>
               <strong>About Us</strong> ,Language Exchange
             </h3>
             <p>
               Start your language exchange adventure with us and let the power
-              of language transcend borders!"
+              of language transcend borders!'
             </p>
           </div>
         </Col>
       </Row>
-      <div className="cards">
+      <div className='cards'>
         <Row>
           <Col span={8}>
             {aboutusDesc.map((e) => (
               <Card>
-                <div className="card-container">
+                <div className='card-container'>
                   <div className={e.classN}>
                     {e.icon}
                   </div>

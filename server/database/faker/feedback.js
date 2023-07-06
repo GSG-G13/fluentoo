@@ -13,7 +13,7 @@ const FEEDBACKS_RAND = faker.helpers.multiple(createRandomFeedback, {
 
 const FEEDBACKS = FEEDBACKS_RAND.map((feedback, index, feedbacks) => ({
   ...feedback,
-  commenterId: index + 1,
+  commenterId: index,
   commentingId: index !== feedbacks.length - 1 ? index + 1 : index - 1,
 }));
 

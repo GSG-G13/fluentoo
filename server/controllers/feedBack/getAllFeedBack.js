@@ -5,11 +5,10 @@ const getAllFeedBack = async (req, res, next) => {
     const { commentingId } = req.params;
     const data = await FeedBack.findAll({
       where: {
-        commentingId,
+        commenting_id: commentingId,
       },
-      limit: 5,
     });
-    res.status(200).json({
+    res.json({
       msg: 'Feedbacks Returned Successfully',
       status: 200,
       data,

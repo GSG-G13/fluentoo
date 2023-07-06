@@ -11,7 +11,7 @@ function MessagesSiderHead({ collapsed, setCollapsed }: SiderCollapsedPropsType)
         {collapsed || (
           <Button
             className='burger-menu'
-            type="text"
+            type='text'
             icon={<MenuOutlined />}
             onClick={() => setCollapsed(!collapsed)}
             style={{
@@ -22,7 +22,7 @@ function MessagesSiderHead({ collapsed, setCollapsed }: SiderCollapsedPropsType)
           />
         )}
       </div>
-      <Input size="large" placeholder="Search for a friend" prefix={<SearchOutlined />} />
+      <Input size='large' placeholder='Search for a friend' prefix={<SearchOutlined />} />
     </>
   )
 }

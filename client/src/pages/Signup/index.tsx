@@ -6,16 +6,16 @@ import './style.moduels.css';
 
 function Signup() {
   return (
-    <div className="auth">
-      <Row className="auth-container">
-        <Col className="image-container" md={12}>
+    <div className='auth'>
+      <Row className='auth-container'>
+        <Col className='image-container' md={12}>
           <Image
             src={signupImage}
             preview={false}
-            alt="signup"
+            alt='signup'
           />
         </Col>
-        <Col className="form-container" xs={24} md={12}>
+        <Col className='form-container' xs={24} md={12}>
           <SignupForm />
         </Col>
       </Row>

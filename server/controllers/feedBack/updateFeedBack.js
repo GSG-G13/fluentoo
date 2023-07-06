@@ -2,24 +2,16 @@ const FeedBack = require('../../models/feedBack');
 const { CustomError } = require('../../utils');
 const { addFeedBackSchema } = require('../../utils/validation');
 
-const updataFeedBack = async (req, res, next) => {
+const updateFeedBack = async (req, res, next) => {
   try {
     const { commentId } = req.params;
-    const { comment, star } = req.body;
-
     const feedbackContent = await FeedBack.findByPk(commentId);
     if (!feedbackContent) {
       throw new CustomError('Comment not found', 404);
     }
-
-    const validUpdate = await addFeedBackSchema.validateAsync(
-      {
-        comment,
-        star,
-      },
-      { abortEarly: false },
-    );
-
+    const validUpdate = await addFeedBackSchema.validateAsync(...req.body, {
+      abortEarly: false,
+    });
     const updatedData = await FeedBack.update(
       { commentId, ...validUpdate },
       {
@@ -30,10 +22,7 @@ const updataFeedBack = async (req, res, next) => {
       },
     );
 
-    if (!updatedData) {
-      throw new CustomError('Updating Faild', 500);
-    }
-    res.status(201).json({
+    res.json({
       msg: 'Updated Successfully',
       status: 201,
       data: updatedData[1],
@@ -43,4 +32,4 @@ const updataFeedBack = async (req, res, next) => {
   }
 };
 
-module.exports = updataFeedBack;
+module.exports = updateFeedBack;

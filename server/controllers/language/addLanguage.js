@@ -3,18 +3,12 @@ const { addLangSchema } = require('../../utils/validation');
 
 const createLanguage = async (req, res, next) => {
   try {
-    const { name, shortcut, flag } = req.body;
-
-    const { error, value } = await addLangSchema.validateAsync({
-      name, shortcut, flag,
+    const language = await addLangSchema.validateAsync({
+      ...req.body,
     }, { abortEarly: false });
 
-    if (error) {
-      throw new Error(error.message);
-    }
-
-    const data = await Language.create(value);
-    res.status(200).json({
+    const data = await Language.create(language);
+    res.json({
       message: 'language created successfully',
       data,
     });

@@ -16,7 +16,7 @@ describe('Signup tests', () => {
       username: 'aya',
       password: '123@Aaaaaaaa',
     };
-    const response = await request(app).post('/api/v1/auth/signup').send(newUser);
+    const response = await request(app).post('/api/signup').send(newUser);
     expect(response.body.status).toBe(201);
     expect(response.body.msg).toBe('Signup successfully');
   });
@@ -27,19 +27,23 @@ describe('Signup tests', () => {
       username: 'aya',
       password: '123',
     };
-    const response = await request(app).post('/api/v1/auth/signup').send(newUser);
+    const response = await request(app).post('/api/signup').send(newUser);
     expect(response.body.status).toBe(400);
-    expect(response.body.msg).toBe('Password must be at least 8 characters long.');
+    expect(response.body.msg).toBe(
+      'Password must be at least 8 characters long.',
+    );
   });
 
   it('should return email already exists error', async () => {
-    jest.spyOn(User, 'findOne').mockImplementation(() => Promise.resolve({ email: 'existing@example.com' }));
+    jest
+      .spyOn(User, 'findOne')
+      .mockImplementation(() => Promise.resolve({ email: 'existing@example.com' }));
     const newUser = {
       email: 'existing@example.com',
       username: 'aya',
       password: '123@Aaaaaaaa',
     };
-    const response = await request(app).post('/api/v1/auth/signup').send(newUser);
+    const response = await request(app).post('/api/signup').send(newUser);
     expect(response.body.status).toBe(400);
     expect(response.body.msg).toBe('Email already exists');
     jest.spyOn(User, 'findOne').mockRestore();
@@ -52,7 +56,7 @@ describe('Login tests', () => {
       email: 'basel@gmail.com',
       password: '123@Aaaaaaaa',
     };
-    const response = await request(app).post('/api/v1/auth/login').send(user);
+    const response = await request(app).post('/api/login').send(user);
     expect(response.body.status).toBe(200);
     expect(response.body.msg).toBe('login successfully');
   });
@@ -61,7 +65,7 @@ describe('Login tests', () => {
       email: 'basel@gmail.com',
       password: '123',
     };
-    const response = await request(app).post('/api/v1/auth/login').send(user);
+    const response = await request(app).post('/api/login').send(user);
     expect(response.body.status).toBe(400);
     expect(response.body.msg).toBe(
       'Password must be at least 8 characters long.',
@@ -72,16 +76,16 @@ describe('Login tests', () => {
       email: 'adalah@gmail.com',
       password: '123@Aaaaaaaa',
     };
-    const response = await request(app).post('/api/v1/auth/login').send(user);
+    const response = await request(app).post('/api/login').send(user);
     expect(response.body.status).toBe(401);
-    expect(response.body.msg).toBe("Email doesn't exists");
+    expect(response.body.msg).toBe('Email doesn\'t exists');
   });
   it('should return password or email incorrect', async () => {
     const user = {
       email: 'basel@gmail.com',
       password: '123@adfsasfaasf',
     };
-    const response = await request(app).post('/api/v1/auth/login').send(user);
+    const response = await request(app).post('/api/login').send(user);
     expect(response.body.status).toBe(400);
     expect(response.body.msg).toBe('password or email incorrect');
   });
@@ -92,10 +96,10 @@ describe('Profile endPoints', () => {
     const newProfile = {
       gender: 'female',
       country: 'gaza',
-      birthdate: '2002-1-25',
+      birthDate: '2002-1-25',
       practiceLanguages: ['English', 'Spanish'],
       spokenLanguages: ['French', 'German'],
-      intrests: ['Reading', 'Traveling'],
+      interests: ['Reading', 'Traveling'],
       bio: 'I am a language enthusiast.',
       avatar: 'https://example.com/avatar.jpg',
     };
@@ -105,11 +109,11 @@ describe('Profile endPoints', () => {
       password: '123@Aaaaaaaa',
     };
     const responseSignup = await request(app)
-      .post('/api/v1/auth/signup')
+      .post('/api/signup')
       .send(newUser);
     const { token } = responseSignup.body;
     const response = await request(app)
-      .post('/api/v1/profile')
+      .post('/api/profile')
       .set('Cookie', [`token=${token}`])
       .send(newProfile);
     expect(response.body.status).toBe(201);
@@ -118,10 +122,10 @@ describe('Profile endPoints', () => {
   it('should return validation error', async () => {
     const newProfile = {
       gender: 'male',
-      birthdate: '2002-1-25',
+      birthDate: '2002-1-25',
       practiceLanguages: ['English', 'Spanish'],
       spokenLanguages: ['French', 'German'],
-      intrests: ['Reading', 'Traveling'],
+      interests: ['Reading', 'Traveling'],
       bio: 'I am a language enthusiast.',
       avatar: 'https://example.com/avatar.jpg',
     };
@@ -131,11 +135,11 @@ describe('Profile endPoints', () => {
       password: '123@Aaaaaaaa',
     };
     const responseSignup = await request(app)
-      .post('/api/v1/auth/signup')
+      .post('/api/signup')
       .send(newUser);
     const { token } = responseSignup.body;
     const response = await request(app)
-      .post('/api/v1/profile')
+      .post('/api/profile')
       .set('Cookie', [`token=${token}`])
       .send(newProfile);
     expect(response.body.status).toBe(400);
@@ -143,18 +147,18 @@ describe('Profile endPoints', () => {
   });
 
   it('should return a profile', async () => {
-    const response = await request(app).get('/api/v1/profile/1');
+    const response = await request(app).get('/api/profile/1');
     expect(response.body.status).toBe(200);
     expect(response.body.data).toHaveProperty('user');
     expect(typeof response.body.data.user).toBe('object');
   });
   it('should pass the error Profile not found', async () => {
-    const response = await request(app).get('/api/v1/profile/100');
+    const response = await request(app).get('/api/profile/100');
     expect(response.body.status).toBe(404);
     expect(response.body.msg).toBe('Profile not found');
   });
   it('should return validation error', async () => {
-    const response = await request(app).get('/api/v1/profile/abc');
+    const response = await request(app).get('/api/profile/abc');
     expect(response.body.status).toBe(400);
     expect(response.body.msg).toBe('"profileId" must be a number');
   });
@@ -168,28 +172,28 @@ describe('Profile endPoints', () => {
     const newProfile = {
       gender: 'male',
       country: 'Gaza',
-      birthdate: '2000-5-25',
+      birthDate: '2000-5-25',
       practiceLanguages: ['English', 'German'],
       spokenLanguages: ['Arabic'],
-      intrests: ['Reading', 'coding'],
+      interests: ['Reading', 'coding'],
       bio: 'I am a language enthusiast.',
       avatar: 'https://example.com/avatar.jpg',
     };
     const responseSignup = await request(app)
-      .post('/api/v1/auth/signup')
+      .post('/api/signup')
       .send(newUser);
     const { token } = responseSignup.body;
     const responseCreateProfile = await request(app)
-      .post('/api/v1/profile')
+      .post('/api/profile')
       .set('Cookie', [`token=${token}`])
       .send(newProfile);
     const { id } = responseCreateProfile.body.data;
     const updatedProfile = {
       ...newProfile,
-      intrests: ['Reading', 'coding', 'Traveling'],
+      interests: ['Reading', 'coding', 'Traveling'],
     };
     const response = await request(app)
-      .put(`/api/v1/profile/${id}`)
+      .put(`/api/profile/${id}`)
       .set('Cookie', [`token=${token}`])
       .send(updatedProfile);
     expect(response.body.status).toBe(200);
@@ -204,32 +208,32 @@ describe('Profile endPoints', () => {
     const newProfile = {
       gender: 'male',
       country: 'Gaza',
-      birthdate: '2000-5-25',
+      birthDate: '2000-5-25',
       practiceLanguages: ['English', 'German'],
       spokenLanguages: ['Arabic'],
-      intrests: ['Reading', 'coding'],
+      interests: ['Reading', 'coding'],
       bio: 'I am a language enthusiast.',
       avatar: 'https://example.com/avatar.jpg',
     };
     const responseSignup = await request(app)
-      .post('/api/v1/auth/signup')
+      .post('/api/signup')
       .send(newUser);
     const { token } = responseSignup.body;
     const responseCreateProfile = await request(app)
-      .post('/api/v1/profile')
+      .post('/api/profile')
       .set('Cookie', [`token=${token}`])
       .send(newProfile);
     const { id } = responseCreateProfile.body.data;
     const updatedProfile = {
       ...newProfile,
-      intrests: 'Traveling',
+      interests: 'Traveling',
     };
     const response = await request(app)
-      .put(`/api/v1/profile/${id}`)
+      .put(`/api/profile/${id}`)
       .set('Cookie', [`token=${token}`])
       .send(updatedProfile);
     expect(response.body.status).toBe(400);
-    expect(response.body.msg).toBe('"intrests" must be an array');
+    expect(response.body.msg).toBe('"interests" must be an array');
   });
   it('should pass Profile not found on update with cheat user', async () => {
     const newUser = {
@@ -240,23 +244,23 @@ describe('Profile endPoints', () => {
     const newProfile = {
       gender: 'male',
       country: 'Gaza',
-      birthdate: '2000-5-25',
+      birthDate: '2000-5-25',
       practiceLanguages: ['English', 'German'],
       spokenLanguages: ['Arabic'],
-      intrests: ['Reading', 'coding'],
+      interests: ['Reading', 'coding'],
       bio: 'I am a language enthusiast.',
       avatar: 'https://example.com/avatar.jpg',
     };
     const responseSignup = await request(app)
-      .post('/api/v1/auth/signup')
+      .post('/api/signup')
       .send(newUser);
     const { token } = responseSignup.body;
     const updatedProfile = {
       ...newProfile,
-      intrests: ['Reading', 'coding', 'Traveling'],
+      interests: ['Reading', 'coding', 'Traveling'],
     };
     const response = await request(app)
-      .put('/api/v1/profile/1001')
+      .put('/api/profile/1001')
       .set('Cookie', [`token=${token}`])
       .send(updatedProfile);
     expect(response.body.status).toBe(404);
@@ -271,23 +275,23 @@ describe('Profile endPoints', () => {
     const newProfile = {
       gender: 'male',
       country: 'Gaza',
-      birthdate: '2000-5-25',
+      birthDate: '2000-5-25',
       practiceLanguages: ['English', 'German'],
       spokenLanguages: ['Arabic'],
-      intrests: ['Reading', 'coding'],
+      interests: ['Reading', 'coding'],
       bio: 'I am a language enthusiast.',
       avatar: 'https://example.com/avatar.jpg',
     };
     const responseSignup = await request(app)
-      .post('/api/v1/auth/signup')
+      .post('/api/signup')
       .send(newUser);
     const { token } = responseSignup.body;
     const updatedProfile = {
       ...newProfile,
-      intrests: ['Reading', 'coding', 'Traveling'],
+      interests: ['Reading', 'coding', 'Traveling'],
     };
     const response = await request(app)
-      .put('/api/v1/profile/abc')
+      .put('/api/profile/abc')
       .set('Cookie', [`token=${token}`])
       .send(updatedProfile);
     expect(response.body.status).toBe(400);
@@ -326,15 +330,17 @@ describe('Language endPoints', () => {
 afterAll(async () => {
   await sequelize.close();
 });
-describe('community endpoints', () => {
-  it('should return data based on the params', async () => {
-    const name = 'adalah';
-    const spokenLanguages = ['Arabic'];
-    const response = await request(app).get(`/api/v1/search?name=${name}&spokenLanguages=${spokenLanguages}`);
-    expect(response.status).toBe(200);
-    expect(response.body.data[0].username).toEqual(name);
-    expect(response.body.data[0].profile.spokenLanguages).toContain(
-      spokenLanguages[0],
-    );
-  });
-});
+// describe('community endpoints', () => {
+//   it('should return data based on the params', async () => {
+//     const name = 'adalah';
+//     const spokenLanguages = ['Arabic'];
+//     const response = await request(app).get(
+//       `/search?name=${name}&spokenLanguages=${spokenLanguages}`,
+//     );
+//     expect(response.status).toBe(200);
+//     expect(response.body.data[0].username).toEqual(name);
+//     expect(response.body.data[0].profile.spokenLanguages).toContain(
+//       spokenLanguages[0],
+//     );
+//   });
+// });

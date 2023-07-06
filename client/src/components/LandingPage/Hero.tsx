@@ -11,12 +11,12 @@ import './LandingPage.css'
 
 function Hero() {
   return (
-    <div className="hero-sec">
+    <div className='hero-sec'>
       <Row gutter={[8, 8]}>
-        <div className="hero">
+        <div className='hero'>
           <Col span={12}>
 
-            <div className="hero-title">
+            <div className='hero-title'>
               <h2>
                 <strong>Studying</strong>
                 {' '}
@@ -24,13 +24,13 @@ function Hero() {
               </h2>
               <p>
               Join our language exchange website and connect with
-               a global community of language enthusiasts. Enhance
-                your language skills by engaging in meaningful conversations 
-                with fellow learners.
+              a global community of language enthusiasts. Enhance
+              your language skills by engaging in meaningful conversations 
+              with fellow learners.
 
               </p>
 
-              <Button type="primary" shape='round'>
+              <Button type='primary' shape='round'>
                 Get Started !
               </Button>
             </div>

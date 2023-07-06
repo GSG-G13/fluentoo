@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const app = {
-  port: 3000,
+  port: 5000,
   isProduction: process.env.NODE_ENV === 'production',
   debug: process.env.NODE_ENV !== 'production',
   jwt: {

@@ -1,11 +1,11 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
-import { Layout, Row, Col, Button, Menu, Image } from 'antd';
+import { Row, Col, Image } from 'antd';
 import firstFeat from '../../assets/img/feat1.jpeg';
 import secFeat from '../../assets/img/feat2.jpeg';
 import thirdFeat from '../../assets/img/feat3.jpeg';
 
-const featuersContent = [
+const featuresContent = [
   {
     imgSrc: firstFeat,
     imgAlt: 'text and video calls Feature',
@@ -34,8 +34,8 @@ const featuersContent = [
 
 function Feature() {
   return (
-    <div className="feat-sec">
-      <div className="feature-title">
+    <div className='feat-sec'>
+      <div className='feature-title'>
         <h3>
           Our <strong>Features</strong>
         </h3>
@@ -45,14 +45,14 @@ function Feature() {
         </p>
       </div>
 
-      {featuersContent.map((w) => (
-        <Row className="feat-container">
+      {featuresContent.map((w) => (
+        <Row className='feat-container'>
           <Col md={12}>
             <Image src={w.imgSrc} preview={false} alt={w.imgAlt} />
           </Col>
 
           <Col md={12}>
-            <div className="feature-ele-title">
+            <div className='feature-ele-title'>
               <h2>{w.featTitle}</h2>
               <p>{w.featContent}</p>
             </div>

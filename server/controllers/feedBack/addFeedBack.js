@@ -1,17 +1,21 @@
 const FeedBack = require('../../models/feedBack');
+const { CustomError } = require('../../utils');
 const { addFeedBackSchema } = require('../../utils/validation');
 
 const addFeedBack = async (req, res, next) => {
   try {
-    const commenterId = req.user.id;
+    const commenterId = 1 || req.user.id;
     const { commentingId } = req.params;
-    const { comment, star } = req.body;
+    if (commenterId === commentingId) throw new CustomError('You can not comment on yourself', 400);
     const validFeedBack = await addFeedBackSchema.validateAsync({
-      comment, star,
+      ...req.body,
     }, { abortEarly: false });
-
-    const data = await FeedBack.create({ commenterId, commentingId, ...validFeedBack });
-    res.status(201).json({
+    const data = await FeedBack.create({
+      commenter_id: commenterId,
+      commenting_id: commentingId,
+      ...validFeedBack,
+    });
+    res.json({
       msg: 'Created Successfully',
       status: 201,
       data,
