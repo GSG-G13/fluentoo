@@ -1,27 +1,38 @@
 import React, { useEffect, useState } from 'react';
-import { Row, Col, Image, Input, Button } from 'antd';
-import insta from '../../assets/img/insta.png';
-import facebook from '../../assets/img/facebook.png';
-import twitter from '../../assets/img/twitter.png';
-import tunisFlag from '../../assets/img/tunisFlag.png';
-import { SendOutlined } from '@ant-design/icons';
+import { Card } from 'antd';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
 const ProfileInfo = () => {
-  const [loadings, setLoadings] = useState<boolean[]>([]);
-  const [profile, setProfile] = useState<any>(null);
-
   const { profileId } = useParams();
-  
+  const [profile, setProfile] = useState({
+    bio: '',
+    age: 0,
+    intrests: [],
+    spokenLanguages: [],
+    practiceLanguages: [],
+  });
+
   useEffect(() => {
     const userData = async () => {
       try {
         const res = await axios.get(`/api/v1/profile/${profileId}`);
         const data = res.data;
+        const spokenLanguages = data.data[0].spokenLanguages;
+        const practiceLanguages = data.data[0].practiceLanguages;
+        const intrests = data.data[0].intrests;
+        const birthDate = data.data[0].birthdate.slice(0, 4);
+        const age = 2023 - birthDate;
+        const bio = data.data[0].bio;
 
-        setProfile(data.data[0]);
-        
+        setProfile({
+          ...profile,
+          practiceLanguages,
+          age,
+          spokenLanguages,
+          intrests,
+          bio,
+        });
       } catch (err) {
         console.log(err);
       }
@@ -29,70 +40,40 @@ const ProfileInfo = () => {
     userData();
   }, []);
 
-  const enterLoading = (index: number) => {
-    setLoadings((prevLoadings) => {
-      const newLoadings = [...prevLoadings];
-      newLoadings[index] = true;
-      return newLoadings;
-    });
-
-    setTimeout(() => {
-      setLoadings((prevLoadings) => {
-        const newLoadings = [...prevLoadings];
-        newLoadings[index] = false;
-        return newLoadings;
-      });
-    }, 6000);
-  };
-
   return (
     <div>
-      <Row>
-        <Col span={24}>
-          {profile && (
-            <div className="profile-container-bg">
-              <div className="profile-img-bg">
-                <div className="profile-img">
-                  <Image
-                    width="65vh"
-                    // src={profile.avatar}
+      <Card style={{ width: 800 }} className="info-card">
+        <h2>About</h2>
+        <hr />
+        <div className="info-item">
+          <h3>Bio:</h3>
+          <p>{profile.bio}</p>
+        </div>
+        <div className="info-item">
+          <h3>Age:</h3>
+          <p>{profile.age} y.o</p>
+        </div>
+        <div className="info-item">
+          <h3>Intrests:</h3>
+          {profile.intrests.map((e) => (
+            <p>{e}</p>
+          ))}
+        </div>
 
-                    src="https://s.abcnews.com/images/GMA/tom-holland-file-gty-jef-230614_1686763040439_hpMain_1x1_992.jpg"
-                  />
-                </div>
-                <div className="profile-info-container">
-                  <Image width="12vh" src={tunisFlag} />
+        <div className="info-item">
+          <h3>SpokenLanguages:</h3>
+          {profile.spokenLanguages.map((e) => (
+            <p>{e}</p>
+          ))}
+        </div>
 
-                  <div className="user-info">
-                    <span className="age">{2023 - profile.birthdate.slice(0,4)}y.o</span>
-
-                    <h1>{profile.user.username}</h1>
-                    <p>{profile.bio}</p>
-                  </div>
-
-                  <div className="soical-media">
-                    <Image width="6vh" src={facebook} />
-                    <Image width="6vh" src={insta} />
-                    <Image width="6vh" src={twitter} />
-                  </div>
-                  <div className="msg-input-btn">
-                    <Input placeholder="Send Message" />
-                    <Button
-                      type="primary"
-                      style={{ width: '100%' }}
-                      icon={<SendOutlined />}
-                      loading={loadings[1]}
-                      onClick={() => enterLoading(1)}
-                    >
-                      Send
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-        </Col>
-      </Row>
+        <div className="info-item">
+          <h3>PracticeLanguages:</h3>
+          {profile.practiceLanguages.map((e) => (
+            <p>{e}</p>
+          ))}
+        </div>
+      </Card>
     </div>
   );
 };

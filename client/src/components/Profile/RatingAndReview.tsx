@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Progress, Row, Col, Rate, Button, Image } from 'antd';
+import { Progress, Row, Col, Rate, Button, Image, Card } from 'antd';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
-const RatingAndReview = ({ isSuccess, setIsSuccess }:any) => {
+const RatingAndReview = ({ isSuccess, setIsSuccess }: any) => {
   const [feedback, setFeedback] = useState([]);
   const { profileId } = useParams();
 
@@ -22,41 +22,39 @@ const RatingAndReview = ({ isSuccess, setIsSuccess }:any) => {
 
   return (
     <div className="reviewer">
-      <Row>
-        <Col span={24}>
-          <div className="all-comments">
-            {feedback.map((item, index) => (
-              <div className="comment-container">
-                <div className="commenter-info">
-                  <Image
-                    width="10vh"
-                    className="commenter-user"
-                    src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+      <Card style={{ width: 800 }} className="reviews-card">
+        <div className="all-comments">
+          {feedback.map((e) => (
+            <div className="comment-container">
+              <div className="commenter-info">
+                <Image
+                  width={70}
+                  className="commenter-user"
+                  src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                />
+                <div className="commenter-name-star">
+                  <h3>{e.user.username}</h3>
+                  <Rate
+                    className="stars"
+                    style={{ fontSize: '14px' }}
+                    allowHalf
+                    defaultValue={e.star}
+                    disabled={true}
                   />
-                  <div className="commenter-name-star">
-                    <h3 key={index}>{item.user.username}</h3>
-                    <Rate
-                      className="stars"
-                      style={{ fontSize: '14px' }}
-                      allowHalf
-                      defaultValue={item.star}
-                      disabled={true}
-                    />
-                  </div>
-                </div>
-                <div className="comment-content">
-                  <p key={index}>{item.comment}</p>
                 </div>
               </div>
-            ))}
-            <div>
-              <a href="#" className="see-more">
-                See More ...
-              </a>
+              <div className="comment-content">
+                <p>{e.comment}</p>
+              </div>
             </div>
-          </div>
-        </Col>
-      </Row>
+          ))}
+        </div>
+        <div>
+          <a href="#" className="see-more">
+            See More ...
+          </a>
+        </div>
+      </Card>
     </div>
   );
 };

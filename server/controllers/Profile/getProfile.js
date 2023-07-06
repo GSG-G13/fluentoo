@@ -9,7 +9,7 @@ const getProfile = async (req, res, next) => {
       },
       include: {
         model: User,
-        attributes: ['id', 'username'],
+        attributes: ['id', 'username', 'email'],
       },
     });
     return res.json({

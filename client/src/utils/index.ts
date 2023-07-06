@@ -10,10 +10,12 @@ import type {
   ChatUserHeadPropsType,
   SendMessageFormPropsType,
   DecodeJwtType,
-  LoggedUserObjectType
+  LoggedUserObjectType,
+  DropMenuProps,
+  ProfileCredentials
 } from './types';
 
-import { SignupSchema, LoginSchema } from './validation';
+import { SignupSchema, LoginSchema ,ProfileSchema} from './validation';
 
 export {
   SignupCredentials,
@@ -29,5 +31,8 @@ export {
   SignupSchema,
   LoginSchema,
   DecodeJwtType,
-  LoggedUserObjectType
+  LoggedUserObjectType,
+  DropMenuProps,
+  ProfileCredentials,
+  ProfileSchema
 };

@@ -7,7 +7,7 @@ import User from './User';
 import Message from './Message';
 import ChatUserHead from './ChatUserHead';
 import SendMessageForm from './SendMessageForm';
-
+import { EditProfile } from './Profile';
 export {
   SignupForm,
   LoginForm,
@@ -17,5 +17,7 @@ export {
   User,
   Message,
   ChatUserHead,
-  SendMessageForm
+  SendMessageForm,
+  EditProfile,
+
 }

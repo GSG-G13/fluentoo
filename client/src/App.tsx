@@ -1,13 +1,11 @@
 import React from 'react';
 import './App.css';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { Signup, Login, Home, ProfilePage } from './pages';
+import { Signup, Login, Home, ProfilePage, ProfileInfo } from './pages';
 import { useAuthContext } from './context/AuthContext';
 import { Chat } from './pages';
-import EditProfile from './components/Profile/EditProfile';
 function App() {
   const { user } = useAuthContext();
-
   return (
     <Routes>
       <Route path="/" element={<Home />} />
@@ -28,7 +26,7 @@ function App() {
 
       <Route
         path="/edit"
-        element={user.userId ? <EditProfile /> : <Navigate to="/signup" />}
+        element={user.userId ? <ProfileInfo /> : <Navigate to="/signup" />}
       />
     </Routes>
   );

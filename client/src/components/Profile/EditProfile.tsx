@@ -1,33 +1,79 @@
-import React, { useEffect, useState } from 'react';
-import { Row, Col, Image, Input, Button, Select, Form, DatePicker } from 'antd';
-const { Option } = Select;
-const { TextArea } = Input;
-import tunisFlag from '../../assets/img/tunisFlag.png';
-import { SendOutlined, EditOutlined, SaveOutlined } from '@ant-design/icons';
-import ReactFlagsSelect from 'react-flags-select';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { Button, DatePicker, Form, Input, Radio, Select } from 'antd';
+import ReactFlagsSelect from 'react-flags-select';
 import { useAuthContext } from '../../context/AuthContext';
+import { ProfileCredentials, ProfileSchema } from '../../utils';
+import { intrests } from '.././common/intrests.ts';
 
+const { TextArea } = Input;
 
-const EditProfile = () => {
-  const [email, setEmail] = useState('johndoe@domain.com');
-  const [editMode, setEditMode] = useState(false); 
-  
-  const[profile, setProfile] = useState<any>(null);
-  const [country, setCountry] = useState("")
+function EditProfile() {
   const { user } = useAuthContext();
-  
+  const navigate = useNavigate();
+  const userId = user.userId;
+  const [form] = Form.useForm();
+  const initialErrors: ProfileCredentials = {
+    gender: '',
+    birthdate: '',
+    country: '',
+    spokenLanguages: '',
+    practiceLanguages: '',
+    bio: '',
+  };
+  const [profile, setProfile] = useState<any>({
+    bio: '',
+    birthDate: '',
+    intrests: [],
+    spokenLanguages: [],
+    practiceLanguages: [],
+  });
+  const [errors, setErrors] = useState<ProfileCredentials>(initialErrors);
+  const [country, setCountry] = useState('');
+  const onFinish = async (values: ProfileCredentials) => {
+    try {
+      const FormData = await ProfileSchema.validate(
+        { ...values, country },
+        { abortEarly: false }
+      );
+      console.log(FormData);
 
-  
-  
+      await axios.put('/api/v1/profile', { userId, ...FormData });
+      console.log(profile);
+      
+      navigate(`/profile/${userId}`);
+    } catch (e: any) {
+      if (e.name === 'ValidationError') {
+        e.errors.forEach((error: { fieldName: string; msg: string }) => {
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            [error.fieldName]: error.msg,
+          }));
+        });
+      }
+    }
+  };
+
   useEffect(() => {
     const userData = async () => {
       try {
-        const res = await axios.get(`/api/v1/profile/${user.userId}`);
+        const res = await axios.get(`/api/v1/profile/${userId}`);
         const data = res.data;
+        const bio = data.data[0].bio;
+        const birthDate = data.data[0].birthdate.split('T')[0];
+        const spokenLanguages = data.data[0].spokenLanguages;
+        const practiceLanguages = data.data[0].practiceLanguages;
+        const intrests = data.data[0].intrests;
 
-        setProfile(data.data[0]);
-        
+        setProfile({
+          ...profile,
+          practiceLanguages,
+          birthDate,
+          spokenLanguages,
+          intrests,
+          bio,
+        });
       } catch (err) {
         console.log(err);
       }
@@ -35,82 +81,70 @@ const EditProfile = () => {
     userData();
   }, []);
 
-
-  const handleEditClick = () => {
-    setEditMode(true);
-  };
-
-  const handleSaveClick = () => {
-    setEditMode(false);
-  };
-
   return (
-    <div>
-      <Row>
-        <Col span={24}>
-          <div className="profile-container-bg">
-            <div className="profile-img-bg">
-              <div className="profile-img">
-                <Image
-                  width="65vh"
-                  src="https://s.abcnews.com/images/GMA/tom-holland-file-gty-jef-230614_1686763040439_hpMain_1x1_992.jpg"
-                />
-              </div>
-              <div className="profile-info-container">
-                <Image width="12vh" src={tunisFlag} />
+    <>
+      <Form
+        labelCol={{ span: 4 }}
+        wrapperCol={{ span: 14 }}
+        layout="horizontal"
+        onFinish={onFinish}
+        form={form}
+        style={{ maxWidth: 600 }}
+      >
+        <Form.Item label="Gender" name="gender">
+          <Radio.Group>
+            <Radio value="female"> female </Radio>
+            <Radio value="male"> male</Radio>
+          </Radio.Group>
+        </Form.Item>
+        <span className="error-message ">{errors.gender}</span>
+        <Form.Item label="Image URL" name="avatar">
+          <Input type="url" placeholder="optional" />
+        </Form.Item>
+        <Form.Item label="Native Languages" name="spokenLanguages">
+          <Select mode="multiple" placeholder={profile?.spokenLanguages[0]}>
+            <Select.Option value="English">English</Select.Option>
+            <Select.Option value="French">French</Select.Option>
+          </Select>
+        </Form.Item>
+        <span className="error-message ">{errors.spokenLanguages}</span>
+        <Form.Item label="practice Languages" name="practiceLanguages">
+          <Select mode="multiple" placeholder={profile?.practiceLanguages[0]}>
+            <Select.Option value="demo">English</Select.Option>
+            <Select.Option value="French">French</Select.Option>
+          </Select>
+        </Form.Item>
+        <span className="error-message ">{errors.practiceLanguages}</span>
+        <Form.Item label="Intrests" name="intrests">
+          <Select mode="multiple" placeholder={profile?.intrests[0]}>
+            {intrests.map((intrest: any) => (
+              <Select.Option value={`${intrest}`}>{intrest}</Select.Option>
+            ))}
+          </Select>
+        </Form.Item>
+        <Form.Item label="Country" name="country">
+          <ReactFlagsSelect
+            selected={country}
+            onSelect={(code) => setCountry(code)}
+          />
+        </Form.Item>
+        <span className="error-message ">{errors.country}</span>
+        <Form.Item label="Birth Date" name="birthdate">
+          <DatePicker placeholder={profile.birthDate} />
+        </Form.Item>
+        <span className="error-message ">{errors.birthdate}</span>
 
-                <div className="user-info">
-                  <span>Name:</span>
-                  <Input placeholder={profile?.user.username} name="email"disabled={!editMode} />
+        <Form.Item label="Bio" name="bio">
+          <TextArea rows={4} placeholder={profile.bio} />
+        </Form.Item>
 
-                  <span>Birthdate:</span>
-                  <Input
-                    placeholder="13 y.o"
-                    type="date"
-                    disabled={!editMode}
-                  />
-                  <span>Country:</span>
-                  <Form.Item >
-  <Form.Item name="country" noStyle>
-    <ReactFlagsSelect
-      selected={country}
-      onSelect={(code) => setCountry(code)}
-      disabled={!editMode}
-    />
-  </Form.Item>
-</Form.Item>
-
-
-                  <span>Bio:</span>
-                  <TextArea
-                    placeholder={profile?.bio}
-                    autoSize={{ minRows: 3, maxRows: 5 }}
-                    disabled={!editMode}
-                  />
-                </div>
-  
-                <div className="msg-input-btn">
-                  {editMode ? (
-                    <Button
-                      type="text"
-                      onClick={handleSaveClick}
-                      icon={<SaveOutlined />}
-                    />
-                  ) : (
-                    <Button
-                      type="text"
-                      onClick={handleEditClick}
-                      icon={<EditOutlined />}
-                    />
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-        </Col>
-      </Row>
-    </div>
+        <span className="error-message">{errors.bio}</span>
+        <Button className="button" htmlType="submit">
+          Submit
+        </Button>
+      </Form>
+    </>
   );
-};
+}
 
 export default EditProfile;
