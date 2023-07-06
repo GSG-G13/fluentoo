@@ -10,7 +10,7 @@ function ChooseChatButton({ collapsed, setCollapsed }: SiderCollapsedPropsType) 
         className='choose-chat-button'
         onClick={() => setCollapsed(!collapsed)}
       >
-        Choose Chat <WechatOutlined />
+        <u>Choose Chat</u> <WechatOutlined />
       </div>
     </div>
   )

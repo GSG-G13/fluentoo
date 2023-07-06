@@ -40,7 +40,7 @@ function SignupForm({ setActive }: any) {
 
       setErrors({ ...initialErrors });
       setLoading(false);
-      navigate("/createprofile");
+      navigate("/profile/create");
     } catch (e: any) {
       if (e.name === "AxiosError") {
         setErrors({ ...initialErrors });

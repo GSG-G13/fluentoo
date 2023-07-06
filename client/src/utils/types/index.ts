@@ -34,12 +34,15 @@ export interface MessageObjectType {
 
 export interface UserComponentPropsType {
   user: UserObjectType;
+  isOnline: boolean;
   selectedUser: UserObjectType;
   setSelectedUser: (selectedUser: UserObjectType) => void;
 }
 
 export interface SiderCollapsedPropsType {
   collapsed: boolean;
+  allContacts?: UserObjectType[];
+  setFilterdContacts?: (filterdContacts: UserObjectType[]) => void;
   setCollapsed: (collapsed: boolean) => void;
 }
 
