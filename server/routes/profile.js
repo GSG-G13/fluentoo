@@ -4,5 +4,5 @@ const checkAuth = require('../middlewares/checkauth');
 
 profileRouter.post('/', checkAuth, createProfile);
 profileRouter.put('/', checkAuth, updateProfile);
-profileRouter.get('/:profileId', getProfile);
+profileRouter.get('/:userId', getProfile);
 module.exports = profileRouter;

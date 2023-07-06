@@ -4,13 +4,13 @@ const { profileValidation } = require('../../utils');
 
 const updateProfile = async (req, res, next) => {
   try {
-    const profileId = req.user.id;
+    const userId = req.user.id;
     const Validation = await profileValidation.validateAsync(req.body, { abortEarly: false });
     const updatedProfile = await Profile.update({
-      profileId, ...Validation,
+      userId, ...Validation,
     }, {
       where: {
-        profileId,
+        userId,
       },
       returning: true,
     });

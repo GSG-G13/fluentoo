@@ -2,10 +2,10 @@ const { Profile, User } = require('../../models');
 
 const getProfile = async (req, res, next) => {
   try {
-    const { profileId } = req.params;
+    const { userId } = req.params;
     const profile = await Profile.findAll({
       where: {
-        profileId,
+        userId,
       },
       include: {
         model: User,
