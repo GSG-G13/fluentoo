@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { Progress, Row, Col, Rate, Button, Image, Card } from 'antd';
+import { Rate, Image, Card } from 'antd';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
-const RatingAndReview = ({ isSuccess, setIsSuccess }: any) => {
+const RatingAndReview = ({ isSuccess }: any) => {
   const [feedback, setFeedback] = useState([]);
   const { profileId } = useParams();
 
   useEffect(() => {
     const userFeedback = async () => {
       try {
-        const res = await axios.get(`/api/v1/feedback/${profileId}`);
-        const data = res.data;
-        setFeedback(data.data);
+        const {
+          data: { data },
+        } = await axios.get(`/api/v1/feedback/${profileId}`);
+        setFeedback(data);
       } catch (err) {
         console.log(err);
       }
@@ -21,21 +22,21 @@ const RatingAndReview = ({ isSuccess, setIsSuccess }: any) => {
   }, [isSuccess]);
 
   return (
-    <div className="reviewer">
-      <Card style={{ width: 800 }} className="reviews-card">
-        <div className="all-comments">
-          {feedback.map((e) => (
-            <div className="comment-container">
-              <div className="commenter-info">
+    <div className='reviewer'>
+      <Card style={{ width: 800 }} className='reviews-card'>
+        <div className='all-comments'>
+          {feedback.map((e: any) => (
+            <div className='comment-container'>
+              <div className='commenter-info'>
                 <Image
                   width={70}
-                  className="commenter-user"
-                  src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                  className='commenter-user'
+                  src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
                 />
-                <div className="commenter-name-star">
+                <div className='commenter-name-star'>
                   <h3>{e.user.username}</h3>
                   <Rate
-                    className="stars"
+                    className='stars'
                     style={{ fontSize: '14px' }}
                     allowHalf
                     defaultValue={e.star}
@@ -43,14 +44,14 @@ const RatingAndReview = ({ isSuccess, setIsSuccess }: any) => {
                   />
                 </div>
               </div>
-              <div className="comment-content">
+              <div className='comment-content'>
                 <p>{e.comment}</p>
               </div>
             </div>
           ))}
         </div>
         <div>
-          <a href="#" className="see-more">
+          <a href='#' className='see-more'>
             See More ...
           </a>
         </div>

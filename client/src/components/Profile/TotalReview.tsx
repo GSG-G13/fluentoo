@@ -21,15 +21,20 @@ const TotalReview = ({ isSuccess, setIsSuccess }: any) => {
   useEffect(() => {
     const rate = async () => {
       try {
-        const total = await axios.get(`/api/v1/feedback/total/${profileId}`);
-        const stars = total.data.totalStars[0];
-        const rating = total.data.total[0].avgRating.slice(0, 3);
-        const comments = total.data.total[0].commentsCount;
+        const { data: {total : [firstIndex]} } = await axios.get(`/api/v1/feedback/total/${profileId}`);
+        const { 
+          avgRating, 
+          commentsCount,
+          ...rest
+        } = firstIndex;
+        const rating = avgRating.slice(0, 3);
+        const comments = commentsCount;
+
         setTotalRate((prev) => ({
           ...prev,
           rating,
           comments,
-          stars,
+          stars: { ...rest },
         }));
         setIsSuccess(false);
       } catch (err) {
@@ -67,18 +72,18 @@ const TotalReview = ({ isSuccess, setIsSuccess }: any) => {
   };
 
   return (
-    <div className="total">
-      <div className="rate-title">
+    <div className='total'>
+      <div className='rate-title'>
         <h1>
           {' '}
           <strong>Rating</strong> And Review
         </h1>
       </div>
 
-      <Card style={{ width: 800 }} className="total-rate-card">
-        <div className="total">
-          <div className="review-container">
-            <div className="total-review">
+      <Card style={{ width: 800 }} className='total-rate-card'>
+        <div className='total'>
+          <div className='review-container'>
+            <div className='total-review'>
               <h1>{totalRate.rating}</h1>
               <Rate
                 disabled={true}
@@ -91,23 +96,23 @@ const TotalReview = ({ isSuccess, setIsSuccess }: any) => {
               </div>
             </div>
 
-            <div className="total-review-diagram">
+            <div className='total-review-diagram'>
               {Object.entries(totalRate.stars).map(([stars, value]) => (
                 <Progress
                   key={stars}
                   percent={(value / 100) * 100}
-                  status="active"
+                  status='active'
                 />
               ))}
             </div>
 
-            <div className="write-and-review-btn">
+            <div className='write-and-review-btn'>
               <>
                 <Button
-                  className="write-btn"
+                  className='write-btn'
                   onClick={showModal}
-                  type="primary"
-                  shape="round"
+                  type='primary'
+                  shape='round'
                 >
                   WRITE & REVIEW
                 </Button>
@@ -118,27 +123,27 @@ const TotalReview = ({ isSuccess, setIsSuccess }: any) => {
                   onCancel={handleCancel}
                   width={1000}
                 >
-                  <div className="add-feedback">
+                  <div className='add-feedback'>
                     <img
-                      src="https://static.vecteezy.com/system/resources/previews/001/829/872/original/guy-gives-likes-and-positive-ratings-with-a-hand-thumb-up-symbol-and-notification-five-stars-service-product-rate-recommendation-opinion-and-customer-approve-illustration-for-web-landing-page-free-vector.jpg"
-                      alt=""
+                      src='https://static.vecteezy.com/system/resources/previews/001/829/872/original/guy-gives-likes-and-positive-ratings-with-a-hand-thumb-up-symbol-and-notification-five-stars-service-product-rate-recommendation-opinion-and-customer-approve-illustration-for-web-landing-page-free-vector.jpg'
+                      alt=''
                       style={{ width: 400 }}
                     />
-                    <div className="feedback-form">
+                    <div className='feedback-form'>
                       <h1>Add your rate:</h1>
                       <Rate
                         allowHalf={false}
                         defaultValue={0}
-                        className="feed-rate"
+                        className='feed-rate'
                         value={review.star}
                         onChange={handleRate}
                       />
 
                       <TextArea
                         style={{ width: 450 }}
-                        placeholder="Add your comment ..."
+                        placeholder='Add your comment ...'
                         autoSize={{ minRows: 6, maxRows: 5 }}
-                        name="comment"
+                        name='comment'
                         onChange={handleInput}
                       />
                     </div>

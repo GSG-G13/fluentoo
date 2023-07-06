@@ -1,4 +1,4 @@
-export const intrests =[
+export const interests =[
     'Sports',
     'Music',
     'Movies',
