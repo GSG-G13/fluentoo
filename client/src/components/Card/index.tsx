@@ -6,10 +6,11 @@ import {
 } from '@ant-design/icons';
 import './style.modules.css'
 import Flag from 'react-world-flags'
+import { Link } from 'react-router-dom';
 function UserCard(props: any) {
   let data = props.data;
- console.log(data);
- 
+  console.log(data);
+
 
   return (
     <Card className='card' >
@@ -25,7 +26,7 @@ function UserCard(props: any) {
         <Button type="dashed" icon={<SendOutlined />} shape="round" >
           Message
         </Button></div>
-      <h2>{data.username}</h2>
+      <Link to={`/profile/${data.id}`}><h1 className='community-user'>{data.username}</h1></Link>
 
       <div className='bottom'>
         <Rate disabled defaultValue={0} value={data.avgRating} />
