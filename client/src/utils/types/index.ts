@@ -54,13 +54,18 @@ export interface SendMessageFormPropsType {
 }
 
 export interface DecodeJwtType {
-  id: number;
-  username: string;
-  email: string;
-  iat: number;
+  id?: number;
+  username?: string;
+  email?: string;
+  iat?: number;
 }
 
 export interface LoggedUserObjectType {
-  userId: number | null;
-  userName: string | null;
+  userId: number | undefined;
+  userName: string | undefined;
 }
+export interface DropMenuProps {
+  name: string;
+  setLanguage: (language: string) => void;
+}
+
