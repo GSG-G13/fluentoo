@@ -54,13 +54,40 @@ export interface SendMessageFormPropsType {
 }
 
 export interface DecodeJwtType {
-  id: number;
-  username: string;
-  email: string;
-  iat: number;
+  id?: number;
+  username?: string;
+  email?: string;
+  iat?: number;
 }
 
 export interface LoggedUserObjectType {
-  userId: number | null;
-  userName: string | null;
+  userId: number | undefined;
+  userName: string | undefined;
+}
+export interface DropMenuProps {
+  name: string;
+  setLanguage: (language: string) => void;
+}
+
+export interface quizLevelType {
+  count: number;
+  text: string;
+  color: string;
+}
+
+export interface quizQuestionsType {
+  count: number;
+  text: string;
+  color: string;
+}
+
+export interface QuestionType {
+  question: string;
+  options: string[];
+  correct_answer: string;
+}
+
+export interface QuizType {
+  quiz_id: number;
+  questions: QuestionType[];
 }

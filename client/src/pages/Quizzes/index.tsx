@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { Row, Col, Card, Modal } from 'antd';
+import { Row, Col, Card } from 'antd';
 import { LockOutlined, CheckCircleOutlined } from '@ant-design/icons';
+import { quizLevelType, QuizType } from '../../utils';
 import { QuizModal } from '../../components';
-import qu from './gg';
 import './style.modules.css';
 
 const Quizzes = () => {
-  const [level, setLevel] = useState({});
-  const [currentQuiz, setCurrentQuiz] = useState({});
-  const [quizzesNumber, setQuizzesNumber] = useState([]);
+  const [level, setLevel] = useState<Partial<quizLevelType>>({});
+  const [currentQuiz, setCurrentQuiz] = useState<Partial<QuizType>>({});
+  const [quizzesNumber, setQuizzesNumber] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const getLevel = (levelNumber) => {
+  const getLevel = (levelNumber: number) => {
     if (levelNumber <= 3) {
       return {
         count: levelNumber,
@@ -38,10 +38,13 @@ const Quizzes = () => {
       };
     }
   }
+  console.log(currentQuiz.questions, 'ggg');
 
-  const handleQuizOpen = (quizId) => {
-    if (quizId === (level.count + 1)) {
-      setIsModalOpen(true);
+  const handleQuizOpen = (quizId: number) => {
+    if (level.count) {
+      if (quizId === (level.count + 1)) {
+        setIsModalOpen(true);
+      }
     }
   }
 
@@ -53,7 +56,7 @@ const Quizzes = () => {
   }, []);
 
   useEffect(() => {
-    setQuizzesNumber(qu.length)
+    setQuizzesNumber(10)
     setCurrentQuiz({
       "quiz_id": 8,
       "questions": [
@@ -115,21 +118,23 @@ const Quizzes = () => {
   for (let i = 1; i <= quizzesNumber; i++) {
     const quizLevel = getLevel(i);
 
-    quizzesCards.push((
-      <Col key={i} xs={24} sm={12} md={8}>
-        <Card
-          title={`Quiz ${i}`}
-          className={i < level.count + 1 ? 'done' : i > level.count + 1 && 'closed'}
-          bordered={true}
-          hoverable={true}
-          onClick={() => handleQuizOpen(i)}
-        >
-          {i < level.count + 1 && <CheckCircleOutlined className='checkIcon' />}
-          {i > level.count + 1 && <LockOutlined className='lockIcon' />}
-          <p>Level <span style={{ color: quizLevel.color, fontWeight: 'bold' }}>{quizLevel.text}</span></p>
-        </Card>
-      </Col >
-    ))
+    if (level.count) {
+      quizzesCards.push((
+        <Col key={i} xs={24} sm={12} md={8}>
+          <Card
+            title={`Quiz ${i}`}
+            className={i < level.count + 1 ? 'done' : i > level.count + 1 ? 'closed' : ""}
+            bordered={true}
+            hoverable={true}
+            onClick={() => handleQuizOpen(i)}
+          >
+            {i < level.count + 1 && <CheckCircleOutlined className='checkIcon' />}
+            {i > level.count + 1 && <LockOutlined className='lockIcon' />}
+            <p>Level <span style={{ color: quizLevel.color, fontWeight: 'bold' }}>{quizLevel.text}</span></p>
+          </Card>
+        </Col >
+      ))
+    }
   }
 
 

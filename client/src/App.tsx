@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import { Routes, Route, Navigate } from "react-router-dom";
-import { Signup, Login, Home, Quizzes } from './pages';
+import { Signup, Login, Home, Community, Quizzes } from './pages';
 import { useAuthContext } from "./context/AuthContext";
 import { Chat } from './pages';
 function App() {
@@ -15,11 +15,11 @@ function App() {
       />
       <Route
         path="/signup"
-        element={user.userId ? <Navigate to="/chat" /> : <Signup />}
+        element={user.userId ? <Navigate to="/community" /> : <Signup />}
       />
       <Route
         path="/login"
-        element={user.userId ? <Navigate to="/chat" /> : <Login />}
+        element={user.userId ? <Navigate to="/community" /> : <Login />}
       />
       <Route
         path="/chat"
@@ -28,6 +28,10 @@ function App() {
       <Route
         path="/quizzes"
         element={user.userId ? <Quizzes /> : <Navigate to="/signup" />}
+      />
+      <Route
+        path='/community'
+        element={<Community />}
       />
     </Routes>
   );

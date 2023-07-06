@@ -1,0 +1,38 @@
+.result {
+  width: 150px;
+  height: 150px;
+  font-size: 40px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  margin: 30px auto;
+}
+
+.result.success {
+  border: 10px solid green;
+  color: green;
+}
+
+.result.fail {
+  border: 10px solid red;
+  color: red;
+}
+
+:where(.css-dev-only-do-not-override-12jzuas).ant-form-item {
+  margin: 0;
+}
+
+:where(.css-dev-only-do-not-override-12jzuas).ant-radio-wrapper:hover .ant-radio-inner {
+  border-color: var(--primary-color);
+}
+
+:where(.css-dev-only-do-not-override-12jzuas).ant-radio-wrapper .ant-radio-checked .ant-radio-inner {
+  border-color: var(--primary-color);
+  background-color: var(--primary-color);
+}
+
+.radio-section {
+  margin-bottom: 30px;
+}
