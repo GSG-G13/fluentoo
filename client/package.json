@@ -20,8 +20,10 @@
     "jwt-decode": "^3.1.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-flags-select": "^2.2.3",
     "react-oauth": "^0.0.1",
     "react-router-dom": "^6.13.0",
+    "react-world-flags": "^1.5.1",
     "vite": "^4.3.9",
     "yup": "^1.2.0"
   },
@@ -29,6 +31,7 @@
     "@types/js-cookie": "^3.0.3",
     "@types/react": "^18.0.37",
     "@types/react-dom": "^18.0.11",
+    "@types/react-world-flags": "^1.4.2",
     "@typescript-eslint/eslint-plugin": "^5.59.0",
     "@typescript-eslint/parser": "^5.59.0",
     "eslint": "^8.38.0",

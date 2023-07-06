@@ -1,9 +1,14 @@
 const { Profile, User } = require('../../models');
+const { CustomError, profileIdValidation } = require('../../utils');
 
 const getProfile = async (req, res, next) => {
   try {
     const { userId } = req.params;
-    const profile = await Profile.findAll({
+    await profileIdValidation.validateAsync(
+      { userId },
+      { abortEarly: false },
+    );
+    const profile = await Profile.findOne({
       where: {
         userId,
       },
@@ -12,6 +17,9 @@ const getProfile = async (req, res, next) => {
         attributes: ['id', 'username', 'email'],
       },
     });
+    if (!profile) {
+      throw new CustomError('Profile not found', 404);
+    }
     return res.json({
       status: 200,
       data: profile,

@@ -1,7 +1,7 @@
 const addFeedBackSchema = require('./feedBack/addFeedBackSchema');
 const addLangSchema = require('./language/addLanguageSchema');
 const { signupValidation, loginValidation } = require('./user');
-const profileValidation = require('./profile');
+const { profileValidation, profileIdValidation } = require('./profile');
 
 module.exports = {
   addLangSchema,
@@ -9,4 +9,5 @@ module.exports = {
   loginValidation,
   addFeedBackSchema,
   profileValidation,
+  profileIdValidation,
 };
