@@ -12,6 +12,7 @@ import { useAuthContext } from '../../context/AuthContext';
 import GoogleAuth from '../GoogleAuth';
 import './style.modules.css';
 import { useNavigate } from 'react-router-dom';
+
 function SignupForm({ setActive }: any) {
   const { setUser } = useAuthContext();
   const navigate = useNavigate();
@@ -30,15 +31,28 @@ function SignupForm({ setActive }: any) {
 
       const formData: SignupCredentials = await SignupSchema.validate(values, { abortEarly: false });
 
-      const { data: userData } = await axios.post("/api/v1/auth/signup", { ...formData });
+      const response = await axios.post("/api/v1/auth/signup", { ...formData });
+      const { data: userData } = response;
       setUser({
         userId: userData.data.id,
         userName: userData.data.username,
       })
+
       setErrors({ ...initialErrors });
       setLoading(false);
       navigate("/createprofile");
     } catch (e: any) {
+      if (e.name === "AxiosError") {
+        setErrors({ ...initialErrors });
+        console.log(e.response.data.msg);
+
+        
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+         "email": e.response.data.msg
+        }))
+
+      }
       if (e.name === 'ValidationError') {
         setErrors({ ...initialErrors });
         e.errors.forEach((error: { fieldName: string, msg: string }) => {
