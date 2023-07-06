@@ -85,3 +85,8 @@ a {
     width: 1170px;
   }
 }
+
+input.ant-input.css-dev-only-do-not-override-12jzuas:focus {
+  border-color: var(--primary-color);
+  box-shadow: none;
+}

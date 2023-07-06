@@ -5,6 +5,7 @@ const {
   readMessage,
   deleteMessage,
   updateMessage,
+  findAllContacts,
 } = require('./message');
 const { createLanguage, getAllLanguages } = require('./language');
 
@@ -19,4 +20,5 @@ module.exports = {
   search,
   createLanguage,
   getAllLanguages,
+  findAllContacts,
 };

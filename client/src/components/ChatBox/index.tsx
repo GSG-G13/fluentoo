@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Layout } from 'antd';
+import { Link } from "react-router-dom";
 import { useAuthContext } from '../../context/AuthContext';
 import { UserObjectType, MessageObjectType } from '../../utils';
 import './style.modules.css'
@@ -20,12 +21,15 @@ function ChatBox() {
   const [isMobile, setIsMobile] = useState(false);
   const [ws, setWs] = useState<WebSocket | null>(null);
   const [text, setText] = useState("");
+  const [allContacts, setAllContacts] = useState<UserObjectType[]>([]);
+  const [filterdContacts, setFilterdContacts] = useState<UserObjectType[]>([]);
   const [onlineUsers, setOnlineUsers] = useState<UserObjectType[]>([]);
   const [allMessages, setAllMessages] = useState<MessageObjectType[]>([]);
   const [selectedUser, setSelectedUser] = useState<UserObjectType>({
     userId: 0,
     userName: '',
   });
+
   const chatWraper = useRef<HTMLDivElement>(null);
 
   const makeArrayOfObjectsUnique = (arr: UserObjectType[]) => {
@@ -55,7 +59,7 @@ function ChatBox() {
   }, []);
 
   useEffect(() => {
-    const ws = new WebSocket('ws://localhost:5000');
+    const ws = new WebSocket('ws://localhost:3000');
     setWs(ws);
 
     ws.addEventListener('message', (message) => {
@@ -72,6 +76,19 @@ function ChatBox() {
   }, []);
 
   useEffect(() => {
+    const getAllContacts = async () => {
+      try {
+        const { data } = await axios.get(`/api/v1/message/contacts/${loggedInUserId}`);
+        setAllContacts(data.data);
+        setFilterdContacts(data.data);
+      } catch (err) {
+        console.log('something wend wrong');
+      }
+    }
+    getAllContacts()
+  }, []);
+
+  useEffect(() => {
     if (selectedUser.userId) {
       const getAllMessages = async () => {
         const { data } = await axios.get(`/api/v1/message/${selectedUser.userId}`)
@@ -83,13 +100,15 @@ function ChatBox() {
   }, [selectedUser.userId]);
 
   const handleSendMessage = () => {
-    if (ws) {
-      ws.send(JSON.stringify({ message: { text, sender: loggedInUserId, receiver: selectedUser.userId } }))
-      if (loggedInUserId) {
-        setAllMessages((prevMessages) => [...prevMessages, { content: text, sender: loggedInUserId, receiver: selectedUser.userId, isOur: true }]);
+    if (text) {
+      if (ws) {
+        ws.send(JSON.stringify({ message: { text, sender: loggedInUserId, receiver: selectedUser.userId } }))
+        if (loggedInUserId) {
+          setAllMessages((prevMessages) => [...prevMessages, { content: text, sender: loggedInUserId, receiver: selectedUser.userId, isOur: true }]);
+        }
       }
+      setText('');
     }
-    setText('');
   }
 
   useEffect(() => {
@@ -98,10 +117,14 @@ function ChatBox() {
     }
 
   }, [allMessages]);
+  console.log(filterdContacts);
 
-  const onlineUsersElements = onlineUsers
-    .filter((user) => user.userId !== loggedInUserId)
-    .map((user) => <User key={user.userId} selectedUser={selectedUser} setSelectedUser={setSelectedUser} user={user} />);
+  const allContactsElements = filterdContacts
+    .map((user) => {
+      const isOnline = onlineUsers.some((onlineUser) => onlineUser.userId === user.userId);
+      if (user.userId == loggedInUserId) return ''
+      return <User key={user.userId} isOnline={isOnline} selectedUser={selectedUser} setSelectedUser={setSelectedUser} user={user} />
+    });
 
   return (
     <Layout className='main-layout' hasSider>
@@ -114,9 +137,13 @@ function ChatBox() {
         collapsedWidth={0}
       >
         <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
-          <MessagesSiderHead collapsed={collapsed} setCollapsed={setCollapsed} />
+          <MessagesSiderHead collapsed={collapsed} allContacts={allContacts} setFilterdContacts={setFilterdContacts} setCollapsed={setCollapsed} />
           <div className='users-box'>
-            {onlineUsers && onlineUsersElements}
+            {
+              allContacts.length ?
+                (filterdContacts.length ? allContactsElements : <div className='no-contacts'>No Contacts Found</div>) :
+                <Link to='/community' className='no-contacts-text'>You Don't Have Any Contacts!<br />Go To <u>Community</u> To Start One</Link>
+            }
           </div>
         </Content>
       </Sider>
@@ -133,7 +160,7 @@ function ChatBox() {
 
             <div ref={chatWraper} className='chat-wraper'>
               <div className='conversation'>
-                {allMessages.map((message, i) => <Message key={i} {...message} />)}
+                {allMessages.slice(1).map((message, i) => <Message key={i} {...message} />)}
               </div>
             </div>
 
