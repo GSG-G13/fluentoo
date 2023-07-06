@@ -38,7 +38,7 @@ function UserCard({ data }: any) {
         <Button type="dashed" onClick={startChat} icon={<SendOutlined />} shape="round" >
           Message
         </Button></div>
-      <h2>{data.username}</h2>
+      <Link to={`/profile/${data.id}`}><h1 className='community-user'>{data.username}</h1></Link>
 
       <div className='bottom'>
         <Rate disabled defaultValue={0} value={data.avgRating} />

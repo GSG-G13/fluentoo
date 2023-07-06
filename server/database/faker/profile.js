@@ -13,8 +13,13 @@ function createRandomProfile() {
   };
 }
 
-const PROFILES = faker.helpers.multiple(createRandomProfile, {
+const fakeProfile = faker.helpers.multiple(createRandomProfile, {
   count: 5,
 });
+
+const PROFILES = fakeProfile.map((profile, index) => ({
+  ...profile,
+  userId: index + 1,
+}));
 
 module.exports = { PROFILES };
