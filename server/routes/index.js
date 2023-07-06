@@ -1,4 +1,3 @@
-// todo: delete all files in server\routes folder except index.js
 const router = require('express').Router();
 const {
   search,
