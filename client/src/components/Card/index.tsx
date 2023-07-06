@@ -4,7 +4,7 @@ import { SendOutlined } from '@ant-design/icons';
 import './style.modules.css'
 import Flag from 'react-world-flags'
 import axios from 'axios';
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../context/AuthContext";
 
 function UserCard({ data }: any) {

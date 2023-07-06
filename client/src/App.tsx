@@ -5,6 +5,8 @@ import { useAuthContext } from './context/AuthContext';
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import { Chat } from './pages';
+import { Banner } from './components/Profile';
+import { ProfileForm } from './components';
 function App() {
   const { user } = useAuthContext();
   return (
@@ -23,11 +25,17 @@ function App() {
         element={user.userId ? <ProfileInfo /> : <Navigate to="/signup" />}
       />
       
+      <Route path='/profile/create' element={
+         <div>
+         <Banner />
+         <div className='container-2'>
+           <ProfileForm />
+         </div>
+       </div>} />
       <Route path="/profile/:profileId" element={<ProfilePage />} />
       <Route path='/community' element={<Community />} />
-      <Route path='*' element={<NotFound />} />
-      <Route path='/Createprofile' element={<ProfileInfo />} />
       <Route path='/auth' element={user.userId ? <Navigate to="/community" /> : <Auth />} />
+      <Route path='*' element={<NotFound />} />
 
     </Routes>
   );
