@@ -35,6 +35,15 @@ function LoginForm({ setActive }: any) {
       setErrors({ ...initialErrors });
       setLoading(false);
     } catch (e: any) {
+      
+      if (e.name === "AxiosError") {
+        setErrors({ ...initialErrors });
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+         "password": e.response.data.msg
+        }))
+      }
+
       if (e.name === 'ValidationError') {
         setErrors({ ...initialErrors });
         e.errors.forEach((error: { fieldName: string, msg: string }) => {
