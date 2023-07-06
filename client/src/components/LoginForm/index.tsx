@@ -84,7 +84,7 @@ function LoginForm({ setActive }: any) {
             </Button>
           </Form.Item>
           <h5 className='or'>OR</h5>
-          <GoogleAuth />
+          <GoogleAuth page={'/community'} />
           <p className='light-text p'>You dont have an account ? <button type='button' className='register' onClick={() => setActive(true)}>Sign Up </button> </p>
         </Form>
       </Col>

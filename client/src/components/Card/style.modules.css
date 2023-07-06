@@ -1,5 +1,5 @@
 .card {
-    width: 350px;
+    width: 300px;
     box-shadow: 0 4px 5px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s ease-in-out;
     align-self: self-start;
@@ -9,6 +9,10 @@
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
+:where(.css-dev-only-do-not-override-12jzuas).ant-card .ant-card-body {
+    padding: 14px;
+}
+
 .css-dev-only-do-not-override-12jzuas.ant-btn-dashed:hover {
     color: #ff40e2;
     border-color: #ff40e2;
@@ -16,7 +20,7 @@
 
 .head {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -33,8 +37,8 @@
 }
 
 .flags img {
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
     margin-left: 5px;
 }
 

@@ -16,7 +16,7 @@ function Community() {
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
   const currentPosts = data.slice(indexOfFirstUser, indexOfLastUser);
-
+ 
 
 
 
