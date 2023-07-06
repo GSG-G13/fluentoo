@@ -6,10 +6,10 @@ import { Banner } from '../../components/Profile';
 function ProfileInfo() {
   return (
     <div>
-      <Banner/>
-    <div className="container-2">
-      <EditProfile />
-    </div>
+      <Banner />
+      <div className='container-2'>
+        <EditProfile />
+      </div>
     </div>
   );
 }

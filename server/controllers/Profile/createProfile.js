@@ -1,14 +1,21 @@
 const { Profile } = require('../../models');
-const { profileValidation } = require('../../utils');
+const { profileValidation, CustomeError } = require('../../utils');
 
 const createProfile = async (req, res, next) => {
   try {
-    const userId = req.user.id;
+    const {
+      user: { id: userId },
+      body,
+    } = req;
+    const existingProfile = await Profile.findOne({ where: { userId } });
+
+    if (existingProfile) {
+      throw new CustomeError('profile already exists!', 404);
+    }
     const validatedData = await profileValidation.validateAsync(
-      req.body,
+      { userId, ...body },
       { abortEarly: false },
     );
-
     const newProfile = await Profile.create({ userId, ...validatedData });
 
     return res.json({

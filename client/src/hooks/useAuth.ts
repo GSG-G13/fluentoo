@@ -15,7 +15,6 @@ const useAuth = () => {
     userName: logedInUser?.username,
   });
 
-
   return {
     user,
     setUser,

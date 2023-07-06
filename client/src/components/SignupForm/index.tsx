@@ -7,15 +7,14 @@ import {
   Spin,
   Col,
 } from 'antd';
-import { Link } from 'react-router-dom';
 import { SignupCredentials, SignupSchema } from '../../utils';
 import { useAuthContext } from '../../context/AuthContext';
 import GoogleAuth from '../GoogleAuth';
 import './style.modules.css';
-
-function SignupForm() {
+import { useNavigate } from 'react-router-dom';
+function SignupForm({ setActive }: any) {
   const { setUser } = useAuthContext();
-
+  const navigate = useNavigate();
   const initialErrors: SignupCredentials = {
     email: '',
     username: '',
@@ -38,6 +37,7 @@ function SignupForm() {
       })
       setErrors({ ...initialErrors });
       setLoading(false);
+      navigate("/createprofile");
     } catch (e: any) {
       if (e.name === 'ValidationError') {
         setErrors({ ...initialErrors });
@@ -54,7 +54,8 @@ function SignupForm() {
 
   return (
     <Spin spinning={loading}>
-      <Col md={18}>
+      <Col md={15}>
+        <h1>Create an Account</h1>
         <Form
           className="auth-form"
           form={form}
@@ -63,41 +64,32 @@ function SignupForm() {
           autoComplete="off"
           layout="vertical"
         >
-          <div className="login-or-signup">
-            <p>Welcome To Our App</p>
-            <div className="btns">
-              <Link to="/login">Login</Link>
-              <Link to="/signup" className="active">Signup</Link>
-            </div>
-          </div>
+
           <p className="light-text">Connect with like-minded individuals and enhance your language skills.</p>
 
           <Form.Item
             className="form-text"
-            label="Email"
             name="email"
           >
-            <Input />
+            <Input placeholder='Email' />
           </Form.Item>
-          <span className="error-message">{errors.email}</span>
+          <span className="error-message e">{errors.email}</span>
 
           <Form.Item
             className="form-text"
-            label="User Name"
             name="username"
           >
-            <Input />
+            <Input placeholder='Username' />
           </Form.Item>
-          <span className="error-message">{errors.username}</span>
+          <span className="error-message e">{errors.username}</span>
 
           <Form.Item
             className="form-password"
-            label="Password"
             name="password"
           >
-            <Input.Password />
+            <Input.Password placeholder='Password' />
           </Form.Item>
-          <span className="error-message">{errors.password}</span>
+          <span className="error-message e">{errors.password}</span>
 
           <Form.Item wrapperCol={{ offset: 0, span: 16 }}>
             <Button type="primary" htmlType="submit">
@@ -106,7 +98,8 @@ function SignupForm() {
 
           </Form.Item>
           <h5 className='or'>OR</h5>
-          <GoogleAuth />
+          <GoogleAuth page={'/createprofile'} />
+          <p className='light-text p'>Already have an account ? <button type='button' className='register' onClick={() => setActive(false)}>Sign in </button> </p>
         </Form>
       </Col>
     </Spin>
