@@ -23,12 +23,12 @@ console.log(profile,'iiiiiiiii');
         const res = await axios.get(`/api/v1/profile/${profileId}`);
         const data = res.data;
         console.log(data);
-        const country = data.data[0].country;
-        const birthDate = data.data[0].birthdate.split('T')[0];
-        const username = data.data[0].user.username;
-        const email = data.data[0].user.email;
-        const gender = data.data[0].gender;
-        const avatar = data.data[0].avatar;
+        const country = data.data.country;
+        const birthDate = data.data.birthdate.split('T')[0];
+        const username = data.data.user.username;
+        const email = data.data.user.email;
+        const gender = data.data.gender;
+        const avatar = data.data.avatar;
         console.log(username);
 
         setProfile((prev) => ({

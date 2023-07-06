@@ -18,12 +18,12 @@ const ProfileInfo = () => {
       try {
         const res = await axios.get(`/api/v1/profile/${profileId}`);
         const data = res.data;
-        const spokenLanguages = data.data[0].spokenLanguages;
-        const practiceLanguages = data.data[0].practiceLanguages;
-        const intrests = data.data[0].intrests;
-        const birthDate = data.data[0].birthdate.slice(0, 4);
+        const spokenLanguages = data.data.spokenLanguages;
+        const practiceLanguages = data.data.practiceLanguages;
+        const intrests = data.data.intrests;
+        const birthDate = data.data.birthdate.slice(0, 4);
         const age = 2023 - birthDate;
-        const bio = data.data[0].bio;
+        const bio = data.data.bio;
 
         setProfile({
           ...profile,
