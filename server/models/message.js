@@ -18,9 +18,11 @@ const Message = sequelize.define(
 
 Message.belongsTo(User, {
   foreignKey: 'sender',
+  as: 'senderM',
 });
 Message.belongsTo(User, {
   foreignKey: 'receiver',
+  as: 'receiverM',
 });
 
 module.exports = Message;

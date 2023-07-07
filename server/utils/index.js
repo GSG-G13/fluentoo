@@ -6,7 +6,7 @@ const {
   profileIdValidation,
 } = require('./validation/index');
 const { SignToken, verifyToken } = require('./jwt/jwt');
-const { CustomError } = require('./helper');
+const { CustomError, makeArrayOfObjectsUnique } = require('./helper');
 
 module.exports = {
   addLangSchema,
@@ -17,4 +17,5 @@ module.exports = {
   CustomError,
   profileValidation,
   profileIdValidation,
+  makeArrayOfObjectsUnique,
 };

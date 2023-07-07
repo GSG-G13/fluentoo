@@ -3,7 +3,7 @@ const cookie = require('cookie');
 const { WebSocketServer } = require('ws');
 const { Message } = require('../models');
 const server = require('..');
-const { verifyToken } = require('../utils');
+const { verifyToken, CustomError } = require('../utils');
 
 const wss = new WebSocketServer({ server });
 
@@ -26,6 +26,9 @@ const getOnlineUsers = async () => {
 const sendMessage = async (receivedMessage) => {
   try {
     const { text, sender, receiver } = receivedMessage.message;
+    if (!text) {
+      throw new CustomError('Can not send empty message', 404);
+    }
     const message = await Message.create({
       sender,
       receiver,

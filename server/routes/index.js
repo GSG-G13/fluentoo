@@ -10,42 +10,53 @@ const {
   deleteMessage,
   updateMessage,
   createMessage,
-} = require('../controllers');
-const { login, signUp, oauth } = require('../controllers/User');
-const {
+  findAllContacts,
   getAllFeedBack,
   addFeedBack,
-  updateFeedBack,
   deleteFeedBack,
-} = require('../controllers/feedBack');
+  updateFeedBack,
+  totalRate,
+  login,
+  signUp,
+  oauth,
+} = require('../controllers');
 const checkAuth = require('../middlewares/checkauth');
 const { checkSenderReceiver } = require('../middlewares/checkSenderReceiver');
+const uploadS3 = require('../s3');
 
 router.get('/search', search);
+
 router.route('/languages').get(getAllLanguages).post(createLanguage);
+
 router.post('/login', login);
 router.post('/signup', signUp);
 router.post('/google', oauth);
-router.get('/feedback/:commentingId', getAllFeedBack);
-router.get('/profile/:profileId', getProfile);
+
 router.post('/feedback/:commentingId', checkAuth, addFeedBack);
+router.get('/feedback/:commentingId', getAllFeedBack);
+router.get('/feedback/total/:commentingId', totalRate);
 router.put('/feedback/:commentId', checkAuth, updateFeedBack);
-router.delete('/feedback/:commentId', checkAuth, deleteFeedBack);
+router.delete('/feedback', checkAuth, deleteFeedBack);
+
+router.get('/profile/:userId', getProfile);
 router.post('/profile', checkAuth, createProfile);
-router.put('/profile/:profileId', checkAuth, updateProfile);
+router.put('/profile', checkAuth, updateProfile);
+
 router.get('/message/:receiver', checkAuth, readMessage);
+router.get('/message/contacts/:id', checkAuth, findAllContacts);
 router.post('/message', checkAuth, checkSenderReceiver, createMessage);
 router.patch(
-  '/message/:messageId',
+  '/message/:id',
   checkAuth,
   checkSenderReceiver,
   updateMessage,
 );
 router.delete(
-  '/message/:messageId',
+  '/message/:id',
   checkAuth,
   checkSenderReceiver,
   deleteMessage,
 );
+router.get('/s3url', uploadS3);
 
 module.exports = router;
