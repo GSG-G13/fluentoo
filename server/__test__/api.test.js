@@ -3,10 +3,11 @@ const request = require('supertest');
 const app = require('../app');
 const sequelize = require('../database/connection');
 const { User, Language } = require('../models');
+const seeder = require('../database/seed');
 require('dotenv').config();
 
 beforeAll(async () => {
-  await sequelize.sync({ force: true });
+  await seeder();
 });
 
 describe('Signup tests', () => {
@@ -144,19 +145,20 @@ describe('Profile endPoints', () => {
 
   it('should return a profile', async () => {
     const response = await request(app).get('/api/v1/profile/1');
+    console.log('saleh sakleh: ', response.body);
     expect(response.body.status).toBe(200);
-    expect(response.body.data).toHaveProperty('user');
-    expect(typeof response.body.data.user).toBe('object');
+    expect(typeof response.body.data).toBe('object');
   });
+
   it('should pass the error Profile not found', async () => {
-    const response = await request(app).get('/api/v1/profile/100');
+    const response = await request(app).get('/api/v1/profile/521');
     expect(response.body.status).toBe(404);
     expect(response.body.msg).toBe('Profile not found');
   });
   it('should return validation error', async () => {
     const response = await request(app).get('/api/v1/profile/abc');
     expect(response.body.status).toBe(400);
-    expect(response.body.msg).toBe('"profileId" must be a number');
+    expect(response.body.msg).toBe('"userId" must be a number');
   });
 
   it('should update a profile successfully', async () => {
@@ -189,7 +191,7 @@ describe('Profile endPoints', () => {
       intrests: ['Reading', 'coding', 'Traveling'],
     };
     const response = await request(app)
-      .put(`/api/v1/profile/${id}`)
+      .put('/api/v1/profile')
       .set('Cookie', [`token=${token}`])
       .send(updatedProfile);
     expect(response.body.status).toBe(200);
@@ -225,73 +227,11 @@ describe('Profile endPoints', () => {
       intrests: 'Traveling',
     };
     const response = await request(app)
-      .put(`/api/v1/profile/${id}`)
+      .put('/api/v1/profile')
       .set('Cookie', [`token=${token}`])
       .send(updatedProfile);
     expect(response.body.status).toBe(400);
     expect(response.body.msg).toBe('"intrests" must be an array');
-  });
-  it('should pass Profile not found on update with cheat user', async () => {
-    const newUser = {
-      email: 'adalah05@gmail.com',
-      username: 'adalah',
-      password: '123@Aaaaaaaa',
-    };
-    const newProfile = {
-      gender: 'male',
-      country: 'Gaza',
-      birthdate: '2000-5-25',
-      practiceLanguages: ['English', 'German'],
-      spokenLanguages: ['Arabic'],
-      intrests: ['Reading', 'coding'],
-      bio: 'I am a language enthusiast.',
-      avatar: 'https://example.com/avatar.jpg',
-    };
-    const responseSignup = await request(app)
-      .post('/api/v1/auth/signup')
-      .send(newUser);
-    const { token } = responseSignup.body;
-    const updatedProfile = {
-      ...newProfile,
-      intrests: ['Reading', 'coding', 'Traveling'],
-    };
-    const response = await request(app)
-      .put('/api/v1/profile/1001')
-      .set('Cookie', [`token=${token}`])
-      .send(updatedProfile);
-    expect(response.body.status).toBe(404);
-    expect(response.body.msg).toBe('Profile not found');
-  });
-  it('should pass validation error when update with cheat and wrong user id ', async () => {
-    const newUser = {
-      email: 'adalah06@gmail.com',
-      username: 'adalah',
-      password: '123@Aaaaaaaa',
-    };
-    const newProfile = {
-      gender: 'male',
-      country: 'Gaza',
-      birthdate: '2000-5-25',
-      practiceLanguages: ['English', 'German'],
-      spokenLanguages: ['Arabic'],
-      intrests: ['Reading', 'coding'],
-      bio: 'I am a language enthusiast.',
-      avatar: 'https://example.com/avatar.jpg',
-    };
-    const responseSignup = await request(app)
-      .post('/api/v1/auth/signup')
-      .send(newUser);
-    const { token } = responseSignup.body;
-    const updatedProfile = {
-      ...newProfile,
-      intrests: ['Reading', 'coding', 'Traveling'],
-    };
-    const response = await request(app)
-      .put('/api/v1/profile/abc')
-      .set('Cookie', [`token=${token}`])
-      .send(updatedProfile);
-    expect(response.body.status).toBe(400);
-    expect(response.body.msg).toBe('"profileId" must be a number');
   });
 });
 

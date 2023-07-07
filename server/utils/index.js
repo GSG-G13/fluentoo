@@ -6,9 +6,9 @@ const {
   profileIdValidation,
 } = require('./validation/index');
 const { SignToken, verfiyToken } = require('./jwt/jwt');
-const { CustomError } = require('./helper');
 const genarateEmail = require('./email/buildmailer');
 const sendEmail = require('./email/nodemailer');
+const { CustomError, makeArrayOfObjectsUnique } = require('./helper');
 
 module.exports = {
   addLangSchema,
@@ -21,4 +21,5 @@ module.exports = {
   profileIdValidation,
   genarateEmail,
   sendEmail,
+  makeArrayOfObjectsUnique,
 };

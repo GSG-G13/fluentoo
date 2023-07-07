@@ -3,7 +3,14 @@ import { Button, Input } from 'antd';
 import { MenuOutlined, SearchOutlined } from '@ant-design/icons';
 import { SiderCollapsedPropsType } from '../../utils'
 
-function MessagesSiderHead({ collapsed, setCollapsed }: SiderCollapsedPropsType) {
+function MessagesSiderHead({ allContacts, setFilterdContacts, collapsed, setCollapsed }: SiderCollapsedPropsType) {
+  const onSearch = (value: string) => {
+    if (setFilterdContacts && allContacts) {
+      const filterdContacts = allContacts.filter((contact) => contact.userName.toLowerCase().startsWith(value.toLowerCase()));
+      setFilterdContacts(filterdContacts);
+    }
+  };
+
   return (
     <>
       <div className='sider-head'>
@@ -22,7 +29,7 @@ function MessagesSiderHead({ collapsed, setCollapsed }: SiderCollapsedPropsType)
           />
         )}
       </div>
-      <Input size="large" placeholder="Search for a friend" prefix={<SearchOutlined />} />
+      <Input placeholder="input search text" onChange={(e) => onSearch(e.target.value)} prefix={<SearchOutlined />} />
     </>
   )
 }
