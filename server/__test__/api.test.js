@@ -185,6 +185,7 @@ describe('Profile endPoints', () => {
       .post('/api/v1/profile')
       .set('Cookie', [`token=${token}`])
       .send(newProfile);
+    // eslint-disable-next-line no-unused-vars
     const { id } = responseCreateProfile.body.data;
     const updatedProfile = {
       ...newProfile,
@@ -221,6 +222,7 @@ describe('Profile endPoints', () => {
       .post('/api/v1/profile')
       .set('Cookie', [`token=${token}`])
       .send(newProfile);
+    // eslint-disable-next-line no-unused-vars
     const { id } = responseCreateProfile.body.data;
     const updatedProfile = {
       ...newProfile,

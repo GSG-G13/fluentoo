@@ -1,8 +1,15 @@
 import React from 'react';
 import './App.css';
-import { Community, Auth, NotFound, Home, ProfilePage, ProfileInfo } from './pages';
+import {
+  Community,
+  Auth,
+  NotFound,
+  Home,
+  ProfilePage,
+  ProfileInfo,
+} from './pages';
 import { useAuthContext } from './context/AuthContext';
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate } from 'react-router-dom';
 
 import { Chat } from './pages';
 import { Banner } from './components/Profile';
@@ -11,10 +18,7 @@ function App() {
   const { user } = useAuthContext();
   return (
     <Routes>
-      <Route
-        path="/"
-        element={<Home />}
-      />
+      <Route path="/" element={<Home />} />
       <Route
         path="/chat"
         element={user.userId ? <Chat /> : <Navigate to="/auth" />}
@@ -24,19 +28,25 @@ function App() {
         path="/profile/update"
         element={user.userId ? <ProfileInfo /> : <Navigate to="/signup" />}
       />
-      
-      <Route path='/profile/create' element={
-         <div>
-         <Banner />
-         <div className='container-2'>
-           <ProfileForm />
-         </div>
-       </div>} />
-      <Route path="/profile/:profileId" element={<ProfilePage />} />
-      <Route path='/community' element={<Community />} />
-      <Route path='/auth' element={user.userId ? <Navigate to="/community" /> : <Auth />} />
-      <Route path='*' element={<NotFound />} />
 
+      <Route
+        path="/profile/create"
+        element={
+          <div>
+            <Banner />
+            <div className="container-2">
+              <ProfileForm />
+            </div>
+          </div>
+        }
+      />
+      <Route path="/profile/:profileId" element={<ProfilePage />} />
+      <Route path="/community" element={<Community />} />
+      <Route
+        path="/auth"
+        element={user.userId ? <Navigate to="/community" /> : <Auth />}
+      />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }

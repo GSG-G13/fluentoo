@@ -14,6 +14,7 @@ function UserData() {
     email: '',
   });
 
+  
   useEffect(() => {
     const userData = async () => {
       try {
@@ -25,6 +26,7 @@ function UserData() {
           ...data,
           birthDate: data.birthdate.split('T')[0],
           email: data.user.email,
+          username: data.user.username
         });
       } catch (err) {
         console.log(err);

@@ -29,32 +29,32 @@ const ProfileInfo = () => {
 
   return (
     <div>
-      <Card style={{ width: 800 }} className='info-card'>
+      <Card style={{ width: 800 }} className="info-card">
         <h2>About</h2>
         <hr />
-        <div className='info-item'>
+        <div className="info-item">
           <h3>Bio:</h3>
           <p>{profile?.bio}</p>
         </div>
-        <div className='info-item'>
+        <div className="info-item">
           <h3>Age:</h3>
           <p>{profile?.age} y.o</p>
         </div>
-        <div className='info-item'>
+        <div className="info-item">
           <h3>Intrests:</h3>
           {profile?.intrests.map((e: any) => (
             <p>{e}</p>
           ))}
         </div>
 
-        <div className='info-item'>
+        <div className="info-item">
           <h3>SpokenLanguages:</h3>
           {profile?.spokenLanguages.map((e: any) => (
             <p>{e}</p>
           ))}
         </div>
 
-        <div className='info-item'>
+        <div className="info-item">
           <h3>PracticeLanguages:</h3>
           {profile?.practiceLanguages.map((e: any) => (
             <p>{e}</p>

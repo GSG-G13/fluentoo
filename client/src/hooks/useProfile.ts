@@ -14,6 +14,7 @@ const getStoredProfileData = () => {
  const useProfile = () => {
   const { user } = useAuthContext();
   const id =user.userId;
+  if(!user) return;
   const [profileData, setProfileData] = useState(null);
 
 
