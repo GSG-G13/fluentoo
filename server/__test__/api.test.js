@@ -13,7 +13,7 @@ beforeAll(async () => {
 describe('Signup tests', () => {
   it('should add a new user', async () => {
     const newUser = {
-      email: 'basel@gmail.com',
+      email: 'stm1998+test@hotmail.com',
       username: 'aya',
       password: '123@Aaaaaaaa',
     };
@@ -50,7 +50,7 @@ describe('Signup tests', () => {
 describe('Login tests', () => {
   it('should login successfully', async () => {
     const user = {
-      email: 'basel@gmail.com',
+      email: 'stm1998+test@hotmail.com',
       password: '123@Aaaaaaaa',
     };
     const response = await request(app).post('/api/v1/auth/login').send(user);
@@ -59,7 +59,7 @@ describe('Login tests', () => {
   });
   it('should return validation error', async () => {
     const user = {
-      email: 'basel@gmail.com',
+      email: 'stm1998+test@hotmail.com',
       password: '123',
     };
     const response = await request(app).post('/api/v1/auth/login').send(user);
@@ -79,7 +79,7 @@ describe('Login tests', () => {
   });
   it('should return password or email incorrect', async () => {
     const user = {
-      email: 'basel@gmail.com',
+      email: 'stm1998+test@hotmail.com',
       password: '123@adfsasfaasf',
     };
     const response = await request(app).post('/api/v1/auth/login').send(user);
@@ -101,14 +101,15 @@ describe('Profile endPoints', () => {
       avatar: 'https://example.com/avatar.jpg',
     };
     const newUser = {
-      email: 'adalah@gmail.com',
-      username: 'adalah',
+      email: 'adalah+12@gmail.com',
+      username: 'ddddddd',
       password: '123@Aaaaaaaa',
     };
     const responseSignup = await request(app)
       .post('/api/v1/auth/signup')
       .send(newUser);
     const { token } = responseSignup.body;
+    console.log('responseSignup.body: ', responseSignup.body);
     const response = await request(app)
       .post('/api/v1/profile')
       .set('Cookie', [`token=${token}`])
@@ -271,6 +272,7 @@ describe('community endpoints', () => {
     const name = 'adalah';
     const spokenLanguages = ['Arabic'];
     const response = await request(app).get(`/api/v1/search?name=${name}&spokenLanguages=${spokenLanguages}`);
+    console.log('response: adalah ', response.body.data);
     expect(response.status).toBe(200);
     expect(response.body.data[0].username).toEqual(name);
     expect(response.body.data[0].profile.spokenLanguages).toContain(

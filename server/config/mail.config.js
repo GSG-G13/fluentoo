@@ -1,9 +1,9 @@
 require('dotenv').config();
 
-const { USER, PASSWORD, PORT_STMP } = process.env;
+const { GOOGLE_USER, PASSWORD, PORT_STMP } = process.env;
 
 module.exports = {
-  user: USER,
+  user: GOOGLE_USER,
   password: PASSWORD,
   port: PORT_STMP,
 };
