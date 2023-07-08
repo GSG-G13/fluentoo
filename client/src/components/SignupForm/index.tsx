@@ -41,8 +41,6 @@ function SignupForm({ setActive }: any) {
     } catch (e: any) {
       if (e.name === 'AxiosError') {
         setErrors({ ...initialErrors });
-        console.log(e.response.data.msg);
-
         
         setErrors((prevErrors) => ({
           ...prevErrors,

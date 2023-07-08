@@ -45,8 +45,8 @@ function Feature() {
         </p>
       </div>
 
-      {featuresContent.map((w) => (
-        <Row className='feat-container'>
+      {featuresContent?.map((w, i) => (
+        <Row className='feat-container' key={i}>
           <Col md={12}>
             <Image src={w.imgSrc} preview={false} alt={w.imgAlt} />
           </Col>

@@ -12,7 +12,7 @@ const RatingAndReview = ({ isSuccess }: any) => {
       try {
         const {
           data: { data },
-        } = await axios.get(`/api/v1/feedback/${profileId}`);
+        } = await axios.get(`/api/feedback/${profileId}`);
         setFeedback(data);
       } catch (err) {
         console.log(err);

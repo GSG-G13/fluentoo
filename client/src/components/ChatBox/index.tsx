@@ -60,7 +60,7 @@ function ChatBox() {
   }, []);
 
   useEffect(() => {
-    const ws = new WebSocket('ws://localhost:3000');
+    const ws = new WebSocket('ws://localhost:5000');
     setWs(ws);
 
     ws.addEventListener('message', (message) => {
@@ -84,7 +84,7 @@ function ChatBox() {
   useEffect(() => {
     const getAllContacts = async () => {
       try {
-        const { data } = await axios.get(`/api/v1/message/contacts/${loggedInUserId}`);
+        const { data } = await axios.get(`/api/message/contacts/${loggedInUserId}`);
         setAllContacts(data.data);
         setFilteredContacts(data.data);
       } catch (err) {
@@ -129,7 +129,6 @@ function ChatBox() {
       chatWarper.current.scrollTop = chatWarper.current.scrollHeight;
     }
   }, [allMessages]);
-  console.log(filteredContacts);
 
   const allContactsElements = filteredContacts
     .map((user) => {

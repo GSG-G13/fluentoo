@@ -40,7 +40,7 @@ describe('Signup tests', () => {
       .spyOn(User, 'findOne')
       .mockImplementation(() => Promise.resolve({ email: 'existing@example.com' }));
     const newUser = {
-      email: 'existing@example.com',
+      email: 'adalah5@gmail.com',
       username: 'aya',
       password: '123@Aaaaaaaa',
     };
@@ -102,7 +102,7 @@ describe('Profile endPoints', () => {
       spokenLanguages: ['French', 'German'],
       interests: ['Reading', 'Traveling'],
       bio: 'I am a language enthusiast.',
-      avatar: 'https://example.com/avatar.jpg',
+      avatar: 'https://avatars.githubusercontent.com/u/62996589',
     };
     const newUser = {
       email: 'adalah@gmail.com',
@@ -128,7 +128,7 @@ describe('Profile endPoints', () => {
       spokenLanguages: ['French', 'German'],
       interests: ['Reading', 'Traveling'],
       bio: 'I am a language enthusiast.',
-      avatar: 'https://example.com/avatar.jpg',
+      avatar: 'https://avatars.githubusercontent.com/u/62996589',
     };
     const newUser = {
       email: 'adalah02@gmail.com',
@@ -178,7 +178,7 @@ describe('Profile endPoints', () => {
       spokenLanguages: ['Arabic'],
       interests: ['Reading', 'coding'],
       bio: 'I am a language enthusiast.',
-      avatar: 'https://example.com/avatar.jpg',
+      avatar: 'https://avatars.githubusercontent.com/u/62996589',
     };
     const responseSignup = await request(app)
       .post('/api/signup')
@@ -213,7 +213,7 @@ describe('Profile endPoints', () => {
       spokenLanguages: ['Arabic'],
       interests: ['Reading', 'coding'],
       bio: 'I am a language enthusiast.',
-      avatar: 'https://example.com/avatar.jpg',
+      avatar: 'https://avatars.githubusercontent.com/u/62996589',
     };
     const responseSignup = await request(app)
       .post('/api/signup')

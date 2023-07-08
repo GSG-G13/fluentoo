@@ -17,7 +17,6 @@ const {
 } = require('./feedBack');
 const { login, signUp, oauth } = require('./User');
 
-
 module.exports = {
   createProfile,
   updateProfile,
