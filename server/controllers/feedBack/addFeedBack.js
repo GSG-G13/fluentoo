@@ -4,15 +4,13 @@ const { addFeedBackSchema } = require('../../utils/validation');
 
 const addFeedBack = async (req, res, next) => {
   try {
-    const commenterId = 1 || req.user.id;
+    const commenterId = req.user.id;
     const { commentingId } = req.params;
     if (commenterId === commentingId) throw new CustomError('You can not comment on yourself', 400);
-    const validFeedBack = await addFeedBackSchema.validateAsync({
-      ...req.body,
-    }, { abortEarly: false });
+    const validFeedBack = await addFeedBackSchema.validateAsync(req.body, { abortEarly: false });
     const data = await FeedBack.create({
-      commenter_id: commenterId,
-      commenting_id: commentingId,
+      commenterId,
+      commentingId,
       ...validFeedBack,
     });
     res.json({

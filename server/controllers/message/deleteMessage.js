@@ -8,11 +8,7 @@ const deleteMessage = async (req, res, next) => {
     if (!message) {
       throw new CustomError('Message not found', 404);
     }
-    await Message.destroy({
-      where: {
-        id,
-      },
-    });
+    await message.destroy();
 
     return res.json({
       status: 200,

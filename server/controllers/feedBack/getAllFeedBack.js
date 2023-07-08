@@ -5,7 +5,7 @@ const getAllFeedBack = async (req, res, next) => {
     const { commentingId } = req.params;
     const data = await FeedBack.findAll({
       where: {
-        commenting_id: commentingId,
+        commentingId,
       },
       include: [
         {

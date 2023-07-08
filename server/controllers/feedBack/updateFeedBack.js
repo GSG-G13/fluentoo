@@ -9,7 +9,7 @@ const updateFeedBack = async (req, res, next) => {
     if (!feedbackContent) {
       throw new CustomError('Comment not found', 404);
     }
-    const validUpdate = await addFeedBackSchema.validateAsync(...req.body, {
+    const validUpdate = await addFeedBackSchema.validateAsync(req.body, {
       abortEarly: false,
     });
     const updatedData = await FeedBack.update(
