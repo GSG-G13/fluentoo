@@ -1,7 +1,11 @@
 import { Image } from 'antd';
 import React from 'react';
+import { useProfileContext } from '../../context/ProfileContext';
 
 function UserImage() {
+  const profileData: any = useProfileContext()
+  if(!profileData) return
+  console.log('profileData: ', profileData);
   return (
     <Image
       style={{
@@ -10,10 +14,7 @@ function UserImage() {
       }}
       width={35}
       preview={false}
-      fallback="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-      
-    //   src to be dynamic.........
-      src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+      src={profileData?.profileData?.avatar}
     />
   );
 }
