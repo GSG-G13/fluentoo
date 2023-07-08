@@ -44,11 +44,11 @@ const TotalReview = ({ isSuccess, setIsSuccess }: any) => {
     rate();
   }, [isSuccess, review]);
 
-  const handleRate = (value) => {
+  const handleRate = (value: any) => {
     setReview({ ...review, star: value });
   };
 
-  const handleInput = (e) => {
+  const handleInput = (e: any) => {
     setReview({ ...review, [e.target.name]: e.target.value });
   };
 
@@ -56,7 +56,7 @@ const TotalReview = ({ isSuccess, setIsSuccess }: any) => {
     setIsModalOpen(true);
   };
 
-  const handleOk = async (e) => {
+  const handleOk = async (e: any) => {
     e.preventDefault();
     try {
       await axios.post(`/api/v1/feedback/${profileId}`, review);
