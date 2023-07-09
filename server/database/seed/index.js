@@ -1,10 +1,10 @@
 const env = process.argv[2] || 'development';
 const sequelize = require('../connection');
 const {
-  USERS, LANGUAGES, PROFILES, MESSAGES, FEEDBACKS,
+  USERS, LANGUAGES, PROFILES, MESSAGES, FEEDBACKS, QUIZZES, QUESTIONS,
 } = require('../faker');
 const {
-  User, Language, Profile, Message, FeedBack,
+  User, Language, Profile, Message, FeedBack, Quiz, Question,
 } = require('../../models');
 
 const seeder = async () => {
@@ -15,6 +15,8 @@ const seeder = async () => {
     await Profile.bulkCreate(PROFILES);
     await FeedBack.bulkCreate(FEEDBACKS);
     await Message.bulkCreate(MESSAGES);
+    await Quiz.bulkCreate(QUIZZES);
+    await Question.bulkCreate(QUESTIONS);
   } catch (err) {
     // eslint-disable-next-line no-console
     console.log(err);

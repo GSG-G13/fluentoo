@@ -7,6 +7,7 @@ const {
   updateMessage,
 } = require('./message');
 const { createLanguage, getAllLanguages } = require('./language');
+const { getQuiz, updateUserLevel } = require('./quiz');
 
 module.exports = {
   createProfile,
@@ -19,4 +20,6 @@ module.exports = {
   search,
   createLanguage,
   getAllLanguages,
+  getQuiz,
+  updateUserLevel,
 };
