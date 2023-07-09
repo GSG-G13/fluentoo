@@ -6,7 +6,8 @@ const createLanguage = async (req, res, next) => {
     const language = await addLangSchema.validateAsync(req.body, { abortEarly: false });
     const data = await Language.create(language);
     res.json({
-      message: 'language created successfully',
+      msg: 'Created Successfully',
+      status: 201,
       data,
     });
   } catch (err) {

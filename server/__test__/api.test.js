@@ -98,8 +98,8 @@ describe('Profile endPoints', () => {
       gender: 'female',
       country: 'gaza',
       birthDate: '2002-1-25',
-      practiceLanguages: ['English', 'Spanish'],
-      spokenLanguages: ['French', 'German'],
+      practiceLanguages: ['english', 'spanish'],
+      spokenLanguages: ['french', 'german'],
       interests: ['Reading', 'Traveling'],
       bio: 'I am a language enthusiast.',
       avatar: 'https://avatars.githubusercontent.com/u/62996589',
@@ -124,8 +124,8 @@ describe('Profile endPoints', () => {
     const newProfile = {
       gender: 'male',
       birthDate: '2002-1-25',
-      practiceLanguages: ['English', 'Spanish'],
-      spokenLanguages: ['French', 'German'],
+      practiceLanguages: ['english', 'spanish'],
+      spokenLanguages: ['french', 'german'],
       interests: ['Reading', 'Traveling'],
       bio: 'I am a language enthusiast.',
       avatar: 'https://avatars.githubusercontent.com/u/62996589',
@@ -174,8 +174,8 @@ describe('Profile endPoints', () => {
       gender: 'male',
       country: 'Gaza',
       birthDate: '2000-5-25',
-      practiceLanguages: ['English', 'German'],
-      spokenLanguages: ['Arabic'],
+      practiceLanguages: ['english', 'german'],
+      spokenLanguages: ['arabic'],
       interests: ['Reading', 'coding'],
       bio: 'I am a language enthusiast.',
       avatar: 'https://avatars.githubusercontent.com/u/62996589',
@@ -235,27 +235,19 @@ describe('Profile endPoints', () => {
 describe('Language endPoints', () => {
   it('should create a new language', async () => {
     const languageData = {
-      name: 'English',
-      shortcut: 'en',
-      flag: '🇺🇸',
+      name: 'english',
     };
 
     const createdLanguage = await Language.create(languageData);
     expect(createdLanguage.name).toBe(languageData.name);
-    expect(createdLanguage.shortcut).toBe(languageData.shortcut);
-    expect(createdLanguage.flag).toBe(languageData.flag);
   });
   it('should not allow null values', async () => {
     try {
       await Language.create({
         name: null,
-        shortcut: null,
-        flag: null,
       });
     } catch (error) {
       expect(error.message).toContain('name cannot be null');
-      expect(error.message).toContain('shortcut cannot be null');
-      expect(error.message).toContain('flag cannot be null');
     }
   });
 });

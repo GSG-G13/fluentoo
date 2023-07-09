@@ -2,8 +2,12 @@ const { Language } = require('../../models');
 
 const getAllLanguages = async (req, res, next) => {
   try {
-    const language = await Language.findAll();
-    res.json(language);
+    const languages = await Language.findAll();
+    res.json({
+      msg: 'Languages Returned Successfully',
+      status: 200,
+      data: languages,
+    });
   } catch (err) {
     next(err);
   }
