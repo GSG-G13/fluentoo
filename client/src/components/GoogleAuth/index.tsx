@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { GoogleLogin } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -7,15 +7,14 @@ function GoogleAuth({ page }: any) {
   const { setUser } = useAuthContext();
   const navigate = useNavigate();
   const signUpWithGoogle = async (token: any) => {
-    const tokenn = token.credential
-    const sendToken = await axios.post("/api/v1/auth/google", { token: tokenn });
+    const tokenCredential = token.credential;
+    const sendToken = await axios.post('/api/google', { token: tokenCredential });
     navigate(page);
     setUser({
       userId: sendToken.data.data[0].id,
       userName: sendToken.data.data[0].username,
-    })
-
-  }
+    });
+  };
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <GoogleLogin
@@ -28,7 +27,7 @@ function GoogleAuth({ page }: any) {
         }}
       />
     </div>
-  )
+  );
 }
 
-export default GoogleAuth
+export default GoogleAuth;

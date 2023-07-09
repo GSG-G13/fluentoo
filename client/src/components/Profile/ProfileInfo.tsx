@@ -12,8 +12,8 @@ const ProfileInfo = () => {
       try {
         const {
           data: { data: profileData },
-        } = await axios.get(`/api/v1/profile/${profileId}`);
-        const birthDate = profileData.birthdate.slice(0, 4);
+        } = await axios.get(`/api/profile/${profileId}`);
+        const birthDate = profileData.birthDate.slice(0, 4);
         const age = 2023 - birthDate;
 
         setProfile({
@@ -41,8 +41,8 @@ const ProfileInfo = () => {
           <p>{profile?.age} y.o</p>
         </div>
         <div className="info-item">
-          <h3>Intrests:</h3>
-          {profile?.intrests.map((e: any) => (
+          <h3>interests:</h3>
+          {profile?.interests.map((e: any) => (
             <p>{e}</p>
           ))}
         </div>

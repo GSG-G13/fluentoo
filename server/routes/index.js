@@ -1,18 +1,62 @@
 const router = require('express').Router();
-const languageRouter = require('./languageRouter');
-const authRouter = require('./auth');
-const feedBackRouter = require('./feedBackRouter');
-const profileRouter = require('./profile');
-const messageRouter = require('./message');
-const communityRouter = require('./community');
-const s3 = require('./s3');
+const {
+  search,
+  createLanguage,
+  getAllLanguages,
+  getProfile,
+  createProfile,
+  updateProfile,
+  readMessage,
+  deleteMessage,
+  updateMessage,
+  createMessage,
+  findAllContacts,
+  getAllFeedBack,
+  addFeedBack,
+  deleteFeedBack,
+  updateFeedBack,
+  totalRate,
+  login,
+  signUp,
+  oauth,
+} = require('../controllers');
+const checkAuth = require('../middlewares/checkauth');
+const { checkSenderReceiver } = require('../middlewares/checkSenderReceiver');
+const uploadS3 = require('../s3');
 
-router.use('/languages', languageRouter);
-router.use('/auth', authRouter);
-router.use('/feedback', feedBackRouter);
-router.use('/profile', profileRouter);
-router.use('/message', messageRouter);
-router.use('/search', communityRouter);
-router.use(s3);
+router.get('/search', search);
+
+router.route('/languages').get(getAllLanguages).post(createLanguage);
+
+router.post('/login', login);
+router.post('/signup', signUp);
+router.post('/google', oauth);
+
+router.post('/feedback/:commentingId', checkAuth, addFeedBack);
+router.get('/feedback/:commentingId', getAllFeedBack);
+router.get('/feedback/total/:commentingId', totalRate);
+router.put('/feedback/:commentId', checkAuth, updateFeedBack);
+router.delete('/feedback', checkAuth, deleteFeedBack);
+
+router.get('/profile/:userId', getProfile);
+router.post('/profile', checkAuth, createProfile);
+router.put('/profile', checkAuth, updateProfile);
+
+router.get('/message/:receiver', checkAuth, readMessage);
+router.get('/message/contacts/:id', checkAuth, findAllContacts);
+router.post('/message', checkAuth, checkSenderReceiver, createMessage);
+router.patch(
+  '/message/:id',
+  checkAuth,
+  checkSenderReceiver,
+  updateMessage,
+);
+router.delete(
+  '/message/:id',
+  checkAuth,
+  checkSenderReceiver,
+  deleteMessage,
+);
+router.get('/s3url', uploadS3);
 
 module.exports = router;

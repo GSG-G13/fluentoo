@@ -5,7 +5,7 @@ import firstFeat from '../../assets/img/feat1.jpeg';
 import secFeat from '../../assets/img/feat2.jpeg';
 import thirdFeat from '../../assets/img/feat3.jpeg';
 
-const featuersContent = [
+const featuresContent = [
   {
     imgSrc: firstFeat,
     imgAlt: 'text and video calls Feature',
@@ -47,8 +47,8 @@ function Feature() {
         </p>
       </div>
 
-      {featuersContent.map((w) => (
-        <Row className='feat-container' style={{ padding: '0px 50px' }}>
+      {featuresContent?.map((w, i) => (
+        <Row className='feat-container' key={i} style={{ padding: '0px 50px' }}>
           <Col md={12}>
             <Image src={w.imgSrc} preview={false} alt={w.imgAlt} />
           </Col>

@@ -3,7 +3,8 @@ import React from 'react';
 import { Row, Col, Card } from 'antd';
 import target from '../../assets/img/target.png';
 import why from '../../assets/img/question.png';
-const aboutusDesc = [
+
+const aboutUsDesc = [
   {
     icon: target,
     classN: 'blueIco',
@@ -31,7 +32,7 @@ const aboutusDesc = [
 
 function AboutUs() {
   return (
-    <div className="aboutus-sec">
+    <div className="about-us-sec">
       <Row>
         <Col span={24}>
           <div className="about-title">
@@ -41,7 +42,7 @@ function AboutUs() {
             <p>
               <h2>
                 Start your language exchange adventure with us and let the power
-                of language transcend borders!"
+                of language transcend borders!
               </h2>
             </p>
           </div>
@@ -50,8 +51,8 @@ function AboutUs() {
       <div className="cards">
         <Row>
           <Col span={8}>
-            {aboutusDesc.map((e) => (
-              <Card>
+            {aboutUsDesc.map((e, i) => (
+              <Card key={i}>
                 <div className="card-container">
                   <div className={e.classN}>
                     <img width={100} src={e.icon} />

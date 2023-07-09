@@ -7,7 +7,7 @@ import { UploadImageProps } from '../../utils'
 function UploadImage({ avatar, setAvatar }: UploadImageProps) {
     const [loading, setLoading] = useState(false);
     const handleChange: UploadProps['onChange'] = async (info: UploadChangeParam<UploadFile>) => {
-        const data = await axios.get('/api/v1/s3url')
+        const data = await axios.get('/api/s3url')
         if (info.file.status === 'uploading') {
             setLoading(true);
             return;

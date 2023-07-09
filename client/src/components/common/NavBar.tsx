@@ -6,7 +6,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import AuthUserMenu from './AuthUserMenu';
 import UserImage from './AuthUserImage';
 import logo from '../../assets/img/fluento.png';
-import logoo from '../../assets/img/logoo.png';
 
 function Nav({ user }: any) {
   const navigate = useNavigate();
@@ -17,7 +16,7 @@ function Nav({ user }: any) {
         <Col>
           <Row align="middle" justify="space-between">
             <div className="logo">
-              <Image width={100} src={logoo} preview={false}/>
+              <Image width={100} src={logo} preview={false}/>
             </div>
             <Menu mode="horizontal" defaultSelectedKeys={['1']}>
               <Menu.Item key="1">

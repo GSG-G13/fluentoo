@@ -5,7 +5,7 @@ const {
   profileValidation,
   profileIdValidation,
 } = require('./validation/index');
-const { SignToken, verfiyToken } = require('./jwt/jwt');
+const { SignToken, verifyToken } = require('./jwt/jwt');
 const { CustomError, makeArrayOfObjectsUnique } = require('./helper');
 
 module.exports = {
@@ -13,7 +13,7 @@ module.exports = {
   signupValidation,
   loginValidation,
   SignToken,
-  verfiyToken,
+  verifyToken,
   CustomError,
   profileValidation,
   profileIdValidation,

@@ -21,12 +21,12 @@ const TotalReview = ({ isSuccess, setIsSuccess }: any) => {
   useEffect(() => {
     const rate = async () => {
       try {
-        const {
-          data: {
-            total: [firstIndex],
-          },
-        } = await axios.get(`/api/v1/feedback/total/${profileId}`);
-        const { avgRating, commentsCount, ...rest } = firstIndex;
+        const { data: {total : [firstIndex]} } = await axios.get(`/api/feedback/total/${profileId}`);
+        const { 
+          avgRating, 
+          commentsCount,
+          ...rest
+        } = firstIndex;
         const rating = avgRating.slice(0, 3);
         const comments = commentsCount;
 
@@ -44,11 +44,11 @@ const TotalReview = ({ isSuccess, setIsSuccess }: any) => {
     rate();
   }, [isSuccess, review]);
 
-  const handleRate = (value) => {
+  const handleRate = (value: any) => {
     setReview({ ...review, star: value });
   };
 
-  const handleInput = (e) => {
+  const handleInput = (e: any) => {
     setReview({ ...review, [e.target.name]: e.target.value });
   };
 
@@ -56,10 +56,10 @@ const TotalReview = ({ isSuccess, setIsSuccess }: any) => {
     setIsModalOpen(true);
   };
 
-  const handleOk = async (e) => {
+  const handleOk = async (e: any) => {
     e.preventDefault();
     try {
-      await axios.post(`/api/v1/feedback/${profileId}`, review);
+      await axios.post(`/api/feedback/${profileId}`, review);
       setIsSuccess(true);
       setIsModalOpen(false);
     } catch (err) {

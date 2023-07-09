@@ -13,13 +13,13 @@ function UserCard({ data }: any) {
 
   const startChat = async () => {
     try {
-      await axios.post('/api/v1/message', {
+      await axios.post('/api/message', {
         sender: user.userId,
         receiver: data.id,
         content: ''
       });
     } catch (err) {
-      console.log('somthing went wrong');
+      console.log('something went wrong');
     }
     navigate("/chat");
   }

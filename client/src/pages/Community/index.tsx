@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Input } from 'antd';
+import { Input, Pagination, Empty } from "antd";
 import { SearchOutlined } from '@ant-design/icons';
 import { Menu, UserCard } from '../../components';
-import { Pagination } from 'antd';
 import axios from 'axios';
 import './style.modules.css'
-import { Empty } from 'antd';
+
 function Community() {
   const [name, setName] = useState<string>('')
   const [spokenLanguages, setSpokenLanguages] = useState<string>('')
@@ -16,9 +15,6 @@ function Community() {
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
   const currentPosts = data.slice(indexOfFirstUser, indexOfLastUser);
- 
-
-
 
   const onchange = (page: any) => {
     setCurrentPage(page);
@@ -26,7 +22,7 @@ function Community() {
   useEffect(() => {
     const fetchData = async () => {
       const response =
-        await axios.get(`/api/v1/search?name=${name}&spokenLanguages=${spokenLanguages}&practiceLanguages=${practiceLanguages}`);
+        await axios.get(`/api/search?name=${name}&spokenLanguages=${spokenLanguages}&practiceLanguages=${practiceLanguages}`);
       setData(response.data.data)
       setCurrentPage(1)
     }
@@ -44,7 +40,7 @@ function Community() {
         </div>
       </div>
       <div className='community-cards'>
-        {currentPosts.length ? currentPosts.map((user, index) =>
+        {currentPosts.length ? currentPosts?.map((user, index) =>
           <UserCard data={user} key={index} />
         ) : <Empty className='not-found' description={'user not found'} />}
 
@@ -52,7 +48,6 @@ function Community() {
       <div className='pagination'>
         <Pagination defaultCurrent={currentPage} defaultPageSize={usersPerPage} total={data.length} onChange={onchange} />
       </div>
-
     </div>
   )
 }

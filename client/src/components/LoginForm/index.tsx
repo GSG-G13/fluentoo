@@ -1,12 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import {
-  Form,
-  Input,
-  Button,
-  Spin,
-  Col,
-} from 'antd';
+import { Form, Input, Button, Spin, Col } from 'antd';
 import { LoginCredentials, LoginSchema } from '../../utils';
 import { useAuthContext } from '../../context/AuthContext';
 import GoogleAuth from '../GoogleAuth';
@@ -24,23 +18,26 @@ function LoginForm({ setActive }: any) {
   const onFinish = async (values: LoginCredentials) => {
     setLoading(true);
     try {
+      const formData: LoginCredentials = await LoginSchema.validate(values, {
+        abortEarly: false,
+      });
 
-      const formData: LoginCredentials = await LoginSchema.validate(values, { abortEarly: false });
-
-      const { data: userData } = await axios.post("/api/v1/auth/login", { ...formData });
+      const { data: userData } = await axios.post('/api/login', {
+        ...formData,
+      });
       setUser({
         userId: userData.data.id,
         userName: userData.data.username,
-      })
+      });
       setErrors({ ...initialErrors });
       setLoading(false);
     } catch (e: any) {
       
-      if (e.name === "AxiosError") {
+      if (e.name === 'AxiosError') {
         setErrors({ ...initialErrors });
         setErrors((prevErrors) => ({
           ...prevErrors,
-         "password": e.response.data.msg
+          'password': e.response.data.msg
         }))
       }
 
@@ -63,32 +60,32 @@ function LoginForm({ setActive }: any) {
         <h1>Welcome Back!!</h1>
 
         <Form
-          className="auth-form"
+          className='auth-form'
           form={form}
           initialValues={{ remember: true }}
           onFinish={onFinish}
-          autoComplete="off"
-          layout="vertical"
+          autoComplete='off'
+          layout='vertical'
         >
           <p className='light-text'>Expand your language skills through global connections.</p>
           <Form.Item
-            className="form-text"
-            name="email"
+            className='form-text'
+            name='email'
           >
             <Input placeholder='Email' />
           </Form.Item>
-          <span className="error-message e">{errors.email}</span>
+          <span className='error-message e'>{errors.email}</span>
 
           <Form.Item
-            className="form-password"
-            name="password"
+            className='form-password'
+            name='password'
           >
             <Input.Password placeholder='Password' />
           </Form.Item>
-          <span className="error-message e">{errors.password}</span>
+          <span className='error-message e'>{errors.password}</span>
 
           <Form.Item wrapperCol={{ offset: 0, span: 16 }}>
-            <Button type="primary" htmlType="submit">
+            <Button type='primary' htmlType='submit'>
               Log In
             </Button>
           </Form.Item>

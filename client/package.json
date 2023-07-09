@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint": "eslint src --ext .ts,.tsx,.jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "lint-fix": "eslint . --ext .tsx --fix"
   },
@@ -21,6 +21,7 @@
     "jwt-decode": "^3.1.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-input-emoji": "^5.1.1",
     "react-flags-select": "^2.2.3",
     "react-oauth": "^0.0.1",
     "react-router-dom": "^6.13.0",
