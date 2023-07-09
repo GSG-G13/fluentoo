@@ -21,12 +21,11 @@ const useProfile = () => {
     if (storedProfileData) {
       setProfileData(storedProfileData);
     } else if (id) {
-      const profileData = async () => {
+      (async () => {
         const data = await fetchProfileData();
         setProfileData(data);
         storeProfileData(data);
-      };
-      profileData();
+      })()
     }
   }, [id]);
 
