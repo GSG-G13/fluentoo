@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 import Cookies from "js-cookie";
 import jwt_decode from "jwt-decode";
 import { LoggedUserObjectType, DecodeJwtType } from '../utils'

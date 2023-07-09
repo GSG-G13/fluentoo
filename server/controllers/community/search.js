@@ -22,7 +22,7 @@ const search = async (req, res, next) => {
       'id',
       'username',
       'email',
-      [sequelize.fn('AVG', sequelize.col('feedbacks.star')), 'avgRating'],
+      [sequelize.fn('AVG', sequelize.col('feedBacks.star')), 'avgRating'],
     ],
     where: {
     },

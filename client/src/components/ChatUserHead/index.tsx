@@ -9,7 +9,7 @@ function ChatUserHead({ selectedUser, collapsed, setCollapsed }: ChatUserHeadPro
       {collapsed && (
         <Button
           className='burger-menu'
-          type="text"
+          type='text'
           icon={<MenuOutlined />}
           onClick={() => setCollapsed(!collapsed)}
           style={{

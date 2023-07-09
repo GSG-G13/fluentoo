@@ -74,8 +74,8 @@ export interface DropMenuProps {
 export interface ProfileCredentials{
   gender:  string
   country: string
-  birthdate: string
-  intrests?:  string | null
+  birthDate: string
+  interests?:  string | null
   bio?:  string
   avatar?: string | null | undefined
   practiceLanguages: string

@@ -13,7 +13,7 @@ function SendMessageForm({ text, setText, handleSendMessage }: SendMessageFormPr
           onChange={setText}
           cleanOnEnter
           onEnter={handleSendMessage}
-          placeholder="Type a message"
+          placeholder='Type a message'
         />
         <Button onClick={handleSendMessage} className={!text ? 'disabled' : ''} type="primary" shape="round" icon={<SendOutlined />} />
       </form>

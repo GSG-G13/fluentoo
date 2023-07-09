@@ -14,7 +14,7 @@ const getAllFeedBack = async (req, res, next) => {
         },
       ],
     });
-    res.status(200).json({
+    res.json({
       msg: 'Feedbacks Returned Successfully',
       status: 200,
       data,

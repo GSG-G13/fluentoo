@@ -15,7 +15,7 @@ const login = async (req, res, next) => {
     });
 
     if (!user) {
-      throw new CustomError("Email doesn't exists", 401);
+      throw new CustomError('Email doesn\'t exists', 401);
     }
     const { id, username, password: hashedPassword } = user;
     const match = await compare(password, hashedPassword);

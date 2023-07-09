@@ -3,14 +3,18 @@ const sequelize = require('../database/connection');
 
 const User = require('./user');
 
-const Message = sequelize.define('messages', {
-  content: {
-    type: DataTypes.TEXT,
-    allowNull: false,
+const Message = sequelize.define(
+  'Message',
+  {
+    content: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
   },
-}, {
-  tableName: 'messages',
-});
+  {
+    tableName: 'messages',
+  },
+);
 
 Message.belongsTo(User, {
   foreignKey: 'sender',
