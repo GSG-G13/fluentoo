@@ -4,31 +4,55 @@ const app = require('../app');
 const sequelize = require('../database/connection');
 const { User, Language } = require('../models');
 const seeder = require('../database/seed');
-require('dotenv').config();
 
 beforeAll(async () => {
   await seeder();
 });
 
+const newUser = {
+  email: 'stm1998@hotmail.com',
+  username: 'saleh',
+  password: '512512512',
+};
+
+const loginUser = {
+  email: 'stm1998@hotmail.com',
+  password: '512512512',
+};
+const invalidUser = {
+  ...loginUser,
+  email: 'sadasd@hotmail.com',
+};
+
+const newProfile = {
+  gender: 'female',
+  country: 'gaza',
+  birthDate: '2002-1-25',
+  practiceLanguages: ['English', 'Spanish'],
+  spokenLanguages: ['French', 'German'],
+  interests: ['Reading', 'Traveling'],
+  bio: 'I am a language enthusiast.',
+  avatar: 'https://avatars.githubusercontent.com/u/62996589',
+};
+
+const { country, ...rest } = newProfile;
+
+const invalidProfile = {
+  ...rest,
+};
+const userToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwidXNlcm5hbWUiOiJzYWxlaCIsImVtYWlsIjoic3RtMTk5OEBob3RtYWlsLmNvbSIsImlhdCI6MTY4ODk5MTk4NX0.sgUMXDV-tt0r9NE3gD-QQw5YLCouaiYH_2aKgiATBNs';
+
 describe('Signup tests', () => {
   it('should add a new user', async () => {
-    const newUser = {
-      email: 'stm1998+test@hotmail.com',
-      username: 'aya',
-      password: '123@Aaaaaaaa',
-    };
     const response = await request(app).post('/api/signup').send(newUser);
     expect(response.body.status).toBe(201);
     expect(response.body.msg).toBe('Signup successfully');
   });
 
   it('should return validation error', async () => {
-    const newUser = {
-      email: 'basel2@gmail.com',
-      username: 'aya',
-      password: '123',
-    };
-    const response = await request(app).post('/api/signup').send(newUser);
+    const response = await request(app)
+      .post('/api/signup')
+      .send({ ...newUser, password: '123' });
     expect(response.body.status).toBe(400);
     expect(response.body.msg).toBe(
       'Password must be at least 8 characters long.',
@@ -39,11 +63,6 @@ describe('Signup tests', () => {
     jest
       .spyOn(User, 'findOne')
       .mockImplementation(() => Promise.resolve({ email: 'existing@example.com' }));
-    const newUser = {
-      email: 'adalah5@gmail.com',
-      username: 'aya',
-      password: '123@Aaaaaaaa',
-    };
     const response = await request(app).post('/api/signup').send(newUser);
     expect(response.body.status).toBe(400);
     expect(response.body.msg).toBe('Email already exists');
@@ -53,40 +72,28 @@ describe('Signup tests', () => {
 
 describe('Login tests', () => {
   it('should login successfully', async () => {
-    const user = {
-      email: 'stm1998+test@hotmail.com',
-      password: '123@Aaaaaaaa',
-    };
-    const response = await request(app).post('/api/login').send(user);
+    const response = await request(app).post('/api/login').send(loginUser);
     expect(response.body.status).toBe(200);
     expect(response.body.msg).toBe('login successfully');
   });
   it('should return validation error', async () => {
-    const user = {
-      email: 'stm1998+test@hotmail.com',
-      password: '123',
-    };
-    const response = await request(app).post('/api/login').send(user);
+    const response = await request(app)
+      .post('/api/login')
+      .send({ ...loginUser, password: '123' });
     expect(response.body.status).toBe(400);
     expect(response.body.msg).toBe(
       'Password must be at least 8 characters long.',
     );
   });
-  it('should return email doesn\'t exists error', async () => {
-    const user = {
-      email: 'adalah@gmail.com',
-      password: '123@Aaaaaaaa',
-    };
-    const response = await request(app).post('/api/login').send(user);
+  it("should return email doesn't exists error", async () => {
+    const response = await request(app).post('/api/login').send(invalidUser);
     expect(response.body.status).toBe(401);
-    expect(response.body.msg).toBe('Email doesn\'t exists');
+    expect(response.body.msg).toBe("Email doesn't exists");
   });
   it('should return password or email incorrect', async () => {
-    const user = {
-      email: 'stm1998+test@hotmail.com',
-      password: '123@adfsasfaasf',
-    };
-    const response = await request(app).post('/api/login').send(user);
+    const response = await request(app)
+      .post('/api/login')
+      .send({ ...loginUser, password: 'eeeeeeeee' });
     expect(response.body.status).toBe(400);
     expect(response.body.msg).toBe('password or email incorrect');
   });
@@ -94,66 +101,26 @@ describe('Login tests', () => {
 
 describe('Profile endPoints', () => {
   it('should Create a profile successfully', async () => {
-    const newProfile = {
-      gender: 'female',
-      country: 'gaza',
-      birthDate: '2002-1-25',
-      practiceLanguages: ['English', 'Spanish'],
-      spokenLanguages: ['French', 'German'],
-      interests: ['Reading', 'Traveling'],
-      bio: 'I am a language enthusiast.',
-      avatar: 'https://avatars.githubusercontent.com/u/62996589',
-    };
-    const newUser = {
-      email: 'adalah+12@gmail.com',
-      username: 'ddddddd',
-      password: '123@Aaaaaaaa',
-    };
-    const responseSignup = await request(app)
-      .post('/api/signup')
-      .send(newUser);
-    const { token } = responseSignup.body;
-    console.log('responseSignup.body: ', responseSignup.body);
     const response = await request(app)
       .post('/api/profile')
-      .set('Cookie', [`token=${token}`])
+      .set('Cookie', [`token=${userToken}`])
       .send(newProfile);
     expect(response.body.status).toBe(201);
     expect(response.body.msg).toBe('profile created successfully');
   });
   it('should return validation error', async () => {
-    const newProfile = {
-      gender: 'male',
-      birthDate: '2002-1-25',
-      practiceLanguages: ['English', 'Spanish'],
-      spokenLanguages: ['French', 'German'],
-      interests: ['Reading', 'Traveling'],
-      bio: 'I am a language enthusiast.',
-      avatar: 'https://avatars.githubusercontent.com/u/62996589',
-    };
-    const newUser = {
-      email: 'adalah02@gmail.com',
-      username: 'adalah02',
-      password: '123@Aaaaaaaa',
-    };
-    const responseSignup = await request(app)
-      .post('/api/signup')
-      .send(newUser);
-    const { token } = responseSignup.body;
     const response = await request(app)
       .post('/api/profile')
-      .set('Cookie', [`token=${token}`])
-      .send(newProfile);
+      .set('Cookie', [`token=${userToken}`])
+      .send(invalidProfile);
     expect(response.body.status).toBe(400);
     expect(response.body.msg).toBe('"country" is required');
   });
-
   it('should return a profile', async () => {
     const response = await request(app).get('/api/profile/1');
     expect(response.body.status).toBe(200);
     expect(typeof response.body.data).toBe('object');
   });
-
   it('should pass the error Profile not found', async () => {
     const response = await request(app).get('/api/profile/521');
     expect(response.body.status).toBe(404);
@@ -164,71 +131,19 @@ describe('Profile endPoints', () => {
     expect(response.body.status).toBe(400);
     expect(response.body.msg).toBe('"userId" must be a number');
   });
-
   it('should update a profile successfully', async () => {
-    const newUser = {
-      email: 'adalah03@gmail.com',
-      username: 'adalah',
-      password: '123@Aaaaaaaa',
-    };
-    const newProfile = {
-      gender: 'male',
-      country: 'Gaza',
-      birthDate: '2000-5-25',
-      practiceLanguages: ['English', 'German'],
-      spokenLanguages: ['Arabic'],
-      interests: ['Reading', 'coding'],
-      bio: 'I am a language enthusiast.',
-      avatar: 'https://avatars.githubusercontent.com/u/62996589',
-    };
-    const responseSignup = await request(app)
-      .post('/api/signup')
-      .send(newUser);
-    const { token } = responseSignup.body;
-    await request(app)
-      .post('/api/profile')
-      .set('Cookie', [`token=${token}`])
-      .send(newProfile);
-    // eslint-disable-next-line no-unused-vars
-    const updatedProfile = {
-      ...newProfile,
-      interests: ['Reading', 'coding', 'Traveling'],
-    };
     const response = await request(app)
       .put('/api/profile')
-      .set('Cookie', [`token=${token}`])
-      .send(updatedProfile);
+      .set('Cookie', [`token=${userToken}`])
+      .send(newProfile);
     expect(response.body.status).toBe(200);
     expect(response.body.msg).toBe('Profile updated successfully');
   });
   it('should return validation error in update profile', async () => {
-    const newUser = {
-      email: 'adalah04@gmail.com',
-      username: 'adalah',
-      password: '123@Aaaaaaaa',
-    };
-    const newProfile = {
-      gender: 'male',
-      country: 'Gaza',
-      birthDate: '2000-5-25',
-      practiceLanguages: ['English', 'German'],
-      spokenLanguages: ['Arabic'],
-      interests: ['Reading', 'coding'],
-      bio: 'I am a language enthusiast.',
-      avatar: 'https://avatars.githubusercontent.com/u/62996589',
-    };
-    const responseSignup = await request(app)
-      .post('/api/signup')
-      .send(newUser);
-    const { token } = responseSignup.body;
-    const updatedProfile = {
-      ...newProfile,
-      interests: 'Traveling',
-    };
     const response = await request(app)
       .put('/api/profile')
-      .set('Cookie', [`token=${token}`])
-      .send(updatedProfile);
+      .set('Cookie', [`token=${userToken}`])
+      .send({ ...newProfile, interests: 'Music' });
     expect(response.body.status).toBe(400);
     expect(response.body.msg).toBe('"interests" must be an array');
   });
@@ -241,7 +156,6 @@ describe('Language endPoints', () => {
       shortcut: 'en',
       flag: '🇺🇸',
     };
-
     const createdLanguage = await Language.create(languageData);
     expect(createdLanguage.name).toBe(languageData.name);
     expect(createdLanguage.shortcut).toBe(languageData.shortcut);
@@ -265,17 +179,3 @@ describe('Language endPoints', () => {
 afterAll(async () => {
   await sequelize.close();
 });
-// describe('community endpoints', () => {
-//   it('should return data based on the params', async () => {
-//     const name = 'adalah';
-//     const spokenLanguages = ['Arabic'];
-//     const response = await request(app).get(
-//       `/search?name=${name}&spokenLanguages=${spokenLanguages}`,
-//     );
-//     expect(response.status).toBe(200);
-//     expect(response.body.data[0].username).toEqual(name);
-//     expect(response.body.data[0].profile.spokenLanguages).toContain(
-//       spokenLanguages[0],
-//     );
-//   });
-// });
