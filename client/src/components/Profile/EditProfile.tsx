@@ -6,11 +6,13 @@ import ReactFlagsSelect from "react-flags-select";
 import { useAuthContext } from "../../context/AuthContext";
 import { ProfileCredentials, ProfileSchema } from "../../utils";
 import { interests } from "../common/interests.ts";
+import { useProfileContext } from "../../context/ProfileContext.tsx";
 
 const { TextArea } = Input;
 
 function EditProfile() {
   const { user } = useAuthContext();
+  const {setProfileData} = useProfileContext()
   const navigate = useNavigate();
   const userId = user.userId;
   const [form] = Form.useForm();
@@ -32,8 +34,8 @@ function EditProfile() {
         { abortEarly: false }
       );
 
-      await axios.put("/api/profile", { userId, ...FormData });
-
+      const { data } = await axios.put("/api/profile", { userId, ...FormData });
+      setProfileData(data.data)
       navigate(`/profile/${userId}`);
     } catch (e: any) {
       if (e.name === "ValidationError") {

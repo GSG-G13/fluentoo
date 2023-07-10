@@ -28,6 +28,7 @@ function AuthUserMenu({ user }: any) {
           <Button
             onClick={() => {
               Cookies.remove('token');
+              localStorage.removeItem('profileData');
               navigate('/');
             }}
           >

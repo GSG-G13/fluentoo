@@ -1,9 +1,8 @@
-import { Image } from 'antd';
 import React from 'react';
-import { useProfileContext } from '../../context/ProfileContext';
+import { Image } from 'antd';
 
-function UserImage() {
-  const profileData: any = useProfileContext()
+function UserImage({profileData}:any) {
+
   if(!profileData) return
   console.log('profileData: ', profileData);
   return (
@@ -14,7 +13,7 @@ function UserImage() {
       }}
       width={35}
       preview={false}
-      src={profileData?.profileData?.avatar}
+      src={profileData?.avatar}
     />
   );
 }

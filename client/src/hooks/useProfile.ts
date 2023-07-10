@@ -1,4 +1,4 @@
-import {  useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuthContext } from '../context/AuthContext';
 
@@ -13,25 +13,23 @@ const getStoredProfileData = () => {
 
 const useProfile = () => {
   const { user } = useAuthContext();
-  const id =user.userId;
-  const [profileData, setProfileData] = useState(null);
+  const [userId] = useState(user.userId);
+  const storedProfileData = getStoredProfileData();
+  const [profileData, setProfileData] = useState(storedProfileData);
 
   useEffect(() => {
-    const storedProfileData = getStoredProfileData();
-    if (storedProfileData) {
-      setProfileData(storedProfileData);
-    } else if (id) {
+    if (!profileData) {
       (async () => {
         const data = await fetchProfileData();
         setProfileData(data);
         storeProfileData(data);
       })()
     }
-  }, [id]);
+  }, [userId]);
 
   const fetchProfileData = async () => {
     try {
-      const response = await axios.get(`/api/profile/${id}`); 
+      const response = await axios.get(`/api/profile/${userId}`);
       const profileData = response.data.data;
       return profileData;
     } catch (error) {
@@ -40,8 +38,9 @@ const useProfile = () => {
     }
   };
 
-return{
-  profileData
-}
+  return {
+    profileData,
+    setProfileData
+  }
 };
 export default useProfile;

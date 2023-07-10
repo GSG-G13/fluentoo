@@ -6,10 +6,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import AuthUserMenu from './AuthUserMenu';
 import UserImage from './AuthUserImage';
 import logo from '../../assets/img/fluento.png';
+import { useProfileContext } from '../../context/ProfileContext';
 
 function Nav({ user }: any) {
   const navigate = useNavigate();
-
+  const { profileData } = useProfileContext();
   return (
     <div className="nav-bar">
       <Row align="middle" justify="space-between" className="nav-row">
@@ -54,7 +55,7 @@ function Nav({ user }: any) {
             ) : (
               <>
                 <AuthUserMenu user={user} />
-                <UserImage />
+                <UserImage profileData={profileData} />
               </>
             )}
           </Row>
