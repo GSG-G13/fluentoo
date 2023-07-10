@@ -9,7 +9,6 @@ import {
   ProfileInfo,
 } from './pages';
 import { useAuthContext } from './context/AuthContext';
-
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 import { Chat } from './pages';

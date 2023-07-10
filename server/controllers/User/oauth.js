@@ -21,7 +21,7 @@ const oauth = async (req, res, next) => {
       defaults: { username: name, email },
     });
     const token = await SignToken({
-      id: user.id,
+      id: user[0].dataValues.id,
       name,
       email,
     });
