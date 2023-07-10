@@ -4,7 +4,6 @@ import { Image } from 'antd';
 function UserImage({profileData}:any) {
 
   if(!profileData) return
-  console.log('profileData: ', profileData);
   return (
     <Image
       style={{
