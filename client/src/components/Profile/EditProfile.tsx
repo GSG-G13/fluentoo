@@ -36,6 +36,7 @@ function EditProfile() {
 
       const { data } = await axios.put("/api/profile", { userId, ...FormData });
       setProfileData(data.data)
+      localStorage.setItem('profileData', JSON.stringify(data.data || null));
       navigate(`/profile/${userId}`);
     } catch (e: any) {
       if (e.name === "ValidationError") {
