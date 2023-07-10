@@ -1,6 +1,6 @@
 const { compare } = require('bcrypt');
 const { loginValidation, SignToken, CustomError } = require('../../utils');
-const { User } = require('../../models');
+const { User, Profile } = require('../../models');
 
 const login = async (req, res, next) => {
   try {
@@ -12,6 +12,11 @@ const login = async (req, res, next) => {
       where: {
         email,
       },
+      include: [
+        {
+          model: Profile,
+        },
+      ],
     });
 
     if (!user) {
@@ -36,6 +41,7 @@ const login = async (req, res, next) => {
         id,
         username,
         email,
+        profile: user.profile,
       },
       token,
     });
