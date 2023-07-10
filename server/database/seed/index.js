@@ -1,4 +1,4 @@
-const env = process.argv[2] || 'development';
+const env = process.argv[2] || process.env.NODE_ENV || 'development';
 const sequelize = require('../connection');
 const {
   USERS, LANGUAGES, PROFILES, MESSAGES, FEEDBACKS, QUIZZES, QUESTIONS,
@@ -9,7 +9,7 @@ const {
 
 const seeder = async () => {
   try {
-    await sequelize.sync({ force: env !== 'production' });
+    await sequelize.sync({ force: true });
     await User.bulkCreate(USERS);
     await Language.bulkCreate(LANGUAGES);
     await Profile.bulkCreate(PROFILES);
@@ -23,3 +23,4 @@ const seeder = async () => {
   }
 };
 seeder();
+module.exports = seeder;

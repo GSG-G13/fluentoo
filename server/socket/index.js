@@ -3,14 +3,14 @@ const cookie = require('cookie');
 const { WebSocketServer } = require('ws');
 const { Message } = require('../models');
 const server = require('..');
-const { verfiyToken } = require('../utils');
+const { verifyToken, CustomError } = require('../utils');
 
 const wss = new WebSocketServer({ server });
 
 const assignClient = async (connection, req) => {
   const cookies = req.headers.cookie;
   const { token } = cookie.parse(cookies);
-  const decoded = await verfiyToken(token);
+  const decoded = await verifyToken(token);
   connection.userId = decoded.id;
   connection.userName = decoded.username;
 };
@@ -18,7 +18,6 @@ const assignClient = async (connection, req) => {
 const getOnlineUsers = async () => {
   const onlineUsers = [...wss.clients]
     .map((client) => ({ userId: client.userId, userName: client.userName }));
-
   [...wss.clients].forEach((client) => {
     client.send(JSON.stringify({ onlineUsers }));
   });
@@ -27,6 +26,9 @@ const getOnlineUsers = async () => {
 const sendMessage = async (receivedMessage) => {
   try {
     const { text, sender, receiver } = receivedMessage.message;
+    if (!text) {
+      throw new CustomError('Can not send empty message', 404);
+    }
     const message = await Message.create({
       sender,
       receiver,
@@ -47,12 +49,9 @@ const sendMessage = async (receivedMessage) => {
 
 wss.on(('connection'), async (connection, req) => {
   await assignClient(connection, req);
-
   getOnlineUsers();
-
   connection.on('message', (message) => {
     const receivedMessage = JSON.parse(message.toString());
-
     if ('message' in receivedMessage) {
       sendMessage(receivedMessage);
     }

@@ -6,7 +6,7 @@ const readMessage = async (req, res, next) => {
   const { receiver } = req.params;
 
   try {
-    const messages = await Message.findAndCountAll({
+    const messages = await Message.findAll({
       where: {
         [Op.or]: [
           {
@@ -21,9 +21,10 @@ const readMessage = async (req, res, next) => {
       },
       order: [['createdAt', 'ASC']],
     });
+
     return res.json({
       status: 200,
-      data: messages.rows,
+      data: messages,
     });
   } catch (err) {
     return next(err);

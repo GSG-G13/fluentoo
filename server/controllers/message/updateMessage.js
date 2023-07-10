@@ -18,9 +18,6 @@ const updateMessage = async (req, res, next) => {
         returning: true,
       },
     );
-    if (!message) {
-      throw new CustomError('updating failed', 500);
-    }
     return res.json({
       msg: 'Message updated successfully',
       status: 200,
