@@ -35,8 +35,8 @@ function Community() {
         <Input size="large" placeholder="search for a friend" prefix={<SearchOutlined />}
           onChange={(e) => setName(e.target.value)} />
         <div className='filter'>
-          <Menu name={'Spoken languages'} setLanguage={setSpokenLanguages} />
-          <Menu name={'Practice languages'} setLanguage={setPracticeLanguages} />
+          <Menu languages={['English', 'Arabic', 'French']} selectMode='multiple' name={'Spoken languages'} setLanguage={setSpokenLanguages} />
+          <Menu languages={['English', 'Arabic', 'French']} selectMode='multiple' name={'Practice languages'} setLanguage={setPracticeLanguages} />
         </div>
       </div>
       <div className='community-cards'>

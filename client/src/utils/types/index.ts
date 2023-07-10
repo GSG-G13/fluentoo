@@ -67,10 +67,14 @@ export interface LoggedUserObjectType {
   userId: number | undefined;
   userName: string | undefined;
 }
+
 export interface DropMenuProps {
+  languages: string[];
+  selectMode?: 'multiple' | 'tags';
   name: string;
   setLanguage: (language: string) => void;
 }
+
 export interface ProfileCredentials {
   gender: string
   country: string

@@ -6,7 +6,6 @@ const QuizModal = ({ questions, level, isModalOpen, setIsModalOpen }: any) => {
   const [questionNumber, setQuestionNumber] = useState(0);
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [showResult, setShowResult] = useState(false);
-  console.log(level);
 
   const handleOk = () => {
     setIsModalOpen(false);

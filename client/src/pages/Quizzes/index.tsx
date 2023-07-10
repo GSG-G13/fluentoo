@@ -2,10 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { Row, Col, Card } from 'antd';
 import { LockOutlined, CheckCircleOutlined } from '@ant-design/icons';
 import { quizLevelType, QuizType } from '../../utils';
-import { QuizModal } from '../../components';
+import { QuizModal, Menu } from '../../components';
+import { useProfileContext } from '../../context/ProfileContext';
 import './style.modules.css';
 
 const Quizzes = () => {
+  // Get from context
+  const userLevels = [{ language: "english", level: "1" }, { language: "arabic", level: "0" }]
+  // Get from context
+  const { profileData: { practiceLanguages } } = useProfileContext();
+
+  const [selectedLanguage, setSelectedLanguage] = useState<string>(practiceLanguages[0])
   const [level, setLevel] = useState<Partial<quizLevelType>>({});
   const [currentQuiz, setCurrentQuiz] = useState<Partial<QuizType>>({});
   const [quizzesNumber, setQuizzesNumber] = useState(0);
@@ -38,7 +45,6 @@ const Quizzes = () => {
       };
     }
   }
-  console.log(currentQuiz.questions, 'ggg');
 
   const handleQuizOpen = (quizId: number) => {
     if (level.count) {
@@ -49,11 +55,12 @@ const Quizzes = () => {
   }
 
   useEffect(() => {
-    const count = 2;
-    const level = getLevel(count)
+    // const selectedLanguageLevel = userLevels.find((userLevel) => userLevel.language === selectedLanguage)
+    // const count = selectedLanguageLevel?.level;
+    const level = getLevel(3)
 
     setLevel(level);
-  }, []);
+  }, [selectedLanguage]);
 
   useEffect(() => {
     setQuizzesNumber(10)
@@ -142,6 +149,7 @@ const Quizzes = () => {
     <div className='quizzes container'>
       <div className='control'>
         <div className='level'>Your Level: <span style={{ color: level.color }}>{level.text}</span></div>
+        <div className='quiz-language'>Quiz Language: <Menu languages={practiceLanguages} name={'Spoken languages'} setLanguage={setSelectedLanguage} /></div>
       </div>
       <div className='quizzes-wrapper'>
         <Row>

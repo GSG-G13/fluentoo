@@ -7,6 +7,16 @@
   padding-top: 30px;
 }
 
+.quizzes .control {
+  display: flex;
+  justify-content: space-between;
+}
+
+.control .quiz-language .ant-select {
+  min-width: 175px;
+}
+
+
 .quizzes-wrapper :where(.css-dev-only-do-not-override-12jzuas).ant-row {
   flex-flow: wrap;
   text-align: center;
