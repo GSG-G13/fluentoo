@@ -28,7 +28,7 @@ function Nav({ user }: any) {
               </Menu.Item>
               {!user.userId ? (
                 <Menu.Item key="3">
-                  <Link to="/about-us">About</Link>
+                  <Link to="/community">About</Link>
                 </Menu.Item>
               ) : (
                 <Menu.Item key="3">
