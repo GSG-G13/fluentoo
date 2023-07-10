@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 
 export interface SignupCredentials {
   email: string;
@@ -12,8 +12,8 @@ export interface LoginCredentials {
 }
 
 export interface AuthContextType {
-  user: { userId: number | null; userName: string | null; }
-  setUser: (user: {} | null) => void,
+  user: { userId: number | null; userName: string | null };
+  setUser: (user: {} | null) => void;
 }
 
 export interface AuthProviderPropsType {
@@ -34,12 +34,15 @@ export interface MessageObjectType {
 
 export interface UserComponentPropsType {
   user: UserObjectType;
+  isOnline: boolean;
   selectedUser: UserObjectType;
   setSelectedUser: (selectedUser: UserObjectType) => void;
 }
 
 export interface SiderCollapsedPropsType {
   collapsed: boolean;
+  allContacts?: UserObjectType[];
+  setFilterdContacts?: (filterdContacts: UserObjectType[]) => void;
   setCollapsed: (collapsed: boolean) => void;
 }
 
@@ -68,6 +71,16 @@ export interface DropMenuProps {
   name: string;
   setLanguage: (language: string) => void;
 }
+export interface ProfileCredentials {
+  gender: string
+  country: string
+  birthDate: string
+  interests?: string | null
+  bio?: string
+  avatar?: string | null | undefined
+  practiceLanguages: string
+  spokenLanguages: string
+}
 
 export interface quizLevelType {
   count: number;
@@ -90,4 +103,9 @@ export interface QuestionType {
 export interface QuizType {
   quiz_id: number;
   questions: QuestionType[];
+}
+
+export interface UploadImageProps {
+  avatar: string;
+  setAvatar: React.Dispatch<React.SetStateAction<string>>;
 }

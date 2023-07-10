@@ -10,6 +10,9 @@ import SendMessageForm from './SendMessageForm';
 import QuizModal from './QuizModal';
 import UserCard from './Card';
 import Menu from './DropDownMenu';
+import { EditProfile } from './Profile';
+import ProfileForm from './ProfileForm';
+import UploadImage from './UploadImage';
 
 export {
   SignupForm,
@@ -24,4 +27,7 @@ export {
   QuizModal,
   UserCard,
   Menu,
+  EditProfile,
+  ProfileForm,
+  UploadImage
 }

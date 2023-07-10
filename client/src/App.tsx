@@ -1,26 +1,48 @@
 import React from 'react';
 import './App.css';
-import { Routes, Route, Navigate } from "react-router-dom";
-import { Signup, Login, Home, Community, Quizzes } from './pages';
-import { useAuthContext } from "./context/AuthContext";
+import {
+  Community,
+  Auth,
+  NotFound,
+  Home,
+  ProfilePage,
+  ProfileInfo,
+  Quizzes,
+} from './pages';
+import { useAuthContext } from './context/AuthContext';
+import { Routes, Route, Navigate } from 'react-router-dom';
+
 import { Chat } from './pages';
+import { Banner } from './components/Profile';
+import { ProfileForm } from './components';
 function App() {
   const { user } = useAuthContext();
-
   return (
     <Routes>
+      <Route path='/' element={<Home />} />
       <Route
-        path="/"
-        element={<Home />}
+        path='/chat'
+        element={user.userId ? <Chat /> : <Navigate to='/auth' />}
       />
+
       <Route
-        path="/signup"
-        element={user.userId ? <Navigate to="/community" /> : <Signup />}
+        path='/profile/update'
+        element={user.userId ? <ProfileInfo /> : <Navigate to='/auth' />}
       />
+
       <Route
-        path="/login"
-        element={user.userId ? <Navigate to="/community" /> : <Login />}
+        path='/profile/create'
+        element={
+          <div>
+            <Banner />
+            <div className='container-2'>
+              <ProfileForm />
+            </div>
+          </div>
+        }
       />
+      <Route path='/profile/:profileId' element={<ProfilePage />} />
+      <Route path='/community' element={<Community />} />
       <Route
         path="/chat"
         element={user.userId ? <Chat /> : <Navigate to="/signup" />}
@@ -33,6 +55,11 @@ function App() {
         path='/community'
         element={<Community />}
       />
+      <Route
+        path='/auth'
+        element={user.userId ? <Navigate to='/community' /> : <Auth />}
+      />
+      <Route path='*' element={<NotFound />} />
     </Routes>
   );
 }

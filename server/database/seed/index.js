@@ -1,4 +1,4 @@
-const env = process.argv[2] || 'development';
+const env = process.argv[2] || process.env.NODE_ENV || 'development';
 const sequelize = require('../connection');
 const {
   USERS, LANGUAGES, PROFILES, MESSAGES, FEEDBACKS,
@@ -21,3 +21,4 @@ const seeder = async () => {
   }
 };
 seeder();
+module.exports = seeder;

@@ -14,10 +14,11 @@ import type {
   DropMenuProps,
   quizLevelType,
   QuizType,
-  QuizModalPropsType,
+  ProfileCredentials,
+  UploadImageProps
 } from './types';
 
-import { SignupSchema, LoginSchema } from './validation';
+import { SignupSchema, LoginSchema, ProfileSchema } from './validation';
 
 export {
   SignupCredentials,
@@ -37,5 +38,7 @@ export {
   DropMenuProps,
   quizLevelType,
   QuizType,
-  QuizModalPropsType,
+  ProfileCredentials,
+  ProfileSchema,
+  UploadImageProps
 };
