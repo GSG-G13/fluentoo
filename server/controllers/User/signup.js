@@ -1,6 +1,6 @@
 const { hash } = require('bcrypt');
 const {
-  SignToken, CustomError, signupValidation, genarateEmail, sendEmail,
+  SignToken, CustomError, signupValidation, generateEmail, sendEmail,
 } = require('../../utils');
 const { User } = require('../../models');
 
@@ -31,8 +31,8 @@ const signUp = async (req, res, next) => {
       email,
       password: hashedPassword,
     });
-    const { emailBody, emailText } = genarateEmail(username);
-    await sendEmail(email, 'sign up sucsessfully', emailBody, emailText);
+    const { emailBody, emailText } = generateEmail(username);
+    sendEmail(email, 'sign up sucsessfully', emailBody, emailText);
     const user = { name, useremail, id };
     const token = await SignToken({
       id,

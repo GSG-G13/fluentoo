@@ -6,6 +6,7 @@ const createMessage = async (req, res, next) => {
   const { sender, receiver, content } = req.body;
 
   try {
+    if (sender === receiver) throw new CustomError('You can\'t send message to yourself', 400);
     if (content === '') {
       const emptyMessage = await Message.findOne({
         where: {

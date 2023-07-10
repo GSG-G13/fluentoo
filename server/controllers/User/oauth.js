@@ -27,7 +27,7 @@ const oauth = async (req, res, next) => {
     });
     return res.cookie('token', token)
       .json({
-        msg: 'authenticated sucssfully',
+        msg: 'authenticated successfully',
         status: 201,
         data: user,
       });

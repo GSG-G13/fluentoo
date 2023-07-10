@@ -12,8 +12,8 @@ const ProfileInfo = () => {
       try {
         const {
           data: { data: profileData },
-        } = await axios.get(`/api/v1/profile/${profileId}`);
-        const birthDate = profileData.birthdate.slice(0, 4);
+        } = await axios.get(`/api/profile/${profileId}`);
+        const birthDate = profileData.birthDate.slice(0, 4);
         const age = 2023 - birthDate;
 
         setProfile({
@@ -29,32 +29,32 @@ const ProfileInfo = () => {
 
   return (
     <div>
-      <Card style={{ width: 800 }} className='info-card'>
+      <Card style={{ width: 800 }} className="info-card">
         <h2>About</h2>
         <hr />
-        <div className='info-item'>
+        <div className="info-item">
           <h3>Bio:</h3>
           <p>{profile?.bio}</p>
         </div>
-        <div className='info-item'>
+        <div className="info-item">
           <h3>Age:</h3>
           <p>{profile?.age} y.o</p>
         </div>
-        <div className='info-item'>
-          <h3>Intrests:</h3>
-          {profile?.intrests.map((e: any) => (
+        <div className="info-item">
+          <h3>interests:</h3>
+          {profile?.interests.map((e: any) => (
             <p>{e}</p>
           ))}
         </div>
 
-        <div className='info-item'>
+        <div className="info-item">
           <h3>SpokenLanguages:</h3>
           {profile?.spokenLanguages.map((e: any) => (
             <p>{e}</p>
           ))}
         </div>
 
-        <div className='info-item'>
+        <div className="info-item">
           <h3>PracticeLanguages:</h3>
           {profile?.practiceLanguages.map((e: any) => (
             <p>{e}</p>

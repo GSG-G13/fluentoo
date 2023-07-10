@@ -1,21 +1,14 @@
-import React from 'react'
-import { Layout } from 'antd';
-const { Content } = Layout;
-import { Hero, AboutUs, Feature } from '../../components/LandingPage'
-import { Nav, Footer } from '../../components/common'
+import React from 'react';
+import { Hero, AboutUs, Feature } from '../../components/LandingPage';
 
 const Home = () => {
   return (
-    <>
-      <div className='container'>
-        <Nav />
-        <Hero />
-        <AboutUs />
-        <Feature />
-      </div>
-      <Footer />
-    </>
-  )
-}
+    <div className="container">
+      <Hero />
+      <AboutUs />
+      <Feature />
+    </div>
+  );
+};
 
-export default Home
+export default Home;

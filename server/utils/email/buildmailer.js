@@ -1,6 +1,6 @@
 const Mailgen = require('mailgen');
 
-const genarateEmail = (name) => {
+const generateEmail = (name) => {
   const mailGenerator = new Mailgen({
     theme: 'default',
     product: {
@@ -19,4 +19,4 @@ const genarateEmail = (name) => {
   const emailText = mailGenerator.generatePlaintext(email);
   return { emailBody, emailText };
 };
-module.exports = genarateEmail;
+module.exports = generateEmail;

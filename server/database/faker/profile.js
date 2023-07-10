@@ -4,10 +4,10 @@ function createRandomProfile() {
   return {
     gender: 'male',
     country: 'USA',
-    birthdate: faker.date.past(),
+    birthDate: faker.date.past(),
     practiceLanguages: [faker.lorem.words()],
     spokenLanguages: [faker.lorem.words()],
-    intrests: [faker.lorem.words()],
+    interests: [faker.lorem.words()],
     bio: faker.lorem.paragraph(),
     avatar: faker.image.avatar(),
   };

@@ -3,11 +3,13 @@ import { Button, Input } from 'antd';
 import { MenuOutlined, SearchOutlined } from '@ant-design/icons';
 import { SiderCollapsedPropsType } from '../../utils'
 
-function MessagesSiderHead({ allContacts, setFilterdContacts, collapsed, setCollapsed }: SiderCollapsedPropsType) {
+function MessagesSiderHead({ allContacts, setFilterdContacts: setFilteredContacts, collapsed, setCollapsed }: SiderCollapsedPropsType) {
   const onSearch = (value: string) => {
-    if (setFilterdContacts && allContacts) {
-      const filterdContacts = allContacts.filter((contact) => contact.userName.toLowerCase().startsWith(value.toLowerCase()));
-      setFilterdContacts(filterdContacts);
+    if (setFilteredContacts && allContacts) {
+      const filteredContacts = allContacts.filter((contact) =>
+        contact.userName.toLowerCase().startsWith(value.toLowerCase())
+      );
+      setFilteredContacts(filteredContacts);
     }
   };
 
@@ -18,7 +20,7 @@ function MessagesSiderHead({ allContacts, setFilterdContacts, collapsed, setColl
         {collapsed || (
           <Button
             className='burger-menu'
-            type="text"
+            type='text'
             icon={<MenuOutlined />}
             onClick={() => setCollapsed(!collapsed)}
             style={{

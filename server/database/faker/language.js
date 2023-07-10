@@ -4,7 +4,7 @@ function createRandomLanguage() {
   return {
     name: faker.lorem.words(),
     shortcut: faker.lorem.words(),
-    flag: faker.image.avatar(),
+    flag: faker.lorem.word(),
   };
 }
 

@@ -11,10 +11,10 @@ const SignToken = (payload) => new Promise((resolve, reject) => {
     resolve(token);
   });
 });
-const verfiyToken = (token) => new Promise((resolve, reject) => {
+const verifyToken = (token) => new Promise((resolve, reject) => {
   jwt.verify(token, SECRET, (err, decoded) => {
     if (err) reject(err);
     resolve(decoded);
   });
 });
-module.exports = { SignToken, verfiyToken };
+module.exports = { SignToken, verifyToken };

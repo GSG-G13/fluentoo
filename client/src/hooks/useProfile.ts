@@ -1,9 +1,9 @@
-import {  useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuthContext } from '../context/AuthContext';
 
-const storeProfileData = (data:any) => {
-  localStorage.setItem('profileData', JSON.stringify(data));
+const storeProfileData = (data: any) => {
+  localStorage.setItem('profileData', JSON.stringify(data || null));
 };
 
 const getStoredProfileData = () => {
@@ -11,30 +11,26 @@ const getStoredProfileData = () => {
   return storedData ? JSON.parse(storedData) : null;
 };
 
- const useProfile = () => {
+const useProfile = () => {
   const { user } = useAuthContext();
-  const id =user.userId;
-  const [profileData, setProfileData] = useState(null);
-
+  const [userId] = useState(user.userId);
+  const storedProfileData = getStoredProfileData();
+  const [profileData, setProfileData] = useState(storedProfileData);
 
   useEffect(() => {
-    const storedProfileData = getStoredProfileData();
-    if (storedProfileData) {
-      setProfileData(storedProfileData);
-    } else {
-    const profileData=async()=>{
-     const data= await fetchProfileData();
-     setProfileData(data)
-     storeProfileData(data)
-    } 
-    profileData();
+    if (!profileData) {
+      (async () => {
+        const data = await fetchProfileData();
+        setProfileData(data);
+        storeProfileData(data);
+      })()
     }
-  }, []);
+  }, [userId]);
 
   const fetchProfileData = async () => {
     try {
-      const response = await axios.get(`/api/v1/profile/${id}`); 
-      const profileData = response.data.data;   
+      const response = await axios.get(`/api/profile/${userId}`);
+      const profileData = response.data.data;
       return profileData;
     } catch (error) {
       console.error('Error fetching profile data:', error);
@@ -42,8 +38,9 @@ const getStoredProfileData = () => {
     }
   };
 
-return{
-  profileData
-}
+  return {
+    profileData,
+    setProfileData
+  }
 };
 export default useProfile;

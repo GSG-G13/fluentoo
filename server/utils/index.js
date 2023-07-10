@@ -5,9 +5,9 @@ const {
   profileValidation,
   profileIdValidation,
 } = require('./validation/index');
-const { SignToken, verfiyToken } = require('./jwt/jwt');
-const genarateEmail = require('./email/buildmailer');
+const generateEmail = require('./email/buildmailer');
 const sendEmail = require('./email/nodemailer');
+const { SignToken, verifyToken } = require('./jwt/jwt');
 const { CustomError, makeArrayOfObjectsUnique } = require('./helper');
 
 module.exports = {
@@ -15,11 +15,11 @@ module.exports = {
   signupValidation,
   loginValidation,
   SignToken,
-  verfiyToken,
+  verifyToken,
   CustomError,
   profileValidation,
   profileIdValidation,
-  genarateEmail,
+  generateEmail,
   sendEmail,
   makeArrayOfObjectsUnique,
 };

@@ -14,7 +14,7 @@ const Profile = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    birthdate: {
+    birthDate: {
       type: DataTypes.DATE,
       allowNull: false,
     },
@@ -22,13 +22,15 @@ const Profile = sequelize.define(
       type: DataTypes.ARRAY(DataTypes.STRING),
       defaultValue: [],
       allowNull: false,
+
     },
     spokenLanguages: {
       type: DataTypes.ARRAY(DataTypes.STRING),
       defaultValue: [],
       allowNull: false,
+
     },
-    intrests: {
+    interests: {
       type: DataTypes.ARRAY(DataTypes.STRING),
       defaultValue: [],
     },
@@ -40,12 +42,11 @@ const Profile = sequelize.define(
     },
   },
   {
-    underscored: true,
-    createdAt: 'created_at',
-    updatedAt: 'updated_at',
+    tableName: 'profiles',
   },
 );
 
+User.hasOne(Profile);
 Profile.belongsTo(User);
 User.hasOne(Profile);
 module.exports = Profile;
