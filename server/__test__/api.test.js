@@ -188,6 +188,7 @@ describe('Profile endPoints', () => {
       .post('/api/profile')
       .set('Cookie', [`token=${token}`])
       .send(newProfile);
+    // eslint-disable-next-line no-unused-vars
     const updatedProfile = {
       ...newProfile,
       interests: ['Reading', 'coding', 'Traveling'],

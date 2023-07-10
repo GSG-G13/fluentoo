@@ -7,11 +7,13 @@ import ReactFlagsSelect from 'react-flags-select';
 import { useAuthContext } from '../../context/AuthContext';
 import { ProfileCredentials, ProfileSchema } from '../../utils';
 import { interests } from './interests';
+import { useProfileContext } from '../../context/ProfileContext';
 
 const { TextArea } = Input;
 
 function ProfileForm() {
   const { user } = useAuthContext();
+  const { setProfileData } = useProfileContext()
   const navigate = useNavigate();
   const userId = user.userId;
   const [avatar, setAvatar] = useState('');
@@ -32,7 +34,9 @@ function ProfileForm() {
         { ...values, country, avatar },
         { abortEarly: false }
       );
-      await axios.post('/api/profile', { userId, ...FormData });
+      const profile = await axios.post('/api/profile', { userId, ...FormData });
+      setProfileData(profile.data.data)
+      localStorage.setItem('profileData', JSON.stringify(profile.data.data || null));
       navigate('/community');
     } catch (e: any) {
       if (e.name === 'ValidationError') {

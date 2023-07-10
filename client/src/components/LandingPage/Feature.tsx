@@ -40,17 +40,18 @@ function Feature() {
           Our <strong>Features</strong>
         </h3>
         <p>
-          Immerse yourself in a global language learning community with
-          interactive features like chat rooms, and zoom meating.
+          <h2>
+            Immerse yourself in a global language learning community with
+            interactive features.
+          </h2>
         </p>
       </div>
 
       {featuresContent?.map((w, i) => (
-        <Row className='feat-container' key={i}>
+        <Row className='feat-container' key={i} style={{ padding: '0px 50px' }}>
           <Col md={12}>
             <Image src={w.imgSrc} preview={false} alt={w.imgAlt} />
           </Col>
-
           <Col md={12}>
             <div className='feature-ele-title'>
               <h2>{w.featTitle}</h2>
