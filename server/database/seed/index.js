@@ -9,7 +9,7 @@ const {
 
 const seeder = async () => {
   try {
-    await sequelize.sync({ force: true });
+    await sequelize.sync({ force: env !== 'production' });
     await User.bulkCreate(USERS);
     await Language.bulkCreate(LANGUAGES);
     await Profile.bulkCreate(PROFILES);
