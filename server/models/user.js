@@ -16,9 +16,15 @@ const User = sequelize.define(
     password: {
       type: DataTypes.STRING,
     },
+    levels: {
+      type: DataTypes.STRING,
+      defaultValue: '[]',
+      allowNull: false,
+    },
   },
   {
     tableName: 'users',
   },
 );
+
 module.exports = User;
