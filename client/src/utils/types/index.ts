@@ -68,8 +68,8 @@ export interface LoggedUserObjectType {
   userName: string | undefined;
 }
 export interface DropMenuProps {
-  name: string;
-  setLanguage: (language: string) => void;
+  placeholder: string;
+  onchange: (value: string) => void;
 }
 export interface ProfileCredentials{
   gender:  string

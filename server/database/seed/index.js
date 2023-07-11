@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 const env = process.argv[2] || process.env.NODE_ENV || 'development';
 const sequelize = require('../connection');
 const {
