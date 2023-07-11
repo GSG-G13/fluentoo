@@ -1,4 +1,4 @@
-const { User, Quiz } = require('../../models');
+const { User, Quiz, Language } = require('../../models');
 const { CustomError } = require('../../utils');
 
 const updateUserLevel = async (req, res, next) => {
@@ -6,6 +6,16 @@ const updateUserLevel = async (req, res, next) => {
   const { id: userId } = req.user;
 
   try {
+    const languageExist = await Language.findOne({
+      where: {
+        name: quizLanguage.toLowerCase(),
+      },
+    });
+
+    if (!languageExist) {
+      throw new CustomError('Language not found', 404);
+    }
+
     const userExist = await User.findByPk(userId);
 
     if (!userExist) {
