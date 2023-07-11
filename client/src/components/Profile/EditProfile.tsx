@@ -7,12 +7,13 @@ import { useAuthContext } from "../../context/AuthContext";
 import { ProfileCredentials, ProfileSchema } from "../../utils";
 import { interests } from "../common/interests.ts";
 import { useProfileContext } from "../../context/ProfileContext.tsx";
+import {Options} from "../";
 
 const { TextArea } = Input;
 
 function EditProfile() {
   const { user } = useAuthContext();
-  const {setProfileData} = useProfileContext()
+  const { setProfileData } = useProfileContext()
   const navigate = useNavigate();
   const userId = user.userId;
   const [form] = Form.useForm();
@@ -27,13 +28,14 @@ function EditProfile() {
   const [profile, setProfile] = useState<any>();
   const [errors, setErrors] = useState<ProfileCredentials>(initialErrors);
   const [country, setCountry] = useState("");
+  const [spokenLanguages, setSpokenLanguages] = useState<string>('')
+  const [practiceLanguages, setPracticeLanguages] = useState<string>('')
   const onFinish = async (values: ProfileCredentials) => {
     try {
       const FormData = await ProfileSchema.validate(
-        { ...values, country },
+        { ...values, country, spokenLanguages, practiceLanguages },
         { abortEarly: false }
       );
-
       const { data } = await axios.put("/api/profile", { userId, ...FormData });
       setProfileData(data.data)
       localStorage.setItem('profileData', JSON.stringify(data.data || null));
@@ -85,17 +87,13 @@ function EditProfile() {
           <Input type="url" placeholder="optional" />
         </Form.Item>
         <Form.Item label="Native Languages" name="spokenLanguages">
-          <Select mode="multiple" placeholder={profile?.spokenLanguages}>
-            <Select.Option value="English">English</Select.Option>
-            <Select.Option value="French">French</Select.Option>
-          </Select>
+          <Options placeholder={''} onchange={(value: string) => setSpokenLanguages(value)
+          } />
         </Form.Item>
         <span className="error-message ">{errors.spokenLanguages}</span>
         <Form.Item label="practice Languages" name="practiceLanguages">
-          <Select mode="multiple" placeholder={profile?.practiceLanguages}>
-            <Select.Option value="demo">English</Select.Option>
-            <Select.Option value="French">French</Select.Option>
-          </Select>
+          <Options placeholder={''} onchange={(value: string) => setPracticeLanguages(value)
+          } />
         </Form.Item>
         <span className="error-message ">{errors?.practiceLanguages}</span>
         <Form.Item label="Interests" name="interests">

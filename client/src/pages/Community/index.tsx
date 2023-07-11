@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Input, Pagination, Empty } from "antd";
 import { SearchOutlined } from '@ant-design/icons';
-import { Menu, UserCard } from '../../components';
+import {  UserCard ,Options} from '../../components';
 import axios from 'axios';
 import './style.modules.css'
-
 function Community() {
   const [name, setName] = useState<string>('')
   const [spokenLanguages, setSpokenLanguages] = useState<string>('')
@@ -35,8 +34,10 @@ function Community() {
         <Input size="large" placeholder="search for a friend" prefix={<SearchOutlined />}
           onChange={(e) => setName(e.target.value)} />
         <div className='filter'>
-          <Menu name={'Spoken languages'} setLanguage={setSpokenLanguages} />
-          <Menu name={'Practice languages'} setLanguage={setPracticeLanguages} />
+          <Options onchange={(value: string) => setSpokenLanguages(value)
+          } placeholder={'Spoken languages'} />
+          <Options onchange={(value: string) => setPracticeLanguages(value)
+          } placeholder={'Practice languages'} />
         </div>
       </div>
       <div className='community-cards'>

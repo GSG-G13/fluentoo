@@ -10,8 +10,8 @@ import SendMessageForm from './SendMessageForm';
 import { EditProfile } from './Profile';
 import ProfileForm from './ProfileForm'
 import UserCard from './Card';
-import Menu from './DropDownMenu'
 import UploadImage from './UploadImage'
+import Options from './Options';
 export {
   SignupForm,
   LoginForm,
@@ -25,6 +25,6 @@ export {
   EditProfile,
   ProfileForm,
   UserCard,
-  Menu,
-  UploadImage
+  UploadImage,
+  Options,
 }

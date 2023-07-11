@@ -8,14 +8,6 @@ const Language = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    shortcut: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    flag: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
   },
   {
     tableName: 'languages',

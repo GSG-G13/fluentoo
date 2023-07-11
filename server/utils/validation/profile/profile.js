@@ -7,7 +7,7 @@ const profileValidation = Joi.object({
   birthDate: Joi.date().required(),
   interests: Joi.array(),
   bio: Joi.string(),
-  avatar: Joi.string(),
+  avatar: Joi.string().allow(''),
   practiceLanguages: Joi.array().required(),
   spokenLanguages: Joi.array().required(),
 });
