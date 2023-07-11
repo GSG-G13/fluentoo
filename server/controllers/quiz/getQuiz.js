@@ -7,6 +7,10 @@ const getQuiz = async (req, res, next) => {
   let userLevel = 0;
 
   try {
+    if (!quizLanguage) {
+      throw new CustomError('You should choose quiz language', 404);
+    }
+
     const userExist = await User.findByPk(userId);
 
     if (!userExist) {
@@ -64,7 +68,7 @@ const getQuiz = async (req, res, next) => {
     return res.json({
       msg: 'Quiz Returned Successfully',
       status: 200,
-      data: { quizzesNumber, quiz },
+      data: { userLevels: userExist.levels, quizzesNumber, quiz },
     });
   } catch (err) {
     return next(err);
