@@ -2,30 +2,37 @@ const {
   Quiz,
   Question,
   User,
-  Language,
+  Profile,
 } = require('../../models');
 const { CustomError } = require('../../utils');
 
 const getQuiz = async (req, res, next) => {
-  const { quizLanguage } = req.params;
-  const { id: userId } = req.user;
-  let userLevel = 0;
-
   try {
-    const languageExist = await Language.findOne({
-      where: {
-        name: quizLanguage.toLowerCase(),
+    const quizLanguage = req.params.quizLanguage.toLowerCase();
+    const { id: userId } = req.user;
+    let userLevel = 0;
+
+    const userExist = await User.findByPk(
+      userId,
+      {
+        include: {
+          model: Profile,
+          attributes: ['practiceLanguages'],
+        },
       },
-    });
-
-    if (!languageExist) {
-      throw new CustomError('Language not found', 404);
-    }
-
-    const userExist = await User.findByPk(userId);
+    );
 
     if (!userExist) {
       throw new CustomError('User not found', 404);
+    } else if (!userExist.profile) {
+      throw new CustomError('Profile not found', 404);
+    }
+
+    const inPracticeLanguages = userExist.profile.practiceLanguages
+      .some((language) => language === quizLanguage);
+
+    if (!inPracticeLanguages) {
+      throw new CustomError('Choosen Language is not from your practice languages', 400);
     }
 
     const levelObjects = JSON.parse(userExist.levels);
@@ -36,7 +43,6 @@ const getQuiz = async (req, res, next) => {
     if (userLevelObject) {
       userLevel = userLevelObject.level;
     } else {
-      userLevel = 0;
       levelObjects.push({ language: quizLanguage, level: 0 });
       await User.update(
         { levels: JSON.stringify(levelObjects) },
@@ -63,14 +69,14 @@ const getQuiz = async (req, res, next) => {
     }
 
     const quiz = await Quiz.findOne({
+      where: {
+        language: quizLanguage,
+      },
+      attributes: ['id', 'language', 'level'],
       include: {
         model: Question,
-        attributes: ['questionText', 'options', 'correctOption'],
+        attributes: ['questionText', 'options'],
       },
-      where: {
-        language: quizLanguage.toLowerCase(),
-      },
-      attributes: ['language', 'level'],
       order: [['id', 'ASC']],
       offset: userLevel,
       limit: 1,

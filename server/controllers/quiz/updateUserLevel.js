@@ -1,25 +1,34 @@
-const { User, Quiz, Language } = require('../../models');
+const { User, Profile, Question } = require('../../models');
 const { CustomError } = require('../../utils');
 
 const updateUserLevel = async (req, res, next) => {
-  const { quizLanguage } = req.params;
-  const { id: userId } = req.user;
-
   try {
-    const languageExist = await Language.findOne({
-      where: {
-        name: quizLanguage.toLowerCase(),
+    const quizLanguage = req.params.quizLanguage.toLowerCase();
+    const { quizId, quizAnswers } = req.body;
+    const { id: userId } = req.user;
+    let userLevel = 0;
+
+    const userExist = await User.findByPk(
+      userId,
+      {
+        include: {
+          model: Profile,
+          attributes: ['practiceLanguages'],
+        },
       },
-    });
-
-    if (!languageExist) {
-      throw new CustomError('Language not found', 404);
-    }
-
-    const userExist = await User.findByPk(userId);
+    );
 
     if (!userExist) {
       throw new CustomError('User not found', 404);
+    } else if (!userExist.profile) {
+      throw new CustomError('Profile not found', 404);
+    }
+
+    const inPracticeLanguages = userExist.profile.practiceLanguages
+      .some((language) => language === quizLanguage);
+
+    if (!inPracticeLanguages) {
+      throw new CustomError('Choosen Language is not from your practice languages', 400);
     }
 
     const levelObjects = JSON.parse(userExist.levels);
@@ -27,37 +36,61 @@ const updateUserLevel = async (req, res, next) => {
     const userLevelObject = levelObjects
       .find((levelObject) => levelObject.language === quizLanguage);
 
-    if (!userLevelObject) {
-      throw new CustomError('Did not start any quiz in this language', 404);
+    if (userLevelObject) {
+      userLevel = userLevelObject.level;
+    } else {
+      levelObjects.push({ language: quizLanguage, level: 0 });
+      await User.update(
+        { levels: JSON.stringify(levelObjects) },
+        {
+          where: {
+            id: userId,
+          },
+        },
+      );
     }
 
-    const quizzesNumber = await Quiz.count({
+    if (userLevel + 1 !== quizId) {
+      throw new CustomError('Your level is not suitable with this quiz', 400);
+    }
+
+    const quizCorrectAnswers = await Question.findAndCountAll({
       where: {
-        language: quizLanguage,
+        quizId,
       },
+      attributes: ['correctOption'],
     });
 
-    if (userLevelObject.level >= quizzesNumber) {
-      throw new CustomError('You already reached max level', 404);
+    if (quizCorrectAnswers.count === 0) {
+      throw new CustomError('You already reached max level', 400);
     }
 
-    const updatedLevelObjects = levelObjects
-      .map((levelObject) => ({
-        ...levelObject,
-        level: levelObject.language === quizLanguage ? levelObject.level + 1 : levelObject.level,
-      }));
+    let result = 0;
+    quizCorrectAnswers.rows.forEach((correctAnswer, i) => {
+      if (correctAnswer.correctOption === quizAnswers[i]) {
+        result += 1;
+      }
+    });
 
-    await User.update(
-      { levels: JSON.stringify(updatedLevelObjects) },
-      {
-        where: {
-          id: userId,
-        },
-      },
-    );
+    if (result > quizCorrectAnswers.count / 2) {
+      const updatedLevelObjects = levelObjects
+        .map((levelObject) => ({
+          ...levelObject,
+          level: levelObject.language === quizLanguage ? levelObject.level + 1 : levelObject.level,
+        }));
+
+      userExist.levels = JSON.stringify(updatedLevelObjects);
+      await userExist.save();
+
+      return res.json({
+        msg: 'Updated Successfully',
+        status: 200,
+        data: userExist,
+      });
+    }
 
     return res.json({
-      msg: 'Updated Successfully',
+      msg: 'Failed Exam',
       status: 200,
     });
   } catch (err) {
