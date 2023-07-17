@@ -1,4 +1,4 @@
-const QUIZZES = [
+const englishQuizzes = [
   {
     language: 'english',
     level: 1,
@@ -33,6 +33,21 @@ const QUIZZES = [
   },
 ];
 
+const arabicQuizzes = [
+  {
+    language: 'arabic',
+    level: 1,
+  },
+  {
+    language: 'arabic',
+    level: 2,
+  },
+  {
+    language: 'arabic',
+    level: 3,
+  },
+];
+
 module.exports = {
-  QUIZZES,
+  QUIZZES: [...englishQuizzes, ...arabicQuizzes],
 };

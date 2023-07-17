@@ -4,7 +4,7 @@ import { QuizModalPropsType } from '../../utils';
 import './style.modules.css';
 import axios from 'axios';
 
-const QuizModal = ({ currentQuiz, currentQuizId, setCurrentQuizId, isModalOpen, setIsModalOpen }: QuizModalPropsType) => {
+const QuizModal = ({ currentQuiz, level, setLevel, isModalOpen, setIsModalOpen }: QuizModalPropsType) => {
   const [questionNumber, setQuestionNumber] = useState(0);
   const [answers, setAnswers] = useState<string[]>([]);
   const [showResult, setShowResult] = useState(false);
@@ -47,13 +47,12 @@ const QuizModal = ({ currentQuiz, currentQuizId, setCurrentQuizId, isModalOpen, 
     if (showResult) {
       (async function () {
         const { data } = await axios.patch(`/api/quiz/level/${currentQuiz?.language}`, {
-          quizId: currentQuiz?.id,
           quizAnswers: answers,
         });
         setCorrectAnswers(data.data.correctAnswers);
         setExamResult(data.data.examResult);
         if (data.data.examResult === 'success') {
-          setCurrentQuizId(currentQuizId + 1);
+          setLevel(level + 1);
         }
       })()
     }

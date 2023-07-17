@@ -109,8 +109,8 @@ export interface QuizType {
 
 export interface QuizModalPropsType {
   currentQuiz: QuizType | null;
-  currentQuizId: number;
-  setCurrentQuizId: (currentQuizId: number) => void;
+  level: number;
+  setLevel: (level: number) => void;
   isModalOpen: boolean;
   setIsModalOpen: (isModalOpen: boolean) => void;
 }

@@ -1,10 +1,15 @@
-const { User, Profile, Question } = require('../../models');
+const {
+  User,
+  Profile,
+  Quiz,
+  Question,
+} = require('../../models');
 const { CustomError } = require('../../utils');
 
 const updateUserLevel = async (req, res, next) => {
   try {
     const quizLanguage = req.params.quizLanguage.toLowerCase();
-    const { quizId, quizAnswers } = req.body;
+    const { quizAnswers } = req.body;
     const { id: userId } = req.user;
     let userLevel = 0;
 
@@ -50,29 +55,32 @@ const updateUserLevel = async (req, res, next) => {
       );
     }
 
-    if (userLevel + 1 !== quizId) {
-      throw new CustomError('Your level is not suitable with this quiz', 400);
-    }
-
-    const quizCorrectAnswers = await Question.findAndCountAll({
+    const quizCorrectAnswers = await Quiz.findOne({
       where: {
-        quizId,
+        language: quizLanguage,
       },
-      attributes: ['correctOption'],
+      attributes: [],
+      include: {
+        model: Question,
+        attributes: ['correctOption'],
+      },
+      order: [['id', 'ASC']],
+      offset: userLevel,
+      limit: 1,
     });
 
-    if (quizCorrectAnswers.count === 0) {
+    if (!quizCorrectAnswers) {
       throw new CustomError('You already reached max level', 400);
     }
 
     let result = 0;
-    quizCorrectAnswers.rows.forEach((correctAnswer, i) => {
+    quizCorrectAnswers.questions.forEach((correctAnswer, i) => {
       if (correctAnswer.correctOption === quizAnswers[i]) {
         result += 1;
       }
     });
 
-    if (result > quizCorrectAnswers.count / 2) {
+    if (result > quizCorrectAnswers.questions.length / 2) {
       const updatedLevelObjects = levelObjects
         .map((levelObject) => ({
           ...levelObject,

@@ -12,7 +12,6 @@ const Quizzes = () => {
   const [selectedLanguage, setSelectedLanguage] = useState<string>(practiceLanguages[0])
   const [level, setLevel] = useState<number>(0);
   const [allQuizzesLevels, setAllQuizzesLevels] = useState<QuizLevelType[]>([]);
-  const [currentQuizId, setCurrentQuizId] = useState<number>(0);
   const [currentQuiz, setCurrentQuiz] = useState<QuizType | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [noQuizzesAvailable, setNoQuizzesAvailable] = useState<boolean>(false);
@@ -23,14 +22,12 @@ const Quizzes = () => {
       if (quizData.msg === 'Quiz Returned Successfully') {
         setLevel(quizData.data.userLevel);
         setAllQuizzesLevels(quizData.data.allQuizzesLevels);
-        setCurrentQuizId(quizData.data.currentQuiz.id);
         setCurrentQuiz(quizData.data.currentQuiz);
         setNoQuizzesAvailable(false)
       } else if (quizData.msg === 'Quizzes Number Returned Successfully') {
         if (quizData.data === 0) {
           setLevel(0);
           setAllQuizzesLevels([]);
-          setCurrentQuizId(0);
           setCurrentQuiz(null);
           setNoQuizzesAvailable(true);
         } else {
@@ -41,10 +38,10 @@ const Quizzes = () => {
         }
       }
     })()
-  }, [selectedLanguage, currentQuizId]);
+  }, [selectedLanguage, level]);
 
   const handleQuizOpen = (quizId: number) => {
-    if (quizId === currentQuizId) {
+    if (quizId === level) {
       setIsModalOpen(true);
     }
   }
@@ -58,7 +55,7 @@ const Quizzes = () => {
           className={i + 1 < level + 1 ? 'done' : i + 1 > level + 1 ? 'closed' : ""}
           bordered={true}
           hoverable={true}
-          onClick={() => handleQuizOpen(i + 1)}
+          onClick={() => handleQuizOpen(i)}
         >
           {i + 1 < level + 1 && <CheckCircleOutlined className='checkIcon' />}
           {i + 1 > level + 1 && <LockOutlined className='lockIcon' />}
@@ -78,7 +75,7 @@ const Quizzes = () => {
         <Row>
           {!noQuizzesAvailable ? allQuizzesLevelsCards : 'No quizzes available for this language yet...'}
         </Row>
-        <QuizModal currentQuiz={currentQuiz} currentQuizId={currentQuizId} setCurrentQuizId={setCurrentQuizId} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+        <QuizModal currentQuiz={currentQuiz} level={level} setLevel={setLevel} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
       </div>
     </div>
   )

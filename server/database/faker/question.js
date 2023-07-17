@@ -1,4 +1,4 @@
-const QUESTIONS = [
+const englishQuestions = [
   {
     questionText: 'Which word is a synonym for "happy"?',
     options: ['Delighted', 'Sad', 'Angry', 'Tired'],
@@ -241,6 +241,99 @@ const QUESTIONS = [
   },
 ];
 
+const arabicQuestions = [
+  {
+    questionText: 'ما معنى كلمة سعادة؟',
+    options: ['فرح', 'حزن', 'غضب', 'تعب'],
+    correctOption: 'فرح',
+    quizId: 9,
+  },
+  {
+    questionText: 'ما هو جمع كلمة "كتاب"؟',
+    options: ['كتابات', 'كتابون', 'كتب', 'كتباء'],
+    correctOption: 'كتب',
+    quizId: 9,
+  },
+  {
+    questionText: 'ما معنى كلمة "جمال"؟',
+    options: ['قبح', 'سعادة', 'جاذبية', 'حزن'],
+    correctOption: 'جاذبية',
+    quizId: 9,
+  },
+  {
+    questionText: 'ما هو جمع كلمة "طالبة"؟',
+    options: ['طالبات', 'طلاب', 'طالب', 'طلابة'],
+    correctOption: 'طالبات',
+    quizId: 9,
+  },
+  {
+    questionText: 'ما هو الفعل الماضي لكلمة "كتب"؟',
+    options: ['يكتب', 'كاتب', 'كاتبة', 'كتبت'],
+    correctOption: 'كتبت',
+    quizId: 9,
+  },
+  {
+    questionText: 'ما معنى كلمة "علم"؟',
+    options: ['معرفة', 'جمال', 'سعادة', 'حزن'],
+    correctOption: 'معرفة',
+    quizId: 10,
+  },
+  {
+    questionText: 'ما هو جمع كلمة "مدرسة"؟',
+    options: ['مدارس', 'مدرسون', 'مدرس', 'مدرسات'],
+    correctOption: 'مدارس',
+    quizId: 10,
+  },
+  {
+    questionText: 'ما هو الفعل المضارع لكلمة "يشتري"؟',
+    options: ['يشتري', 'شري', 'تشتري', 'أشتري'],
+    correctOption: 'يشتري',
+    quizId: 10,
+  },
+  {
+    questionText: 'ما هو جمع كلمة "قلم"؟',
+    options: ['قلامات', 'قلوم', 'أقلام', 'قلمة'],
+    correctOption: 'أقلام',
+    quizId: 10,
+  },
+  {
+    questionText: 'ما هو الفعل الماضي لكلمة "كتب"؟',
+    options: ['يكتب', 'كاتب', 'كاتبة', 'كتبت'],
+    correctOption: 'كتبت',
+    quizId: 10,
+  },
+  {
+    questionText: 'ما معنى كلمة "حب"؟',
+    options: ['كراهية', 'فرح', 'غضب', 'مشاعر إيجابية'],
+    correctOption: 'مشاعر إيجابية',
+    quizId: 11,
+  },
+  {
+    questionText: 'ما هو جمع كلمة "طائر"؟',
+    options: ['طيور', 'طيران', 'طيارات', 'طائرة'],
+    correctOption: 'طيور',
+    quizId: 11,
+  },
+  {
+    questionText: 'ما هو الفعل المضارع لكلمة "يذهب"؟',
+    options: ['يذهب', 'ذهب', 'تذهب', 'أذهب'],
+    correctOption: 'يذهب',
+    quizId: 11,
+  },
+  {
+    questionText: 'ما هو جمع كلمة "كرسي"؟',
+    options: ['كراسي', 'كرسون', 'كرسي', 'كرسة'],
+    correctOption: 'كراسي',
+    quizId: 11,
+  },
+  {
+    questionText: 'ما هو الفعل الماضي لكلمة "قرأ"؟',
+    options: ['يقرأ', 'قارئ', 'قارئة', 'قرأت'],
+    correctOption: 'قرأت',
+    quizId: 11,
+  },
+];
+
 module.exports = {
-  QUESTIONS,
+  QUESTIONS: [...englishQuestions, ...arabicQuestions],
 };
