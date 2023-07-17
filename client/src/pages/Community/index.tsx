@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Input, Pagination, Empty } from "antd";
 import { SearchOutlined } from '@ant-design/icons';
-import {  UserCard ,Options} from '../../components';
+import { UserCard, Options } from '../../components';
 import axios from 'axios';
 import './style.modules.css'
 function Community() {

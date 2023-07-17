@@ -7,6 +7,7 @@ import {
   Home,
   ProfilePage,
   ProfileInfo,
+  Quizzes,
 } from './pages';
 import { useAuthContext } from './context/AuthContext';
 import { Routes, Route, Navigate } from 'react-router-dom';
@@ -42,6 +43,18 @@ function App() {
       />
       <Route path='/profile/:profileId' element={<ProfilePage />} />
       <Route path='/community' element={<Community />} />
+      <Route
+        path="/chat"
+        element={user.userId ? <Chat /> : <Navigate to="/signup" />}
+      />
+      <Route
+        path="/quizzes"
+        element={user.userId ? <Quizzes /> : <Navigate to="/signup" />}
+      />
+      <Route
+        path='/community'
+        element={<Community />}
+      />
       <Route
         path='/auth'
         element={user.userId ? <Navigate to='/community' /> : <Auth />}

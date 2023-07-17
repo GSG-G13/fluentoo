@@ -67,19 +67,56 @@ export interface LoggedUserObjectType {
   userId: number | undefined;
   userName: string | undefined;
 }
+
+export interface QuizDropMenuProps {
+  languages: string[];
+  setLanguage: (selectedLanguage: string) => void;
+}
+
 export interface DropMenuProps {
   placeholder: string;
   onchange: (value: string) => void;
 }
-export interface ProfileCredentials{
-  gender:  string
+
+export interface ProfileCredentials {
+  gender: string
   country: string
   birthDate: string
-  interests?:  string | null
-  bio?:  string
+  interests?: string | null
+  bio?: string
   avatar?: string | null | undefined
   practiceLanguages: string
-  spokenLanguages:  string
+  spokenLanguages: string
+}
+
+export interface quizQuestionsType {
+  count: number;
+  text: string;
+  color: string;
+}
+
+export interface QuestionType {
+  questionText: string;
+  options: string[];
+}
+
+export interface QuizType {
+  id: number;
+  language: string;
+  level: number;
+  questions: QuestionType[];
+}
+
+export interface QuizModalPropsType {
+  currentQuiz: QuizType | null;
+  level: number;
+  setLevel: (level: number) => void;
+  isModalOpen: boolean;
+  setIsModalOpen: (isModalOpen: boolean) => void;
+}
+
+export interface QuizLevelType {
+  level: string;
 }
 
 export interface UploadImageProps {

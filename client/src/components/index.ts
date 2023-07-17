@@ -7,11 +7,14 @@ import User from './User';
 import Message from './Message';
 import ChatUserHead from './ChatUserHead';
 import SendMessageForm from './SendMessageForm';
-import { EditProfile } from './Profile';
-import ProfileForm from './ProfileForm'
+import QuizModal from './QuizModal';
 import UserCard from './Card';
-import UploadImage from './UploadImage'
+import Menu from './DropDownMenu';
+import { EditProfile } from './Profile';
+import ProfileForm from './ProfileForm';
+import UploadImage from './UploadImage';
 import Options from './Options';
+
 export {
   SignupForm,
   LoginForm,
@@ -22,9 +25,11 @@ export {
   Message,
   ChatUserHead,
   SendMessageForm,
+  QuizModal,
+  UserCard,
+  Menu,
   EditProfile,
   ProfileForm,
-  UserCard,
   UploadImage,
   Options,
 }
