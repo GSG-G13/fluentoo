@@ -8,6 +8,7 @@ const {
   findAllContacts,
 } = require('./message');
 const { createLanguage, getAllLanguages } = require('./language');
+const { getQuiz, updateUserLevel } = require('./quiz');
 const {
   getAllFeedBack,
   addFeedBack,
@@ -28,6 +29,8 @@ module.exports = {
   search,
   createLanguage,
   getAllLanguages,
+  getQuiz,
+  updateUserLevel,
   findAllContacts,
   getAllFeedBack,
   addFeedBack,

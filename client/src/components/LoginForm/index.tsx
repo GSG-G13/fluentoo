@@ -4,8 +4,11 @@ import { Form, Input, Button, Spin, Col } from 'antd';
 import { LoginCredentials, LoginSchema } from '../../utils';
 import { useAuthContext } from '../../context/AuthContext';
 import GoogleAuth from '../GoogleAuth';
+import { useProfileContext } from '../../context/ProfileContext';
+
 function LoginForm({ setActive }: any) {
   const { setUser } = useAuthContext();
+  const { setProfileData } = useProfileContext()
 
   const initialErrors: LoginCredentials = {
     email: '',
@@ -29,10 +32,13 @@ function LoginForm({ setActive }: any) {
         userId: userData.data.id,
         userName: userData.data.username,
       });
+      setProfileData(userData.data.profile)
+      localStorage.setItem('profileData', JSON.stringify(userData.data.profile || null));
+
       setErrors({ ...initialErrors });
       setLoading(false);
     } catch (e: any) {
-      
+
       if (e.name === 'AxiosError') {
         setErrors({ ...initialErrors });
         setErrors((prevErrors) => ({

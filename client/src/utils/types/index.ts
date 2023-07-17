@@ -69,10 +69,8 @@ export interface LoggedUserObjectType {
 }
 
 export interface DropMenuProps {
-  languages: string[];
-  selectMode?: 'multiple' | 'tags';
-  name: string;
-  setLanguage: (language: string) => void;
+  placeholder: string;
+  onchange: (value: string) => void;
 }
 
 export interface ProfileCredentials {

@@ -13,6 +13,7 @@ import Menu from './DropDownMenu';
 import { EditProfile } from './Profile';
 import ProfileForm from './ProfileForm';
 import UploadImage from './UploadImage';
+import Options from './Options';
 
 export {
   SignupForm,
@@ -29,5 +30,6 @@ export {
   Menu,
   EditProfile,
   ProfileForm,
-  UploadImage
+  UploadImage,
+  Options,
 }

@@ -19,6 +19,8 @@ const {
   login,
   signUp,
   oauth,
+  getQuiz,
+  updateUserLevel,
 } = require('../controllers');
 const checkAuth = require('../middlewares/checkauth');
 const { checkSenderReceiver } = require('../middlewares/checkSenderReceiver');
@@ -58,5 +60,8 @@ router.delete(
   deleteMessage,
 );
 router.get('/s3url', uploadS3);
+
+router.get('/quiz/:quizLanguage', checkAuth, getQuiz);
+router.put('/quiz/level/:quizLanguage', checkAuth, updateUserLevel);
 
 module.exports = router;
