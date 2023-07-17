@@ -4,7 +4,12 @@
 }
 
 .quizzes-wrapper {
-  padding-top: 30px;
+  padding-block: 30px;
+}
+
+.quizzes-wrapper .ant-row.css-dev-only-do-not-override-12jzuas {
+  font-size: 20px;
+  row-gap: 25px;
 }
 
 .quizzes .control {
@@ -16,7 +21,6 @@
   min-width: 175px;
 }
 
-
 .quizzes-wrapper :where(.css-dev-only-do-not-override-12jzuas).ant-row {
   flex-flow: wrap;
   text-align: center;
@@ -26,13 +30,17 @@
 .quizzes-wrapper .ant-card.ant-card-bordered.css-dev-only-do-not-override-12jzuas {
   max-width: 300px;
   margin: auto;
-  margin-bottom: 20px;
   position: relative;
 }
 
 .quizzes-wrapper .done,
 .quizzes-wrapper .closed {
   cursor: auto;
+}
+
+:where(.css-dev-only-do-not-override-12jzuas).ant-card .ant-card-head {
+  min-height: auto;
+  padding-block: 15px;
 }
 
 .quizzes-wrapper .done::before,
@@ -45,6 +53,10 @@
   height: 100%;
   background-color: rgb(0 0 0 / 16%);
   border-radius: 8px;
+}
+
+.quizzes-wrapper .ant-card-body {
+  padding: 24px 5px 15px;
 }
 
 .quizzes-wrapper .checkIcon,

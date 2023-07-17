@@ -121,7 +121,7 @@ const QUESTIONS = [
   },
   {
     questionText: 'What is the plural form of "ox"?',
-    options: ['Oxen', 'Oxes', 'Oxies', 'Oxies'],
+    options: ['Oxen', 'Oxes', 'Oxies', 'Oxiess'],
     correctOption: 'Oxen',
     quizId: 5,
   },

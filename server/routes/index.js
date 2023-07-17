@@ -62,6 +62,6 @@ router.delete(
 router.get('/s3url', uploadS3);
 
 router.get('/quiz/:quizLanguage', checkAuth, getQuiz);
-router.put('/quiz/level/:quizLanguage', checkAuth, updateUserLevel);
+router.patch('/quiz/level/:quizLanguage', checkAuth, updateUserLevel);
 
 module.exports = router;

@@ -1,15 +1,13 @@
 import React from 'react'
 import { Select } from 'antd';
-import { DropMenuProps } from '../../utils'
+import { QuizDropMenuProps } from '../../utils'
 
-function Menu({ languages, selectMode, name, setLanguage }: DropMenuProps) {
+function Menu({ languages, setLanguage }: QuizDropMenuProps) {
     return (
         <>
             <Select
-                {...(selectMode ? { mode: selectMode } : {})}
                 onChange={(value) => setLanguage(value)}
                 defaultValue={`${languages[0][0].toUpperCase()}${languages[0].slice(1).toLowerCase()}`}
-                placeholder={`${name}`}
             >
                 {languages?.map((language, i) => (
                     <Select.Option

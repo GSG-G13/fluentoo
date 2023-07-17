@@ -1,4 +1,4 @@
-.result {
+.result>div {
   width: 150px;
   height: 150px;
   font-size: 40px;
@@ -10,14 +10,22 @@
   margin: 30px auto;
 }
 
-.result.success {
+.result.success>div {
   border: 10px solid green;
   color: green;
 }
 
-.result.fail {
+.result.fail>div {
   border: 10px solid red;
   color: red;
+}
+
+.result p {
+  color: #333;
+  text-align: center;
+  margin-top: 10px;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 :where(.css-dev-only-do-not-override-12jzuas).ant-form-item {

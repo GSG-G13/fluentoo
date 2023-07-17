@@ -83,15 +83,22 @@ const updateUserLevel = async (req, res, next) => {
       await userExist.save();
 
       return res.json({
-        msg: 'Updated Successfully',
+        msg: 'Level Updated Successfully',
         status: 200,
-        data: userExist,
+        data: {
+          correctAnswers: result,
+          examResult: 'success',
+        },
       });
     }
 
     return res.json({
-      msg: 'Failed Exam',
+      msg: 'Data Returned Successfully',
       status: 200,
+      data: {
+        correctAnswers: result,
+        examResult: 'fail',
+      },
     });
   } catch (err) {
     return next(err);

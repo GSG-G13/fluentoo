@@ -1,161 +1,84 @@
 import React, { useEffect, useState } from 'react';
 import { Row, Col, Card } from 'antd';
 import { LockOutlined, CheckCircleOutlined } from '@ant-design/icons';
-import { quizLevelType, QuizType } from '../../utils';
+import axios from 'axios';
+import { QuizType, QuizLevelType, getQuizRank } from '../../utils';
 import { QuizModal, Menu } from '../../components';
 import { useProfileContext } from '../../context/ProfileContext';
 import './style.modules.css';
 
 const Quizzes = () => {
-  // Get from context
-  const userLevels = [{ language: "english", level: "1" }, { language: "arabic", level: "0" }]
-  // Get from context
   const { profileData: { practiceLanguages } } = useProfileContext();
-
   const [selectedLanguage, setSelectedLanguage] = useState<string>(practiceLanguages[0])
-  const [level, setLevel] = useState<Partial<quizLevelType>>({});
-  const [currentQuiz, setCurrentQuiz] = useState<Partial<QuizType>>({});
-  const [quizzesNumber, setQuizzesNumber] = useState(0);
+  const [level, setLevel] = useState<number>(0);
+  const [allQuizzesLevels, setAllQuizzesLevels] = useState<QuizLevelType[]>([]);
+  const [currentQuizId, setCurrentQuizId] = useState<number>(0);
+  const [currentQuiz, setCurrentQuiz] = useState<QuizType | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [noQuizzesAvailable, setNoQuizzesAvailable] = useState<boolean>(false);
 
-  const getLevel = (levelNumber: number) => {
-    if (levelNumber <= 3) {
-      return {
-        count: levelNumber,
-        text: 'Easy',
-        color: '#66cc66',
-      };
-    } else if (levelNumber <= 6) {
-      return {
-        count: levelNumber,
-        text: 'Intermediate',
-        color: '#ff9900',
-      };
-    } else if (levelNumber <= 8) {
-      return {
-        count: levelNumber,
-        text: 'Hard',
-        color: '#ff0000',
-      };
-    } else {
-      return {
-        count: levelNumber,
-        text: 'Advanced',
-        color: '#800080',
-      };
-    }
-  }
+  useEffect(() => {
+    (async function () {
+      const { data: quizData } = await axios.get(`/api/quiz/${selectedLanguage}`);
+      if (quizData.msg === 'Quiz Returned Successfully') {
+        setLevel(quizData.data.userLevel);
+        setAllQuizzesLevels(quizData.data.allQuizzesLevels);
+        setCurrentQuizId(quizData.data.currentQuiz.id);
+        setCurrentQuiz(quizData.data.currentQuiz);
+        setNoQuizzesAvailable(false)
+      } else if (quizData.msg === 'Quizzes Number Returned Successfully') {
+        if (quizData.data === 0) {
+          setLevel(0);
+          setAllQuizzesLevels([]);
+          setCurrentQuizId(0);
+          setCurrentQuiz(null);
+          setNoQuizzesAvailable(true);
+        } else {
+          setAllQuizzesLevels(quizData.data.allQuizzesLevels);
+          setLevel(quizData.data.userLevel);
+          setCurrentQuiz(null);
+          setNoQuizzesAvailable(false)
+        }
+      }
+    })()
+  }, [selectedLanguage, currentQuizId]);
 
   const handleQuizOpen = (quizId: number) => {
-    if (level.count) {
-      if (quizId === (level.count + 1)) {
-        setIsModalOpen(true);
-      }
+    if (quizId === currentQuizId) {
+      setIsModalOpen(true);
     }
   }
 
-  useEffect(() => {
-    // const selectedLanguageLevel = userLevels.find((userLevel) => userLevel.language === selectedLanguage)
-    // const count = selectedLanguageLevel?.level;
-    const level = getLevel(3)
-
-    setLevel(level);
-  }, [selectedLanguage]);
-
-  useEffect(() => {
-    setQuizzesNumber(10)
-    setCurrentQuiz({
-      "quiz_id": 8,
-      "questions": [
-        {
-          "question": "What is the plural form of 'dog'?",
-          "options": [
-            "dogs",
-            "doges",
-            "doggies",
-            "dogy"
-          ],
-          "correct_answer": "dogs"
-        },
-        {
-          "question": "What is the comparative form of 'beautiful'?",
-          "options": [
-            "beautifuler",
-            "beautifuller",
-            "more beautiful",
-            "beautifulier"
-          ],
-          "correct_answer": "more beautiful"
-        },
-        {
-          "question": "Choose the correct preposition: The ball is ___ the box.",
-          "options": [
-            "in",
-            "on",
-            "at",
-            "above"
-          ],
-          "correct_answer": "in"
-        },
-        {
-          "question": "What is the opposite of 'sad'?",
-          "options": [
-            "glad",
-            "happy",
-            "joyful",
-            "cheerful"
-          ],
-          "correct_answer": "happy"
-        },
-        {
-          "question": "What is the past tense of 'drink'?",
-          "options": [
-            "drinked",
-            "drank",
-            "drunk",
-            "drunken"
-          ],
-          "correct_answer": "drank"
-        }
-      ]
-    },);
-  }, []);
-
-  const quizzesCards = []
-  for (let i = 1; i <= quizzesNumber; i++) {
-    const quizLevel = getLevel(i);
-
-    if (level.count) {
-      quizzesCards.push((
-        <Col key={i} xs={24} sm={12} md={8}>
-          <Card
-            title={`Quiz ${i}`}
-            className={i < level.count + 1 ? 'done' : i > level.count + 1 ? 'closed' : ""}
-            bordered={true}
-            hoverable={true}
-            onClick={() => handleQuizOpen(i)}
-          >
-            {i < level.count + 1 && <CheckCircleOutlined className='checkIcon' />}
-            {i > level.count + 1 && <LockOutlined className='lockIcon' />}
-            <p>Level <span style={{ color: quizLevel.color, fontWeight: 'bold' }}>{quizLevel.text}</span></p>
-          </Card>
-        </Col >
-      ))
-    }
-  }
-
+  const allQuizzesLevelsCards = allQuizzesLevels.map((quiz, i) => {
+    const quizRank = getQuizRank(+quiz.level);
+    return (
+      <Col key={i} xs={24} sm={12} md={8}>
+        <Card
+          title={`Quiz ${i + 1}`}
+          className={i + 1 < level + 1 ? 'done' : i + 1 > level + 1 ? 'closed' : ""}
+          bordered={true}
+          hoverable={true}
+          onClick={() => handleQuizOpen(i + 1)}
+        >
+          {i + 1 < level + 1 && <CheckCircleOutlined className='checkIcon' />}
+          {i + 1 > level + 1 && <LockOutlined className='lockIcon' />}
+          <p>Rank <span style={{ color: quizRank?.color, fontWeight: 'bold' }}>{quizRank?.text}</span></p>
+        </Card>
+      </Col >
+    )
+  })
 
   return (
     <div className='quizzes container'>
       <div className='control'>
-        <div className='level'>Your Level: <span style={{ color: level.color }}>{level.text}</span></div>
-        <div className='quiz-language'>Quiz Language: <Menu languages={practiceLanguages} name={'Spoken languages'} setLanguage={setSelectedLanguage} /></div>
+        <div className='level'>Your Level: <span>{level}</span></div>
+        <div className='quiz-language'>Quiz Language: <Menu languages={practiceLanguages} setLanguage={setSelectedLanguage} /></div>
       </div>
       <div className='quizzes-wrapper'>
         <Row>
-          {quizzesCards}
+          {!noQuizzesAvailable ? allQuizzesLevelsCards : 'No quizzes available for this language yet...'}
         </Row>
-        <QuizModal questions={currentQuiz.questions} level={level} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+        <QuizModal currentQuiz={currentQuiz} currentQuizId={currentQuizId} setCurrentQuizId={setCurrentQuizId} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
       </div>
     </div>
   )

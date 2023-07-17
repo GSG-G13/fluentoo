@@ -54,21 +54,29 @@ const getQuiz = async (req, res, next) => {
       );
     }
 
-    const quizzesNumber = await Quiz.count({
+    const allQuizzesLevels = await Quiz.findAndCountAll({
       where: {
         language: quizLanguage,
       },
+      attributes: ['level'],
     });
 
-    if (+userLevel === quizzesNumber) {
+    if (allQuizzesLevels.count === 0) {
       return res.json({
         msg: 'Quizzes Number Returned Successfully',
         status: 200,
-        data: quizzesNumber,
+        data: allQuizzesLevels.count,
+      });
+    }
+    if (+userLevel === allQuizzesLevels.count) {
+      return res.json({
+        msg: 'Quizzes Number Returned Successfully',
+        status: 200,
+        data: { userLevel, allQuizzesLevels: allQuizzesLevels.rows },
       });
     }
 
-    const quiz = await Quiz.findOne({
+    const currentQuiz = await Quiz.findOne({
       where: {
         language: quizLanguage,
       },
@@ -85,7 +93,7 @@ const getQuiz = async (req, res, next) => {
     return res.json({
       msg: 'Quiz Returned Successfully',
       status: 200,
-      data: { userLevels: userExist.levels, quizzesNumber, quiz },
+      data: { userLevel, allQuizzesLevels: allQuizzesLevels.rows, currentQuiz },
     });
   } catch (err) {
     return next(err);

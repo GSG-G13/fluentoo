@@ -11,14 +11,18 @@ import type {
   SendMessageFormPropsType,
   DecodeJwtType,
   LoggedUserObjectType,
+  QuizDropMenuProps,
   DropMenuProps,
-  quizLevelType,
   QuizType,
   ProfileCredentials,
-  UploadImageProps
+  UploadImageProps,
+  QuizLevelType,
+  QuizModalPropsType,
 } from './types';
 
 import { SignupSchema, LoginSchema, ProfileSchema } from './validation';
+
+import { getQuizRank } from './helpers';
 
 export {
   SignupCredentials,
@@ -35,10 +39,13 @@ export {
   LoginSchema,
   DecodeJwtType,
   LoggedUserObjectType,
+  QuizDropMenuProps,
   DropMenuProps,
-  quizLevelType,
   QuizType,
   ProfileCredentials,
   ProfileSchema,
-  UploadImageProps
+  UploadImageProps,
+  getQuizRank,
+  QuizLevelType,
+  QuizModalPropsType,
 };
