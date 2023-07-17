@@ -41,6 +41,9 @@
 :where(.css-dev-only-do-not-override-12jzuas).ant-card .ant-card-head {
   min-height: auto;
   padding-block: 15px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
 }
 
 .quizzes-wrapper .done::before,
@@ -56,7 +59,8 @@
 }
 
 .quizzes-wrapper .ant-card-body {
-  padding: 24px 5px 15px;
+  padding: 25px 5px 15px;
+  font-size: 15px;
 }
 
 .quizzes-wrapper .checkIcon,

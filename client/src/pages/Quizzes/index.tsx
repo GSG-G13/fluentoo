@@ -62,7 +62,7 @@ const Quizzes = () => {
         >
           {i + 1 < level + 1 && <CheckCircleOutlined className='checkIcon' />}
           {i + 1 > level + 1 && <LockOutlined className='lockIcon' />}
-          <p>Rank <span style={{ color: quizRank?.color, fontWeight: 'bold' }}>{quizRank?.text}</span></p>
+          <p>Quiz Rank: <span style={{ color: quizRank?.color, fontWeight: 'bold' }}>{quizRank?.text}</span></p>
         </Card>
       </Col >
     )

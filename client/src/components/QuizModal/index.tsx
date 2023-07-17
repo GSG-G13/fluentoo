@@ -74,17 +74,15 @@ const QuizModal = ({ currentQuiz, currentQuizId, setCurrentQuizId, isModalOpen, 
               <Space direction="vertical">
                 {
                   currentQuiz?.questions && currentQuiz?.questions[questionNumber].options
-                    .map((option: string, i: number) => {
-                      return (
-                        <Radio
-                          key={i}
-                          value={option}
-                          onChange={() => setIsChecked(true)}
-                        >
-                          {option}
-                        </Radio>
-                      )
-                    })
+                    .map((option: string, i: number) => (
+                      <Radio
+                        key={i}
+                        value={option}
+                        onChange={() => setIsChecked(true)}
+                      >
+                        {option}
+                      </Radio>
+                    ))
                 }
               </Space>
             </Radio.Group>
