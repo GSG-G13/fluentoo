@@ -7,8 +7,10 @@ import AuthUserMenu from './AuthUserMenu';
 import UserImage from './AuthUserImage';
 import logo from '../../assets/img/fluento.png';
 import { useProfileContext } from '../../context/ProfileContext';
+import { useAuthContext } from '../../context/AuthContext';
 const { TabPane } = Tabs;
-function Nav({ user ,setUser}: any) {
+function Nav() {
+  const { user  } = useAuthContext();
   const navigate = useNavigate();
   const { profileData } = useProfileContext();
   const handleTabClick = (key: string) => {
@@ -65,7 +67,7 @@ function Nav({ user ,setUser}: any) {
               </Button>
             ) : (
               <>
-                <AuthUserMenu user={user} setUser={setUser}/>
+                <AuthUserMenu  />
                 <UserImage profileData={profileData} />
               </>
             )}
