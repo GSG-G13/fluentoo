@@ -8,14 +8,14 @@ interface LayoutProps {
 }
 
 function AppLayout({ children }: LayoutProps) {
-  const { user } = useAuthContext();
+  const { user ,setUser } = useAuthContext();
   const location = useLocation();
   const currentPath = location.pathname;
   return (
     <div>
-      <Nav user={user} />
+      {currentPath !== '/auth' && currentPath !== '*'  && <Nav user={user} setUser={setUser} />}
       <main>{children}</main>
-      {currentPath !== '/chat' && currentPath !== '/auth' && <Footer />}
+      {currentPath !== '/chat' && currentPath !== '/auth' &&  <Footer />}
     </div>
   );
 }

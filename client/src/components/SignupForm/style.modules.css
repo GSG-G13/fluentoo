@@ -7,6 +7,11 @@
   margin-bottom: 20px;
 }
 
+:where(.css-dev-only-do-not-override-12jzuas).ant-form-item .ant-form-item-control-input {
+
+  margin-bottom: 20px;
+}
+
 .auth-form .form-password .ant-input-password,
 .auth-form .form-text input,
 .auth-form .form-text input:hover,

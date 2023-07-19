@@ -2,35 +2,21 @@
   background-color: var(--primary-color);
 }
 
-:where(.css-dev-only-do-not-override-12jzuas).ant-btn-primary:not(
-    :disabled
-  ):hover {
+:where(.css-dev-only-do-not-override-12jzuas).ant-btn-primary:not( :disabled):hover {
   background-color: var(--primary-color-hover);
 }
 
-:where(.css-dev-only-do-not-override-12jzuas).ant-menu-light.ant-menu-horizontal
-  > .ant-menu-item-selected,
-:where(.css-dev-only-do-not-override-12jzuas).ant-menu-light
-  > .ant-menu.ant-menu-horizontal
-  > .ant-menu-item-selected,
-:where(.css-dev-only-do-not-override-12jzuas).ant-menu-light.ant-menu-horizontal
-  > .ant-menu-submenu-selected,
-:where(.css-dev-only-do-not-override-12jzuas).ant-menu-light
-  > .ant-menu.ant-menu-horizontal
-  > .ant-menu-submenu-selected {
+:where(.css-dev-only-do-not-override-12jzuas).ant-menu-light.ant-menu-horizontal>.ant-menu-item-selected,
+:where(.css-dev-only-do-not-override-12jzuas).ant-menu-light>.ant-menu.ant-menu-horizontal>.ant-menu-item-selected,
+:where(.css-dev-only-do-not-override-12jzuas).ant-menu-light.ant-menu-horizontal>.ant-menu-submenu-selected,
+:where(.css-dev-only-do-not-override-12jzuas).ant-menu-light>.ant-menu.ant-menu-horizontal>.ant-menu-submenu-selected {
   color: var(--primary-color);
 }
 
-:where(.css-dev-only-do-not-override-12jzuas).ant-menu-light.ant-menu-horizontal
-  > .ant-menu-item-selected::after,
-:where(.css-dev-only-do-not-override-12jzuas).ant-menu-light
-  > .ant-menu.ant-menu-horizontal
-  > .ant-menu-item-selected::after,
-:where(.css-dev-only-do-not-override-12jzuas).ant-menu-light.ant-menu-horizontal
-  > .ant-menu-submenu-selected::after,
-:where(.css-dev-only-do-not-override-12jzuas).ant-menu-light
-  > .ant-menu.ant-menu-horizontal
-  > .ant-menu-submenu-selected::after {
+:where(.css-dev-only-do-not-override-12jzuas).ant-menu-light.ant-menu-horizontal>.ant-menu-item-selected::after,
+:where(.css-dev-only-do-not-override-12jzuas).ant-menu-light>.ant-menu.ant-menu-horizontal>.ant-menu-item-selected::after,
+:where(.css-dev-only-do-not-override-12jzuas).ant-menu-light.ant-menu-horizontal>.ant-menu-submenu-selected::after,
+:where(.css-dev-only-do-not-override-12jzuas).ant-menu-light>.ant-menu.ant-menu-horizontal>.ant-menu-submenu-selected::after {
   border-bottom-color: var(--primary-color);
 }
 
@@ -38,10 +24,8 @@
   border-bottom: none;
 }
 
-:where(.css-dev-only-do-not-override-12jzuas).ant-menu-light.ant-menu-horizontal
-  > .ant-menu-item:hover::after,
-:where(.css-dev-only-do-not-override-12jzuas).ant-menu-light.ant-menu-horizontal
-  > .ant-menu-submenu:hover::after {
+:where(.css-dev-only-do-not-override-12jzuas).ant-menu-light.ant-menu-horizontal>.ant-menu-item:hover::after,
+:where(.css-dev-only-do-not-override-12jzuas).ant-menu-light.ant-menu-horizontal>.ant-menu-submenu:hover::after {
   border-bottom-color: var(--primary-color-hover);
 }
 
@@ -49,9 +33,7 @@ li.ant-menu-overflow-item.ant-menu-overflow-item-rest.ant-menu-submenu.ant-menu-
   min-width: 40px;
 }
 
-:where(
-    .css-dev-only-do-not-override-12jzuas
-  ).ant-btn-primary.ant-btn-background-ghost:not(:disabled):hover {
+:where(.css-dev-only-do-not-override-12jzuas).ant-btn-primary.ant-btn-background-ghost:not(:disabled):hover {
   color: white;
   border-color: #c22181;
   background-color: #c22181;
@@ -65,7 +47,7 @@ li.ant-menu-overflow-item.ant-menu-overflow-item-rest.ant-menu-submenu.ant-menu-
 
 .hero {
   width: 100%;
-  height: calc(100vh - 45px);
+  height: calc(96vh - 45px);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -89,9 +71,7 @@ li.ant-menu-overflow-item.ant-menu-overflow-item-rest.ant-menu-submenu.ant-menu-
   color: var(--primary-color);
 }
 
-:where(
-    .css-dev-only-do-not-override-12jzuas
-  ).ant-btn-primary.ant-btn-background-ghost {
+:where(.css-dev-only-do-not-override-12jzuas).ant-btn-primary.ant-btn-background-ghost {
   color: var(--primary-color);
   border-color: var(--primary-color);
 }
@@ -130,7 +110,7 @@ li.ant-menu-overflow-item.ant-menu-overflow-item-rest.ant-menu-submenu.ant-menu-
 
 .about-title p,
 .feature-title p {
-  max-width: 400px;
+  max-width: 500px;
   text-align: center;
   font-size: 13px;
   color: #696984;
@@ -160,6 +140,7 @@ li.ant-menu-overflow-item.ant-menu-overflow-item-rest.ant-menu-submenu.ant-menu-
   text-align: center;
   gap: 10px;
 }
+
 .blueIco,
 .greenIco,
 .pinkIco {
@@ -173,6 +154,7 @@ li.ant-menu-overflow-item.ant-menu-overflow-item-rest.ant-menu-submenu.ant-menu-
   height: 80px;
   border-radius: 50%;
 }
+
 .blueIco {
   background-color: #1866e6;
 }
@@ -180,6 +162,7 @@ li.ant-menu-overflow-item.ant-menu-overflow-item-rest.ant-menu-submenu.ant-menu-
 .greenIco {
   background-color: #68ae30;
 }
+
 .pinkIco {
   background-color: #e72aa0;
 }

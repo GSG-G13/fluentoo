@@ -5,7 +5,8 @@ import { Button, Dropdown, Space } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
-function AuthUserMenu({ user }: any) {
+function AuthUserMenu({ user, setUser }: any) {
+
   const navigate = useNavigate();
   const items: MenuProps['items'] = [
     {
@@ -30,6 +31,7 @@ function AuthUserMenu({ user }: any) {
               Cookies.remove('token');
               localStorage.removeItem('profileData');
               navigate('/');
+              setUser('');
             }}
           >
             logout

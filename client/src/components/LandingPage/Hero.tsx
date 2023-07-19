@@ -8,8 +8,9 @@ import {
 } from 'antd';
 import heroImage from '../../assets/img/hero.png';
 import './LandingPage.css'
-
+import { useNavigate } from 'react-router-dom';
 function Hero() {
+  const navigate = useNavigate();
   return (
     <div className='hero-sec'>
       <Row gutter={[8, 8]}>
@@ -18,19 +19,21 @@ function Hero() {
 
             <div className='hero-title'>
               <h2>
-                <strong>Studying</strong>
+                <strong>Learning</strong>
                 {' '}
                 Online is now much easier
               </h2>
               <p>
-              Join our language exchange website and connect with
-              a global community of language enthusiasts. Enhance
-              your language skills by engaging in meaningful conversations 
-              with fellow learners.
+                Join our language exchange website and connect with
+                a global community of language enthusiasts. Enhance
+                your language skills by engaging in meaningful conversations
+                with fellow learners.
 
               </p>
 
-              <Button type='primary' shape='round'>
+              <Button type='primary' shape='round' onClick={() => {
+                navigate('/auth');
+              }}>
                 Get Started !
               </Button>
             </div>
