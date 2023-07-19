@@ -4,7 +4,9 @@ import { SearchOutlined } from '@ant-design/icons';
 import { UserCard, Options } from '../../components';
 import axios from 'axios';
 import './style.modules.css'
+import { useAuthContext } from '../../context/AuthContext';
 function Community() {
+  const { user } = useAuthContext();
   const [name, setName] = useState<string>('')
   const [spokenLanguages, setSpokenLanguages] = useState<string>('')
   const [practiceLanguages, setPracticeLanguages] = useState<string>('')
@@ -14,6 +16,7 @@ function Community() {
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
   const currentPosts = data.slice(indexOfFirstUser, indexOfLastUser);
+  const loggedInUserId = user.userId;
 
   const onchange = (page: any) => {
     setCurrentPage(page);
@@ -41,8 +44,10 @@ function Community() {
         </div>
       </div>
       <div className='community-cards'>
-        {currentPosts.length ? currentPosts?.map((user, index) =>
-          <UserCard data={user} key={index} />
+        {currentPosts.length ? (
+          currentPosts
+            .filter((user) => user.id !== loggedInUserId) 
+            .map((user, index) => <UserCard data={user} key={index} />)
         ) : <Empty className='not-found' description={'user not found'} />}
 
       </div>
