@@ -1,5 +1,5 @@
 .main-layout {
-  height: 100vh;
+  height: calc(100vh - 62px);
   overflow: hidden;
 }
 
@@ -147,6 +147,12 @@ main.ant-layout-content.css-dev-only-do-not-override-12jzuas {
   border-color: var(--primary-color);
 }
 
+.message-container {
+  display: flex;
+  align-items: flex-start;
+  margin: 0.3rem 0.65rem;
+}
+
 .message {
   padding: 0.6rem 1rem !important;
   background-color: var(--gray-color);
@@ -154,10 +160,10 @@ main.ant-layout-content.css-dev-only-do-not-override-12jzuas {
   font-size: 1rem;
   border-radius: 1rem 1rem 1rem 0;
   width: 500px;
-  margin: 0.3rem 0.65rem;
   display: flex;
   flex-direction: column;
   gap: 3px;
+  margin-left: 5px;
 }
 
 .message p {
@@ -168,6 +174,7 @@ main.ant-layout-content.css-dev-only-do-not-override-12jzuas {
   margin-left: auto;
   border-radius: 1rem 1rem 0 1rem;
   background-color: var(--primary-color);
+  margin-left: auto;
 }
 
 .controler {

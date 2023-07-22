@@ -30,6 +30,7 @@ function ChatBox() {
   const [selectedUser, setSelectedUser] = useState<UserObjectType>({
     userId: 0,
     userName: '',
+    avatar: 'https://scihospital.com/public/assets/images/doctors/user.png'
   });
   const chatWarper = useRef<HTMLDivElement>(null);
 
@@ -173,7 +174,7 @@ function ChatBox() {
 
             <div ref={chatWarper} className='chat-wraper'>
               <div className='conversation'>
-                {allMessages.slice(1).map((message, i) => <Message key={i} {...message} />)}
+                {allMessages.slice(1).map((message, i) => <Message key={i} selectedUser={selectedUser} {...message} />)}
               </div>
             </div>
 

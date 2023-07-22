@@ -27,14 +27,16 @@ function UserCard({ data }: any) {
   return (
     <Card className='card' >
       <div className='head'>
-        <Image
-          width={70}
-          height={70}
-          preview={false}
-          style={{ borderRadius: '50%' }}
-          src={data.profile?.avatar}
-          fallback='https://www.pngall.com/wp-content/uploads/5/Profile-PNG-File.png'
-        />
+        <Link to={`/profile/${data.id}`}>
+          <Image
+            width={60}
+            height={60}
+            preview={false}
+            style={{ borderRadius: '50%' }}
+            src={data.profile?.avatar}
+            fallback='https://www.pngall.com/wp-content/uploads/5/Profile-PNG-File.png'
+          />
+        </Link>
         <Button type="dashed" onClick={startChat} icon={<SendOutlined />} shape="round" >
           Message
         </Button></div>

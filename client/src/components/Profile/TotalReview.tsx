@@ -21,9 +21,9 @@ const TotalReview = ({ isSuccess, setIsSuccess }: any) => {
   useEffect(() => {
     const rate = async () => {
       try {
-        const { data: {total : [firstIndex]} } = await axios.get(`/api/feedback/total/${profileId}`);
-        const { 
-          avgRating, 
+        const { data: { total: [firstIndex] } } = await axios.get(`/api/feedback/total/${profileId}`);
+        const {
+          avgRating,
           commentsCount,
           ...rest
         } = firstIndex;
@@ -42,7 +42,7 @@ const TotalReview = ({ isSuccess, setIsSuccess }: any) => {
       }
     };
     rate();
-  }, [isSuccess, review]);
+  }, [isSuccess, review, profileId]);
 
   const handleRate = (value: any) => {
     setReview({ ...review, star: value });

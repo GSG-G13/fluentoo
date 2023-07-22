@@ -25,7 +25,7 @@ const ProfileInfo = () => {
       }
     };
     userData();
-  }, []);
+  }, [profileId]);
 
   return (
     <div>

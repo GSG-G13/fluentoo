@@ -19,7 +19,7 @@ const RatingAndReview = ({ isSuccess }: any) => {
       }
     };
     userFeedback();
-  }, [isSuccess]);
+  }, [isSuccess, profileId]);
 
   return (
     <div className='reviewer'>

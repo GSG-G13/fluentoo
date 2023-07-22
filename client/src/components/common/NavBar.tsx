@@ -10,7 +10,7 @@ import { useProfileContext } from '../../context/ProfileContext';
 import { useAuthContext } from '../../context/AuthContext';
 const { TabPane } = Tabs;
 function Nav() {
-  const { user  } = useAuthContext();
+  const { user } = useAuthContext();
   const navigate = useNavigate();
   const { profileData } = useProfileContext();
   const handleTabClick = (key: string) => {
@@ -19,13 +19,9 @@ function Nav() {
     } else if (key === '2') {
       navigate('/community');
     } else if (key === '3') {
-      if (user.userId) {
-        navigate('/chat');
-      }
+      navigate('/chat');
     } else if (key === '4') {
-      if (user.userId) {
-        navigate('/quizzes');
-      }
+      navigate('/quizzes');
     }
   }
     ;
@@ -40,13 +36,8 @@ function Nav() {
             <Tabs defaultActiveKey="1" onTabClick={handleTabClick} >
               <TabPane tab="Home" key="1" />
               <TabPane tab="Community" key="2" />
-              <TabPane tab="About" key="3" disabled={true} />
-              {user.userId && (
-                <>  <TabPane tab="Messages" key="3" />
-                  <TabPane tab="Quizes" key="4" /></>
-
-              )}
-
+              <TabPane tab="Messages" key="3" />
+              <TabPane tab="Quizes" key="4" />
             </Tabs>
 
           </Row>
@@ -67,8 +58,8 @@ function Nav() {
               </Button>
             ) : (
               <>
-                <AuthUserMenu  />
-                <UserImage profileData={profileData} />
+                <AuthUserMenu />
+                <UserImage userId={user.userId} profileData={profileData} />
               </>
             )}
           </Row>

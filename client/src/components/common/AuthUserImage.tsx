@@ -1,19 +1,22 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Image } from 'antd';
 
-function UserImage({profileData}:any) {
+function UserImage({ userId, profileData }: any) {
 
-  if(!profileData) return
+  if (!profileData) return
   return (
-    <Image
-      style={{
-        marginLeft: '1rem',
-        borderRadius: '50%',
-      }}
-      width={35}
-      preview={false}
-      src={profileData?.avatar}
-    />
+    <Link to={`/profile/${userId}`}>
+      <Image
+        style={{
+          marginLeft: '1rem',
+          borderRadius: '50%',
+        }}
+        width={35}
+        preview={false}
+        src={profileData.avatar ? profileData.avatar : 'https://scihospital.com/public/assets/images/doctors/user.png'}
+      />
+    </Link>
   );
 }
 

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+import { Image } from 'antd';
 import {
   TranslationOutlined,
   SoundOutlined,
@@ -11,7 +13,7 @@ import countries from '../../assets/helper/country';
 const { Panel } = Collapse;
 const { Option } = Select;
 
-function Message({ content, isOur }: MessageObjectType) {
+function Message({ selectedUser, content, isOur }: MessageObjectType) {
   const [translatedText, setTranslatedText] = useState('');
   const [translateFrom, setTranslateFrom] = useState('en-GB');
   const [translateTo, setTranslateTo] = useState('ar-SA');
@@ -51,58 +53,72 @@ function Message({ content, isOur }: MessageObjectType) {
   };
 
   return (
-    <div className={isOur ? 'message own' : 'message'}>
-      <p className='text'>{content}</p>
-      {translatedText && translate && content && <p>{translatedText}</p>}
-      <div className='controler'>
-        <div className='features'>
-          <span style={{ position: 'relative' }}>
-            {copy ? (
-              <Alert message='Copied!' type='warning' className='copy-alert' />
-            ) : null}
-            <CopyOutlined onClick={handleCopy} />
-          </span>
-          <span>
-            <SoundOutlined onClick={handleTextToSpeech} />
-          </span>
-          <span>
-            <TranslationOutlined onClick={handleTranslate} />
-          </span>
-          <Collapse size='small'>
-            <Panel header='' key='1'>
-              <div className='icons'>
-                <div className='language-choices'>
-                  <Select
-                    size='small'
-                    showArrow={false}
-                    value={translateFrom}
-                    onChange={(value) => setTranslateFrom(value)}
-                  >
-                    {Object.entries(countries).map(([code, name]) => (
-                      <Option key={code} value={code}>
-                        {name}
-                      </Option>
-                    ))}
-                  </Select>
+    <div className='message-container'>
+      {!isOur && (
+        <Link to={`/profile/${selectedUser.userId}`}>
+          <Image
+            src={selectedUser.avatar}
+            width={30}
+            height={30}
+            preview={false}
+            style={{ borderRadius: '50%' }}
+            alt='user'
+          />
+        </Link>
+      )}
+      <div className={isOur ? 'message own' : 'message'}>
+        <p className='text'>{content}</p>
+        {translatedText && translate && content && <p>{translatedText}</p>}
+        <div className='controler'>
+          <div className='features'>
+            <span style={{ position: 'relative' }}>
+              {copy ? (
+                <Alert message='Copied!' type='warning' className='copy-alert' />
+              ) : null}
+              <CopyOutlined onClick={handleCopy} />
+            </span>
+            <span>
+              <SoundOutlined onClick={handleTextToSpeech} />
+            </span>
+            <span>
+              <TranslationOutlined onClick={handleTranslate} />
+            </span>
+            <Collapse size='small'>
+              <Panel header='' key='1'>
+                <div className='icons'>
+                  <div className='language-choices'>
+                    <Select
+                      size='small'
+                      showArrow={false}
+                      value={translateFrom}
+                      onChange={(value) => setTranslateFrom(value)}
+                    >
+                      {Object.entries(countries).map(([code, name]) => (
+                        <Option key={code} value={code}>
+                          {name}
+                        </Option>
+                      ))}
+                    </Select>
 
-                  <span className='select-title'>to :</span>
+                    <span className='select-title'>to :</span>
 
-                  <Select
-                    size='small'
-                    showArrow={false}
-                    value={translateTo}
-                    onChange={(value) => setTranslateTo(value)}
-                  >
-                    {Object.entries(countries).map(([code, name]) => (
-                      <Option key={code} value={code}>
-                        {name}
-                      </Option>
-                    ))}
-                  </Select>
+                    <Select
+                      size='small'
+                      showArrow={false}
+                      value={translateTo}
+                      onChange={(value) => setTranslateTo(value)}
+                    >
+                      {Object.entries(countries).map(([code, name]) => (
+                        <Option key={code} value={code}>
+                          {name}
+                        </Option>
+                      ))}
+                    </Select>
+                  </div>
                 </div>
-              </div>
-            </Panel>
-          </Collapse>
+              </Panel>
+            </Collapse>
+          </div>
         </div>
       </div>
     </div>
