@@ -14,7 +14,7 @@ function UserData() {
     email: '',
   });
 
-  
+
   useEffect(() => {
     const userData = async () => {
       try {
@@ -24,6 +24,7 @@ function UserData() {
 
         setProfile({
           ...data,
+          avatar: data.avatar ? data.avatar : 'https://scihospital.com/public/assets/images/doctors/user.png',
           birthDate: data.birthDate.split('T')[0],
           email: data.user.email,
           username: data.user.username
@@ -33,7 +34,7 @@ function UserData() {
       }
     };
     userData();
-  }, []);
+  }, [profileId]);
 
   return (
     <div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Button, Image } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
 import { ChatUserHeadPropsType } from '../../utils'
@@ -19,13 +20,16 @@ function ChatUserHead({ selectedUser, collapsed, setCollapsed }: ChatUserHeadPro
           }}
         />
       )}
-      <Image
-        src='https://th.bing.com/th/id/OIP.f3DM2upCo-p_NPRwBAwbKQHaHa?pid=ImgDet&rs=1'
-        width={50}
-        height={50}
-        preview={false}
-        alt='user'
-      />
+      <Link to={`/profile/${selectedUser.userId}`}>
+        <Image
+          src={selectedUser.avatar}
+          width={50}
+          height={50}
+          preview={false}
+          style={{ borderRadius: '50%' }}
+          alt='user'
+        />
+      </Link>
       <h3>{selectedUser.userName}</h3>
     </div>
   )

@@ -42,6 +42,10 @@
     margin-left: 5px;
 }
 
+a h1 {
+    cursor: pointer;
+}
+
 
 .community-user {
     font-size: 20px;

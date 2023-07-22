@@ -23,6 +23,7 @@ export interface AuthProviderPropsType {
 export interface UserObjectType {
   userId: number;
   userName: string;
+  avatar: string;
 }
 
 export interface MessageObjectType {
@@ -30,6 +31,7 @@ export interface MessageObjectType {
   sender: number;
   receiver: number;
   isOur: boolean;
+  selectedUser: UserObjectType;
 }
 
 export interface UserComponentPropsType {
