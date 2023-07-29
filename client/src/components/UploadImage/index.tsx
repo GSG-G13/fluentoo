@@ -38,7 +38,7 @@ function UploadImage({ avatar, setAvatar }: UploadImageProps) {
             onChange={handleChange}
             accept={"image/jpeg, image/png"}
         >
-            {avatar ? <img src={avatar} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
+            {avatar ? <img src={avatar} alt="avatar" style={{ width: '100%', height: '100%', objectFit: 'contain' }} /> : uploadButton}
         </Upload>
     )
 }

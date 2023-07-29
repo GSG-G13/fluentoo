@@ -30,7 +30,7 @@ function User({ user, isOnline, selectedUser, setSelectedUser }: UserComponentPr
                     width={50}
                     height={50}
                     preview={false}
-                    style={{ borderRadius: '50%' }}
+                    style={{ borderRadius: '50%', objectFit: 'contain' }}
                     alt='user'
                 />
             </Link>

@@ -61,7 +61,7 @@ function Message({ selectedUser, content, isOur }: MessageObjectType) {
             width={30}
             height={30}
             preview={false}
-            style={{ borderRadius: '50%' }}
+            style={{ borderRadius: '50%', objectFit: 'contain' }}
             alt='user'
           />
         </Link>

@@ -3,7 +3,7 @@ import { Select } from 'antd';
 import axios from "axios"
 import { DropMenuProps } from '../../utils'
 
-function Options({ placeholder, onchange }: DropMenuProps) {
+function Options({ defaultValue, placeholder, onchange }: DropMenuProps) {
     const [languages, setLanguages] = useState([]);
     useEffect(() => {
         const getLanguages: any = async () => {
@@ -13,10 +13,15 @@ function Options({ placeholder, onchange }: DropMenuProps) {
         }
         getLanguages();
     }, [])
-    return (
-        <Select mode='multiple' placeholder={placeholder} onChange={onchange}>
-            {languages.map((lang, i) => <Select.Option value={lang} key={i}>{lang}</Select.Option>)}
 
+    return (
+        <Select
+            {...(defaultValue ? {defaultValue: defaultValue} : {})}
+            mode='multiple'
+            placeholder={placeholder}
+            onChange={onchange}
+        >
+            {languages.map((lang, i) => <Select.Option value={lang} key={i}>{lang}</Select.Option>)}
         </Select>
     )
 }

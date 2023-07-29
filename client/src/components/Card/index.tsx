@@ -32,7 +32,7 @@ function UserCard({ data }: any) {
             width={60}
             height={60}
             preview={false}
-            style={{ borderRadius: '50%' }}
+            style={{ borderRadius: '50%', objectFit: 'contain' }}
             src={data.profile?.avatar}
             fallback='https://www.pngall.com/wp-content/uploads/5/Profile-PNG-File.png'
           />

@@ -94,6 +94,9 @@ input.ant-input.css-dev-only-do-not-override-12jzuas:focus {
 }
 
 :where(.css-dev-only-do-not-override-12jzuas).ant-tabs {
-
   height: 46px;
+}
+
+:where(.css-dev-only-do-not-override-12jzuas).ant-form-item .ant-form-item-label {
+  min-width: 130px;
 }

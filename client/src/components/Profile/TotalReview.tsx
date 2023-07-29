@@ -4,8 +4,10 @@ const { TextArea } = Input;
 import { UserOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { useAuthContext } from '../../context/AuthContext';
 
 const TotalReview = ({ isSuccess, setIsSuccess }: any) => {
+  const { user: {userId} } = useAuthContext();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [review, setReview] = useState({
     comment: '',
@@ -106,51 +108,53 @@ const TotalReview = ({ isSuccess, setIsSuccess }: any) => {
               ))}
             </div>
 
-            <div className="write-and-review-btn">
-              <>
-                <Button
-                  className="write-btn"
-                  onClick={showModal}
-                  type="primary"
-                  shape="round"
-                >
-                  WRITE & REVIEW
-                </Button>
+            {userId && profileId && +userId !== +profileId && (
+              <div className="write-and-review-btn">
+                <>
+                  <Button
+                    className="write-btn"
+                    onClick={showModal}
+                    type="primary"
+                    shape="round"
+                  >
+                    WRITE & REVIEW
+                  </Button>
 
-                <Modal
-                  visible={isModalOpen}
-                  onOk={handleOk}
-                  onCancel={handleCancel}
-                  width={1000}
-                >
-                  <div className="add-feedback">
-                    <img
-                      src="https://static.vecteezy.com/system/resources/previews/001/829/872/original/guy-gives-likes-and-positive-ratings-with-a-hand-thumb-up-symbol-and-notification-five-stars-service-product-rate-recommendation-opinion-and-customer-approve-illustration-for-web-landing-page-free-vector.jpg"
-                      alt=""
-                      style={{ width: 400 }}
-                    />
-                    <div className="feedback-form">
-                      <h1>Add your rate:</h1>
-                      <Rate
-                        allowHalf={false}
-                        defaultValue={0}
-                        className="feed-rate"
-                        value={review.star}
-                        onChange={handleRate}
+                  <Modal
+                    visible={isModalOpen}
+                    onOk={handleOk}
+                    onCancel={handleCancel}
+                    width={1000}
+                  >
+                    <div className="add-feedback">
+                      <img
+                        src="https://static.vecteezy.com/system/resources/previews/001/829/872/original/guy-gives-likes-and-positive-ratings-with-a-hand-thumb-up-symbol-and-notification-five-stars-service-product-rate-recommendation-opinion-and-customer-approve-illustration-for-web-landing-page-free-vector.jpg"
+                        alt=""
+                        style={{ width: 400 }}
                       />
+                      <div className="feedback-form">
+                        <h1>Add your rate:</h1>
+                        <Rate
+                          allowHalf={false}
+                          defaultValue={0}
+                          className="feed-rate"
+                          value={review.star}
+                          onChange={handleRate}
+                        />
 
-                      <TextArea
-                        style={{ width: 450 }}
-                        placeholder="Add your comment ..."
-                        autoSize={{ minRows: 6, maxRows: 5 }}
-                        name="comment"
-                        onChange={handleInput}
-                      />
+                        <TextArea
+                          style={{ width: 450 }}
+                          placeholder="Add your comment ..."
+                          autoSize={{ minRows: 6, maxRows: 5 }}
+                          name="comment"
+                          onChange={handleInput}
+                        />
+                      </div>
                     </div>
-                  </div>
-                </Modal>
-              </>
-            </div>
+                  </Modal>
+                </>
+              </div>
+            )}
           </div>
         </div>
       </Card>

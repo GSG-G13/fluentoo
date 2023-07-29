@@ -43,7 +43,7 @@ function Nav() {
           </Row>
         </Col>
         <Col>
-          <Row align="middle" justify="space-between">
+          <Row align="middle" justify="space-between" style={{gap: '10px'}}>
             {!user.userId ? (
               <Button
                 onClick={() => {
