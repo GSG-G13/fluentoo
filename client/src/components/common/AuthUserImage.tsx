@@ -9,10 +9,11 @@ function UserImage({ userId, profileData }: any) {
     <Link to={`/profile/${userId}`}>
       <Image
         style={{
-          marginLeft: '1rem',
           borderRadius: '50%',
+          objectFit: 'contain',
         }}
         width={35}
+        height={35}
         preview={false}
         src={profileData.avatar ? profileData.avatar : 'https://scihospital.com/public/assets/images/doctors/user.png'}
       />

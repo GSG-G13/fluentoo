@@ -1,14 +1,14 @@
 import React from 'react';
-import { EditProfile } from '../../components';
+import { ProfileForm } from '../../components';
 import './style.modules.css';
 import { Banner } from '../../components/Profile';
 
-function ProfileInfo() {
+function ProfileInfo({ mode }: any) {  
   return (
     <div>
       <Banner />
       <div className='container-2'>
-        <EditProfile />
+        <ProfileForm mode={mode} />
       </div>
     </div>
   );

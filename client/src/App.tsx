@@ -14,12 +14,11 @@ import { useProfileContext } from './context/ProfileContext';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 import { Chat } from './pages';
-import { Banner } from './components/Profile';
-import { ProfileForm } from './components';
+
 function App() {
   const { user } = useAuthContext();
   const { profileData } = useProfileContext();
-
+  
   return (
     <Routes>
 
@@ -42,19 +41,12 @@ function App() {
 
       <Route
         path='/profile/create'
-        element={user.userId ? profileData ? <Navigate to="/community" /> : (
-          <div>
-            <Banner />
-            <div className='container-2'>
-              <ProfileForm />
-            </div>
-          </div>
-        ) : <Navigate to='/auth' />}
+        element={user.userId ? profileData ? <Navigate to="/community" /> : <ProfileInfo mode='create' /> : <Navigate to='/auth' />}
       />
 
       <Route
         path='/profile/update'
-        element={user.userId ? profileData ? <ProfileInfo /> : <Navigate to="/profile/create" /> : <Navigate to='/auth' />}
+        element={user.userId ? profileData ? <ProfileInfo mode='update' /> : <Navigate to="/profile/create" /> : <Navigate to='/auth' />}
       />
 
       <Route

@@ -76,6 +76,7 @@ export interface QuizDropMenuProps {
 }
 
 export interface DropMenuProps {
+  defaultValue: string;
   placeholder: string;
   onchange: (value: string) => void;
 }
